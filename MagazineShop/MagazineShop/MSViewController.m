@@ -140,5 +140,19 @@
     [self.navigationController pushViewController:controller animated:YES];
 }
 
+- (void)showViewController:(MSViewController *)controller asPopoverFromView:(UIView *)view {
+    
+}
+
+#pragma mark Popover controller delegate methods
+
+- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController {
+    
+}
+
+- (BOOL)popoverControllerShouldDismissPopover:(UIPopoverController *)popoverController {
+    return YES;
+}
+
 
 @end

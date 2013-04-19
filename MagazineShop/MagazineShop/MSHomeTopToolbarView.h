@@ -9,9 +9,28 @@
 #import "MSToolbarView.h"
 
 
+typedef enum {
+    MSHomeTopToolbarViewFunctionalitySubscriptions,
+    MSHomeTopToolbarViewFunctionalitySettings,
+    MSHomeTopToolbarViewFunctionalitySingleView,
+    MSHomeTopToolbarViewFunctionalityListView,
+    MSHomeTopToolbarViewFunctionalityDenseListView
+} MSHomeTopToolbarViewFunctionality;
+
+
+@class MSHomeTopToolbarView;
+
+@protocol MSHomeTopToolbarViewDelegate <NSObject>
+
+- (void)homeTopToolbar:(MSHomeTopToolbarView *)toolbar requestsFunctionality:(MSHomeTopToolbarViewFunctionality)functionality fromElement:(UIView *)element;
+
+@end
+
+
 @interface MSHomeTopToolbarView : MSToolbarView
 
 @property (nonatomic, strong, readonly) UILabel *titleLabel;
+@property (nonatomic, weak) id <MSHomeTopToolbarViewDelegate> delegate;
 
 - (void)setTitle:(NSString *)title;
 

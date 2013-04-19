@@ -13,8 +13,9 @@
 
 - (void)createAllElements;
 
-- (BOOL)isRetina;
+- (BOOL)isTablet;
 - (BOOL)isBigPhone;
+- (BOOL)isRetina;
 
 
 @end

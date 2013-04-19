@@ -7,8 +7,6 @@
 //
 
 #import "MSHomeViewController.h"
-#import "MSHomeTopToolbarView.h"
-#import "MSHomeBottomToolbarView.h"
 
 
 @interface MSHomeViewController ()
@@ -26,7 +24,11 @@
 
 - (void)layoutElements {
     [super layoutElements];
-    if (self.isLandscape) [_bottomToolbar setYOrigin:([super screenHeight] - 49)];
+    if (self.isLandscape) {
+        [_topToolbar setWidth:[super screenWidth]];
+        [_bottomToolbar setWidth:[super screenWidth]];
+        [_bottomToolbar setYOrigin:([super screenHeight] - 49)];
+    }
 }
 
 #pragma mark Creating elements
@@ -34,6 +36,8 @@
 - (void)createToolbars {
     CGRect r = CGRectMake(0, 0, [super screenWidth], 44);
     _topToolbar = [[MSHomeTopToolbarView alloc] initWithFrame:r];
+    [_topToolbar setDelegate:self];
+    [_topToolbar setTitle:@"Lorem ipsum"];
     [self.view addSubview:_topToolbar];
     
     r.size.height = 49;
@@ -51,16 +55,12 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
-    NSLog(@"Bottom bar: %@", NSStringFromCGRect(_bottomToolbar.frame));
 }
 
-- (UIView *)rotatingHeaderView {
-    return _topToolbar;
-}
+#pragma mark Top toolbar delegate method
 
-- (UIView *)rotatingFooterView {
-    return _bottomToolbar;
+- (void)homeTopToolbar:(MSHomeTopToolbarView *)toolbar requestsFunctionality:(MSHomeTopToolbarViewFunctionality)functionality fromElement:(UIView *)element {
+    NSLog(@"Requested functionality: %d", functionality);
 }
 
 

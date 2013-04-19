@@ -20,6 +20,8 @@
     
     [MSTracking initTrackingSessions];
     
+    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeNewsstandContentAvailability];
+    
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         self.viewController = [[MSHomeViewController alloc] init];
     }

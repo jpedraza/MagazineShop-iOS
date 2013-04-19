@@ -9,10 +9,9 @@
 #import <UIKit/UIKit.h>
 
 
-@interface MSViewController : UIViewController
+@interface MSViewController : UIViewController <UIPopoverControllerDelegate>
 
 @property (nonatomic, strong) UIImageView *backgroundImageView;
-
 @property (nonatomic) BOOL isLandscape;
 
 // Positioning
@@ -29,6 +28,7 @@
 - (void)createAllElements;
 
 // Navigation
+- (void)showViewController:(MSViewController *)controller asPopoverFromView:(UIView *)view;
 - (void)pushViewController:(MSViewController *)controller;
 - (void)closeModal;
 

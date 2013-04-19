@@ -20,12 +20,16 @@
 
 #pragma mark Environment
 
-- (BOOL)isRetina {
-    return ([[UIScreen mainScreen] respondsToSelector:@selector(displayLinkWithTarget:selector:)] && ([UIScreen mainScreen].scale == 2.0));
+- (BOOL)isTablet {
+    return ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad);
 }
 
 - (BOOL)isBigPhone {
     return ([[UIScreen mainScreen] bounds].size.height == 568);
+}
+
+- (BOOL)isRetina {
+    return ([[UIScreen mainScreen] respondsToSelector:@selector(displayLinkWithTarget:selector:)] && ([UIScreen mainScreen].scale == 2.0));
 }
 
 #pragma mark Initialization

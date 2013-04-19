@@ -52,6 +52,10 @@
 	<string>public.app-category.news</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>newsstand-content</string>
+	</array>
 	<key>UINewsstandApp</key>
 	<true/>
 	<key>UIRequiredDeviceCapabilities</key>

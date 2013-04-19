@@ -7,7 +7,10 @@
 //
 
 #import "MSViewController.h"
+#import "MSHomeTopToolbarView.h"
+#import "MSHomeBottomToolbarView.h"
 
-@interface MSHomeViewController : MSViewController
+
+@interface MSHomeViewController : MSViewController <MSHomeTopToolbarViewDelegate>
 
 @end

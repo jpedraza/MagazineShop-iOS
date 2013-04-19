@@ -53,12 +53,28 @@
 
 - (void)showSubscriptionsFromElement:(UIView *)element {
     MSSubscriptionsViewController *c = [[MSSubscriptionsViewController alloc] init];
-    [super showViewController:c asPopoverFromView:element];
+    if ([super isTablet]) {
+        [super showViewController:c asPopoverFromView:element];
+    }
+    else {
+        [c setModalTransitionStyle:UIModalTransitionStylePartialCurl];
+        [super presentViewController:c animated:YES completion:^{
+            
+        }];
+    }
 }
 
 - (void)showSettingsFromElement:(UIView *)element {
     MSSettingsViewController *c = [[MSSettingsViewController alloc] init];
-    [super showViewController:c asPopoverFromView:element];
+    if ([super isTablet]) {
+        [super showViewController:c asPopoverFromView:element];
+    }
+    else {
+        [c setModalTransitionStyle:UIModalTransitionStylePartialCurl];
+        [super presentViewController:c animated:YES completion:^{
+            
+        }];
+    }
 }
 
 - (void)changeMagazineListViewTo:(MSConfigMainMagazineListViewType)type {

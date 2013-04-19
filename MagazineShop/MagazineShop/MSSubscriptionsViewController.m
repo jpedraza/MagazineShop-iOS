@@ -8,31 +8,45 @@
 
 #import "MSSubscriptionsViewController.h"
 
+
 @interface MSSubscriptionsViewController ()
 
 @end
 
+
 @implementation MSSubscriptionsViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
+
+#pragma mark Creating elements
+
+- (void)createAllElements {
+    [super createAllElements];
+    
+    CGFloat yPos = [super isTablet] ? 20 : ([super isBigPhone] ? 300 : 260);
+    
+    UIButton *b = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [b setTitle:MSLangGet(@"Restore all purchases") forState:UIControlStateNormal];
+    [b setFrame:CGRectMake(20, yPos, 280, 36)];
+    [self.view addSubview:b];
+    
+    yPos += 44;
+    b = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [b setTitle:MSLangGet(@"Restore all purchases") forState:UIControlStateNormal];
+    [b setFrame:CGRectMake(20, yPos, 280, 36)];
+    [self.view addSubview:b];
+    
+    yPos += 44;
+    b = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [b setTitle:MSLangGet(@"Restore all purchases") forState:UIControlStateNormal];
+    [b setFrame:CGRectMake(20, yPos, 280, 36)];
+    [self.view addSubview:b];
+    
+    yPos += 44;
+    b = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [b setTitle:MSLangGet(@"Restore all purchases") forState:UIControlStateNormal];
+    [b setFrame:CGRectMake(20, yPos, 280, 36)];
+    [self.view addSubview:b];
 }
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 @end

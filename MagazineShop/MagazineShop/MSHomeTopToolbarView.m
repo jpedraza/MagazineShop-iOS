@@ -76,6 +76,7 @@
     [_slidingSelectorView setBackgroundColor:[UIColor colorWithHexString:@"00CAFF" andAlpha:1]];
     [_slidingSelectorView setClipsToBounds:YES];
     [_slidingSelectorView.layer setCornerRadius:3];
+    [_slidingSelectorView setAutoresizingTopRight];
     [self addSubview:_slidingSelectorView];
     
     xPos = [super isTablet] ? (self.width - 120) : (self.width - 40);

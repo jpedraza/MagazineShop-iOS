@@ -12,6 +12,7 @@
 @interface MSViewController : UIViewController <UIPopoverControllerDelegate>
 
 @property (nonatomic, strong) UIImageView *backgroundImageView;
+@property (nonatomic, strong) UIPopoverController *popover;
 @property (nonatomic) BOOL isLandscape;
 
 // Positioning

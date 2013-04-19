@@ -11,6 +11,8 @@
 
 @interface MSViewController ()
 
+@property (nonatomic, strong) UIView *popoverElement;
+
 @end
 
 
@@ -50,7 +52,9 @@
 }
 
 - (void)layoutElements {
-    
+    if (_popover) {
+        [_popover dismissPopoverAnimated:YES];
+    }
 }
 
 - (BOOL)isRetina {
@@ -141,13 +145,17 @@
 }
 
 - (void)showViewController:(MSViewController *)controller asPopoverFromView:(UIView *)view {
-    
+    _popoverElement = view;
+    _popover = [[UIPopoverController alloc] initWithContentViewController:controller];
+    [_popover setPopoverContentSize:CGSizeMake(300, 360)];
+    [_popover presentPopoverFromRect:view.bounds inView:view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
 }
 
 #pragma mark Popover controller delegate methods
 
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController {
-    
+    _popover = nil;
+    _popoverElement = nil;
 }
 
 - (BOOL)popoverControllerShouldDismissPopover:(UIPopoverController *)popoverController {

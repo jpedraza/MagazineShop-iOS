@@ -11,6 +11,7 @@
 
 @interface MSView : UIView
 
+- (void)configureView;
 - (void)createAllElements;
 
 - (BOOL)isTablet;

@@ -12,4 +12,19 @@
 @implementation MSMagazineListSingleView
 
 
+#pragma mark Creating elements
+
+- (void)createAllElements {
+    [super createAllElements];
+}
+
+#pragma mark Initialization
+
+- (void)configureView {
+    [super configureView];
+    
+    [self setBackgroundColor:[UIColor randomColor]];
+}
+
+
 @end

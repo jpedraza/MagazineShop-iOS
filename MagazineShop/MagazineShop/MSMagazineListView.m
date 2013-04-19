@@ -12,4 +12,15 @@
 @implementation MSMagazineListView
 
 
+#pragma mark Settings
+
+- (void)show {
+    
+}
+
+- (void)hide {
+    
+}
+
+
 @end

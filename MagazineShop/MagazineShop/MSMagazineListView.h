@@ -9,6 +9,12 @@
 #import "MSView.h"
 
 
+typedef enum {
+    MSMagazineListViewVisibilityStatusVisible,
+    MSMagazineListViewVisibilityStatusHidden
+} MSMagazineListViewVisibilityStatus;
+
+
 @class MSMagazineListView;
 
 @protocol MSMagazineListViewDataSource <NSObject>
@@ -16,9 +22,20 @@
 @end
 
 
+@protocol MSMagazineListViewDelegate <NSObject>
+
+- (void)magazineListView:(MSMagazineListView *)magazineView changedVisibilityStatus:(MSMagazineListViewVisibilityStatus)status;
+
+@end
+
+
 @interface MSMagazineListView : MSView
 
 @property (nonatomic, weak) id <MSMagazineListViewDataSource> dataSource;
+@property (nonatomic, weak) id <MSMagazineListViewDelegate> delegate;
+
+- (void)show;
+- (void)hide;
 
 
 @end

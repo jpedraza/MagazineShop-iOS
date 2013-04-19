@@ -8,6 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
+
+typedef enum {
+    MSConfigMainMagazineListViewTypeSigle,
+    MSConfigMainMagazineListViewTypeList,
+    MSConfigMainMagazineListViewTypeDense
+} MSConfigMainMagazineListViewType;
+
+
 @interface MSConfig : NSObject
 
 @end

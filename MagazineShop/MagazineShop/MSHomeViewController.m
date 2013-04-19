@@ -51,16 +51,60 @@
     [self createToolbars];
 }
 
+- (void)showSubscriptionsFromElement:(UIView *)element {
+    MSSubscriptionsViewController *c = [[MSSubscriptionsViewController alloc] init];
+    [super showViewController:c asPopoverFromView:element];
+}
+
+- (void)showSettingsFromElement:(UIView *)element {
+    MSSettingsViewController *c = [[MSSettingsViewController alloc] init];
+    [super showViewController:c asPopoverFromView:element];
+}
+
+- (void)changeMagazineListViewTo:(MSConfigMainMagazineListViewType)type {
+    
+}
+
 #pragma mark View lifecycle
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 }
 
+#pragma mark Magazine shop delegate & data source methods
+
+- (void)magazineListView:(MSMagazineListView *)magazineView changedVisibilityStatus:(MSMagazineListViewVisibilityStatus)status {
+    
+}
+
 #pragma mark Top toolbar delegate method
 
 - (void)homeTopToolbar:(MSHomeTopToolbarView *)toolbar requestsFunctionality:(MSHomeTopToolbarViewFunctionality)functionality fromElement:(UIView *)element {
     NSLog(@"Requested functionality: %d", functionality);
+    switch (functionality) {
+        case MSHomeTopToolbarViewFunctionalitySubscriptions:
+            [self showSubscriptionsFromElement:element];
+            break;
+            
+        case MSHomeTopToolbarViewFunctionalitySettings:
+            [self showSettingsFromElement:element];
+            break;
+            
+        case MSHomeTopToolbarViewFunctionalitySingleView:
+            [self changeMagazineListViewTo:MSConfigMainMagazineListViewTypeSigle];
+            break;
+            
+        case MSHomeTopToolbarViewFunctionalityListView:
+            [self changeMagazineListViewTo:MSConfigMainMagazineListViewTypeList];
+            break;
+            
+        case MSHomeTopToolbarViewFunctionalityDenseListView:
+            [self changeMagazineListViewTo:MSConfigMainMagazineListViewTypeDense];
+            break;
+            
+        default:
+            break;
+    }
 }
 
 

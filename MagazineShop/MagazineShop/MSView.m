@@ -14,6 +14,10 @@
 
 #pragma mark Creating elements
 
+- (void)configureView {
+    
+}
+
 - (void)createAllElements {
     
 }
@@ -37,6 +41,7 @@
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
+        [self configureView];
         [self createAllElements];
     }
     return self;
@@ -45,6 +50,7 @@
 - (id)init {
     self = [super init];
     if (self) {
+        [self configureView];
         [self createAllElements];
     }
     return self;

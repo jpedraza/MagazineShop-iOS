@@ -6,11 +6,16 @@
 //  Copyright (c) 2013 Fuerte Innovations. All rights reserved.
 //
 
-#import "MSViewController.h"
+#import "MSSettingsViewController.h"
+#import "MSSubscriptionsViewController.h"
+#import "MSInfoViewController.h"
 #import "MSHomeTopToolbarView.h"
 #import "MSHomeBottomToolbarView.h"
+#import "MSMagazineListSingleView.h"
+#import "MSMagazineListMediumView.h"
+#import "MSMagazineListDenseView.h"
 
 
-@interface MSHomeViewController : MSViewController <MSHomeTopToolbarViewDelegate>
+@interface MSHomeViewController : MSViewController <MSHomeTopToolbarViewDelegate, MSMagazineListViewDataSource, MSMagazineListViewDelegate>
 
 @end

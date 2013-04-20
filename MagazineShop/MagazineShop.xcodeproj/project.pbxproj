@@ -149,6 +149,7 @@
 		158E83B61722FC7E00D52A15 /* MSAPIConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = 158E83B51722FC7E00D52A15 /* MSAPIConnector.m */; };
 		158E83DF1722FEBB00D52A15 /* libFlurry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 158E83BA1722FEBB00D52A15 /* libFlurry.a */; };
 		158E83F01722FEBB00D52A15 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 158E83D81722FEBB00D52A15 /* MBProgressHUD.m */; };
+		158E83FC1723216E00D52A15 /* SKProduct+Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 158E83FB1723216E00D52A15 /* SKProduct+Tools.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -328,6 +329,8 @@
 		158E83BA1722FEBB00D52A15 /* libFlurry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry.a; sourceTree = "<group>"; };
 		158E83D71722FEBB00D52A15 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		158E83D81722FEBB00D52A15 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		158E83FA1723216E00D52A15 /* SKProduct+Tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SKProduct+Tools.h"; sourceTree = "<group>"; };
+		158E83FB1723216E00D52A15 /* SKProduct+Tools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SKProduct+Tools.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -508,6 +511,8 @@
 				150710BA17208EC0008A64F3 /* UIView+Effects.m */,
 				150710BB17208EC0008A64F3 /* UIView+Layout.h */,
 				150710BC17208EC0008A64F3 /* UIView+Layout.m */,
+				158E83FA1723216E00D52A15 /* SKProduct+Tools.h */,
+				158E83FB1723216E00D52A15 /* SKProduct+Tools.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -1097,6 +1102,7 @@
 				1533BFA317218D52001213DE /* MSMagazineListDenseView.m in Sources */,
 				158E83B61722FC7E00D52A15 /* MSAPIConnector.m in Sources */,
 				158E83F01722FEBB00D52A15 /* MBProgressHUD.m in Sources */,
+				158E83FC1723216E00D52A15 /* SKProduct+Tools.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

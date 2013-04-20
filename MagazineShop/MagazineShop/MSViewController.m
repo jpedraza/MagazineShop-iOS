@@ -78,6 +78,13 @@
     [self.view addSubview:_backgroundImageView];
 }
 
+#pragma mark Effects
+
+- (void)showAlertWithTitle:(NSString *)title andMessage:(NSString *)message {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    [alert show];
+}
+
 #pragma mark View lifecycle
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -146,11 +153,38 @@
 
 - (void)showViewController:(MSViewController *)controller asPopoverFromView:(UIView *)view {
     _popoverElement = view;
-    [controller setContentSizeForViewInPopover:CGSizeMake(320, 360)];
-    _popover = [[UIPopoverController alloc] initWithContentViewController:controller];
+    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:controller];
+    [controller setContentSizeForViewInPopover:CGSizeMake(320, 316)];
+    [nc setContentSizeForViewInPopover:CGSizeMake(320, 316)];
+    _popover = [[UIPopoverController alloc] initWithContentViewController:nc];
     [_popover setPopoverContentSize:CGSizeMake(320, 360)];
     [_popover presentPopoverFromRect:view.bounds inView:view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
 }
+
+#pragma mark Progress HUD view methods
+
+- (void)showHUDWithStyle:(MBProgressHUDMode)mode withTitle:(NSString *)title {
+    _progressHUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [_progressHUD setMode:mode];
+    [_progressHUD setLabelText:title];
+    [_progressHUD setAnimationType:MBProgressHUDAnimationFade];
+    [_progressHUD setDelegate:self];
+    [_progressHUD show:YES];
+    
+    NSLog(@"HUD: %@", NSStringFromCGRect(_progressHUD.frame));
+}
+
+- (void)hideHUD {
+    if (_progressHUD) {
+        [_progressHUD hide:YES];
+    }
+}
+
+- (void)hudWasHidden:(MBProgressHUD *)hud {
+	[_progressHUD removeFromSuperview];
+	_progressHUD = nil;
+}
+
 
 #pragma mark Popover controller delegate methods
 

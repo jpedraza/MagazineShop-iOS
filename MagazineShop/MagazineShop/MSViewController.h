@@ -7,13 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MBProgressHUD.h"
 
 
-@interface MSViewController : UIViewController <UIPopoverControllerDelegate>
+@interface MSViewController : UIViewController <UIPopoverControllerDelegate, MBProgressHUDDelegate>
 
 @property (nonatomic, strong) UIImageView *backgroundImageView;
 @property (nonatomic, strong) UIPopoverController *popover;
 @property (nonatomic) BOOL isLandscape;
+
+@property (nonatomic, strong, readonly) MBProgressHUD *progressHUD;
 
 // Positioning
 - (CGFloat)screenHeight;
@@ -33,5 +36,10 @@
 - (void)pushViewController:(MSViewController *)controller;
 - (void)closeModal;
 
+- (void)showHUDWithStyle:(MBProgressHUDMode)mode withTitle:(NSString *)title;
+- (void)hideHUD;
+
+// Alerts
+- (void)showAlertWithTitle:(NSString *)title andMessage:(NSString *)message;
 
 @end

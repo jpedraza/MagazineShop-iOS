@@ -8,6 +8,6 @@
 
 #import "MSViewController.h"
 
-@interface MSSubscriptionsViewController : MSViewController
+@interface MSSubscriptionsViewController : MSViewController <SKProductsRequestDelegate>
 
 @end

@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 
 
+#define kMSConfigBaseUrl                                 @"http://fuertemag.fuerteint.com/"
+
+
 typedef enum {
     MSConfigMainMagazineListViewTypeSigle,
     MSConfigMainMagazineListViewTypeList,

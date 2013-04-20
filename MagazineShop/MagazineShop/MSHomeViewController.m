@@ -52,20 +52,27 @@
 }
 
 - (void)showSubscriptionsFromElement:(UIView *)element {
-    MSSubscriptionsViewController *c = [[MSSubscriptionsViewController alloc] init];
-    if ([super isTablet]) {
-        [super showViewController:c asPopoverFromView:element];
+    if ([SKPaymentQueue canMakePayments]) {
+        MSSubscriptionsViewController *c = [[MSSubscriptionsViewController alloc] init];
+        [c setTitle:MSLangGet(@"Subscriptions")];
+        if ([super isTablet]) {
+            [super showViewController:c asPopoverFromView:element];
+        }
+        else {
+            [c setModalTransitionStyle:UIModalTransitionStylePartialCurl];
+            [super presentViewController:c animated:YES completion:^{
+                
+            }];
+        }
     }
     else {
-        [c setModalTransitionStyle:UIModalTransitionStylePartialCurl];
-        [super presentViewController:c animated:YES completion:^{
-            
-        }];
+        [super showAlertWithTitle:MSLangGet(@"Payment error") andMessage:MSLangGet(@"Payments are not enabled on this device!")];
     }
 }
 
 - (void)showSettingsFromElement:(UIView *)element {
     MSSettingsViewController *c = [[MSSettingsViewController alloc] init];
+    [c setTitle:MSLangGet(@"Settings")];
     if ([super isTablet]) {
         [super showViewController:c asPopoverFromView:element];
     }

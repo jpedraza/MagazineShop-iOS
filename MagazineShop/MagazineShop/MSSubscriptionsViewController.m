@@ -11,6 +11,8 @@
 
 @interface MSSubscriptionsViewController ()
 
+@property (nonatomic, strong) UIScrollView *scrollView;
+
 @end
 
 
@@ -22,30 +24,38 @@
 - (void)createAllElements {
     [super createAllElements];
     
-    CGFloat yPos = [super isTablet] ? 20 : ([super isBigPhone] ? 300 : 260);
+    CGFloat screenHeight = [super isTablet] ? 360 : self.view.height;
+    
+    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, ([super isTablet] ? 0 : ([super isBigPhone] ? 300 : 260)), 320, screenHeight)];
+    [self.view addSubview:_scrollView];
+    
+    CGFloat yPos = 20;
     
     UIButton *b = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [b setTitle:MSLangGet(@"Restore all purchases") forState:UIControlStateNormal];
     [b setFrame:CGRectMake(20, yPos, 280, 36)];
-    [self.view addSubview:b];
+    [_scrollView addSubview:b];
     
     yPos += 44;
     b = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [b setTitle:MSLangGet(@"Restore all purchases") forState:UIControlStateNormal];
     [b setFrame:CGRectMake(20, yPos, 280, 36)];
-    [self.view addSubview:b];
+    [_scrollView addSubview:b];
     
     yPos += 44;
     b = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [b setTitle:MSLangGet(@"Restore all purchases") forState:UIControlStateNormal];
     [b setFrame:CGRectMake(20, yPos, 280, 36)];
-    [self.view addSubview:b];
+    [_scrollView addSubview:b];
     
     yPos += 44;
     b = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [b setTitle:MSLangGet(@"Restore all purchases") forState:UIControlStateNormal];
     [b setFrame:CGRectMake(20, yPos, 280, 36)];
-    [self.view addSubview:b];
+    [_scrollView addSubview:b];
+    
+    yPos += 44;
+    [_scrollView setContentSize:CGSizeMake(320, 600)];
 }
 
 

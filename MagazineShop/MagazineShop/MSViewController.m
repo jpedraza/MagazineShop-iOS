@@ -146,6 +146,7 @@
 
 - (void)showViewController:(MSViewController *)controller asPopoverFromView:(UIView *)view {
     _popoverElement = view;
+    [controller setContentSizeForViewInPopover:CGSizeMake(320, 360)];
     _popover = [[UIPopoverController alloc] initWithContentViewController:controller];
     [_popover setPopoverContentSize:CGSizeMake(320, 360)];
     [_popover presentPopoverFromRect:view.bounds inView:view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];

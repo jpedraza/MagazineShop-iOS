@@ -19,6 +19,9 @@ typedef enum {
 
 @protocol MSMagazineListViewDataSource <NSObject>
 
+- (NSArray *)magazineListViewProductsForCollectionView:(MSMagazineListView *)view;
+- (NSArray *)magazineListViewProductsInfoForCollectionView:(MSMagazineListView *)view;
+
 @end
 
 
@@ -29,13 +32,17 @@ typedef enum {
 @end
 
 
-@interface MSMagazineListView : MSView
+@interface MSMagazineListView : MSView <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic, weak) id <MSMagazineListViewDataSource> dataSource;
 @property (nonatomic, weak) id <MSMagazineListViewDelegate> delegate;
 
 - (void)show;
 - (void)hide;
+
+- (void)buyProduct:(SKProduct *)product;
+
+- (void)reloadData;
 
 
 @end

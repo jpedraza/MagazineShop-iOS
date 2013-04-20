@@ -19,5 +19,29 @@
     [self setBackgroundColor:[UIColor colorWithHexString:@"232323"]];
 }
 
+#pragma mark Settings
+
+- (void)addSubview:(UIView *)view {
+    [view setAlpha:0];
+    [super addSubview:view];
+}
+
+- (void)setElementsAlpha:(CGFloat)alpha {
+    for (UIView *v in self.subviews) {
+        [v setAlpha:alpha];
+    }
+}
+
+- (void)showElements:(BOOL)animated {
+    if (animated) {
+        [UIView animateWithDuration:0.3 animations:^{
+            [self setElementsAlpha:1];
+        }];
+    }
+    else {
+        [self setElementsAlpha:1];
+    }
+}
+
 
 @end

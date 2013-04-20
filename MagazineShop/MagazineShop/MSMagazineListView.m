@@ -22,5 +22,27 @@
     
 }
 
+#pragma mark StoreKit methods
+
+- (void)buyProduct:(SKProduct *)product {
+    
+}
+
+#pragma mark Data
+
+- (void)reloadData {
+    
+}
+
+#pragma mark Collection view datasource & delegate methods
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return 0;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    return nil;
+}
+
 
 @end

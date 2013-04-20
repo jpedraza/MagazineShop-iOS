@@ -8,6 +8,10 @@
 
 #import "MSView.h"
 
+
 @interface MSToolbarView : MSView
+
+- (void)showElements:(BOOL)animated;
+
 
 @end

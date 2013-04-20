@@ -150,6 +150,9 @@
 		158E83DF1722FEBB00D52A15 /* libFlurry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 158E83BA1722FEBB00D52A15 /* libFlurry.a */; };
 		158E83F01722FEBB00D52A15 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 158E83D81722FEBB00D52A15 /* MBProgressHUD.m */; };
 		158E83FC1723216E00D52A15 /* SKProduct+Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 158E83FB1723216E00D52A15 /* SKProduct+Tools.m */; };
+		158E83FF1723289000D52A15 /* MSMagazineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 158E83FE1723288F00D52A15 /* MSMagazineView.m */; };
+		158E840317233C5B00D52A15 /* MSInAppPurchase.m in Sources */ = {isa = PBXBuildFile; fileRef = 158E840217233C5B00D52A15 /* MSInAppPurchase.m */; };
+		158E840417233C5E00D52A15 /* MSInAppPurchase.m in Sources */ = {isa = PBXBuildFile; fileRef = 158E840217233C5B00D52A15 /* MSInAppPurchase.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -331,6 +334,10 @@
 		158E83D81722FEBB00D52A15 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		158E83FA1723216E00D52A15 /* SKProduct+Tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SKProduct+Tools.h"; sourceTree = "<group>"; };
 		158E83FB1723216E00D52A15 /* SKProduct+Tools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SKProduct+Tools.m"; sourceTree = "<group>"; };
+		158E83FD1723288F00D52A15 /* MSMagazineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSMagazineView.h; sourceTree = "<group>"; };
+		158E83FE1723288F00D52A15 /* MSMagazineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSMagazineView.m; sourceTree = "<group>"; };
+		158E840117233C5B00D52A15 /* MSInAppPurchase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSInAppPurchase.h; sourceTree = "<group>"; };
+		158E840217233C5B00D52A15 /* MSInAppPurchase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSInAppPurchase.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -493,6 +500,7 @@
 		150710A017208D62008A64F3 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				158E840017233C4200D52A15 /* In App Purchase */,
 				158E83B31722FC4C00D52A15 /* API */,
 			);
 			name = Data;
@@ -804,6 +812,8 @@
 				1533BF931721892C001213DE /* List */,
 				1533BF921721891E001213DE /* Dense list */,
 				1533BF9417218941001213DE /* Basic */,
+				158E83FD1723288F00D52A15 /* MSMagazineView.h */,
+				158E83FE1723288F00D52A15 /* MSMagazineView.m */,
 			);
 			name = "Magazine lists";
 			sourceTree = "<group>";
@@ -878,6 +888,15 @@
 				158E83D81722FEBB00D52A15 /* MBProgressHUD.m */,
 			);
 			path = MBProgressHUD;
+			sourceTree = "<group>";
+		};
+		158E840017233C4200D52A15 /* In App Purchase */ = {
+			isa = PBXGroup;
+			children = (
+				158E840117233C5B00D52A15 /* MSInAppPurchase.h */,
+				158E840217233C5B00D52A15 /* MSInAppPurchase.m */,
+			);
+			name = "In App Purchase";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1103,6 +1122,8 @@
 				158E83B61722FC7E00D52A15 /* MSAPIConnector.m in Sources */,
 				158E83F01722FEBB00D52A15 /* MBProgressHUD.m in Sources */,
 				158E83FC1723216E00D52A15 /* SKProduct+Tools.m in Sources */,
+				158E83FF1723289000D52A15 /* MSMagazineView.m in Sources */,
+				158E840317233C5B00D52A15 /* MSInAppPurchase.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1117,6 +1138,7 @@
 				150710C417208EC0008A64F3 /* UIView+Effects.m in Sources */,
 				150710C617208EC0008A64F3 /* UIView+Layout.m in Sources */,
 				150710CB17208EEE008A64F3 /* MSView.m in Sources */,
+				158E840417233C5E00D52A15 /* MSInAppPurchase.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

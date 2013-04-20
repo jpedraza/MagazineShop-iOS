@@ -14,9 +14,10 @@
 
 @property (nonatomic, strong) UIImageView *backgroundImageView;
 @property (nonatomic, strong) UIPopoverController *popover;
+@property (nonatomic, strong, readonly) UIView *blocker;
 @property (nonatomic) BOOL isLandscape;
 
-@property (nonatomic, strong, readonly) MBProgressHUD *progressHUD;
+@property (nonatomic, strong) MBProgressHUD *progressHUD;
 
 // Positioning
 - (CGFloat)screenHeight;
@@ -36,8 +37,14 @@
 - (void)pushViewController:(MSViewController *)controller;
 - (void)closeModal;
 
+// HUD
+- (void)showHUDInWindowWithStyle:(MBProgressHUDMode)mode withTitle:(NSString *)title;
 - (void)showHUDWithStyle:(MBProgressHUDMode)mode withTitle:(NSString *)title;
 - (void)hideHUD;
+
+// Blocker
+- (void)showBlocker;
+- (void)hideBlocker;
 
 // Alerts
 - (void)showAlertWithTitle:(NSString *)title andMessage:(NSString *)message;

@@ -35,7 +35,7 @@
         h = self.isLandscape ? 748 : 1004;
     }
     else {
-        h = self.isLandscape ? 300 : ([self isBigPhone] ? 568 : 480);
+        h = self.isLandscape ? 300 : ([self isBigPhone] ? 548 : 460);
     }
     return h;
 }
@@ -83,6 +83,27 @@
 - (void)showAlertWithTitle:(NSString *)title andMessage:(NSString *)message {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
     [alert show];
+}
+
+- (void)showBlocker {
+    _blocker = [[UIView alloc] initWithFrame:self.view.bounds];
+    [_blocker setBackgroundColor:[UIColor colorWithWhite:0 alpha:0.3]];
+    [_blocker setUserInteractionEnabled:NO];
+    [_blocker setAlpha:0];
+    [_blocker setAutoresizingWidthAndHeight];
+    [self.view addSubview:_blocker];
+    [UIView animateWithDuration:0.3 animations:^{
+        [_blocker setAlpha:1];
+    }];
+}
+
+- (void)hideBlocker {
+    [UIView animateWithDuration:0.3 animations:^{
+        [_blocker setAlpha:0];
+    } completion:^(BOOL finished) {
+        [_blocker removeFromSuperview];
+        _blocker = nil;
+    }];
 }
 
 #pragma mark View lifecycle
@@ -170,8 +191,15 @@
     [_progressHUD setAnimationType:MBProgressHUDAnimationFade];
     [_progressHUD setDelegate:self];
     [_progressHUD show:YES];
-    
-    NSLog(@"HUD: %@", NSStringFromCGRect(_progressHUD.frame));
+}
+
+- (void)showHUDInWindowWithStyle:(MBProgressHUDMode)mode withTitle:(NSString *)title {
+    _progressHUD = [[MBProgressHUD alloc] initWithWindow:[kAppDelegate window]];
+    [_progressHUD setMode:mode];
+    [_progressHUD setLabelText:title];
+    [_progressHUD setAnimationType:MBProgressHUDAnimationFade];
+    [_progressHUD setDelegate:self];
+    [_progressHUD show:YES];
 }
 
 - (void)hideHUD {

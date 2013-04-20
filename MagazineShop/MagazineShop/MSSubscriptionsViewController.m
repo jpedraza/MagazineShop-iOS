@@ -32,6 +32,7 @@
     int x = 0;
     
     UIButton *b = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [b addTarget:self action:@selector(didClickRenewPurchases:) forControlEvents:UIControlEventTouchUpInside];
     [b setTitle:MSLangGet(@"Renew purchases") forState:UIControlStateNormal];
     [b setFrame:CGRectMake(20, yPos, 280, 36)];
     [b setAlpha:0];
@@ -45,6 +46,7 @@
     
     for (NSDictionary *subscription in _subscriptionInfo) {
         UIButton *b = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        [b addTarget:self action:@selector(didClickSubscriptionButton:) forControlEvents:UIControlEventTouchUpInside];
         [b setTag:x];
         float price = [[subscription objectForKey:@"price"] floatValue];
         SKProduct *p = [_subscriptions objectForKey:[subscription objectForKey:@"identifier"]];
@@ -63,7 +65,7 @@
         yPos += 44;
         x++;
     }
-    if (yPos <= _scrollView.height) yPos = (_scrollView.height + 1);
+    if ([self isTablet]) if (yPos <= _scrollView.height) yPos = (_scrollView.height + 1);
     [_scrollView setContentSize:CGSizeMake(320, yPos)];
 }
 
@@ -72,14 +74,24 @@
     
     CGFloat screenHeight = [super isTablet] ? 322 : self.view.height;
     
-    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, ([super isTablet] ? 0 : ([super isBigPhone] ? 300 : 260)), 320, screenHeight)];
+    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, ([super isTablet] ? 0 : ([super isBigPhone] ? 220 : 220)), 320, screenHeight)];
     [self.view addSubview:_scrollView];
 }
 
 #pragma mark Actions
 
-- (void)didClickSubscriptionButton {
-    
+- (void)didClickRenewPurchases:(UIButton *)sender {
+    if ([_delegate respondsToSelector:@selector(subscriptionControllerRequestsPurchaseRestore:)]) {
+        [_delegate subscriptionControllerRequestsPurchaseRestore:self];
+    }
+}
+
+- (void)didClickSubscriptionButton:(UIButton *)sender {
+    if ([_delegate respondsToSelector:@selector(subscriptionController:requestsPurchaseForProduct:)]) {
+        NSInteger index = sender.tag;
+        SKProduct *product = [_subscriptions objectForKey:[[_subscriptionInfo objectAtIndex:index] objectForKey:@"identifier"]];
+        [_delegate subscriptionController:self requestsPurchaseForProduct:product];
+    }
 }
 
 #pragma mark Loading data
@@ -125,7 +137,8 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    [super showHUDWithStyle:MBProgressHUDModeIndeterminate withTitle:MSLangGet(@"Loading subscriptions")];
+    [super showHUDWithStyle:MBProgressHUDModeIndeterminate withTitle:MSLangGet(@"Loading subscriptions ...")];
+    if (![super isTablet]) [self.progressHUD setYOffset:(self.progressHUD.yOffset + 40)];
     [NSThread detachNewThreadSelector:@selector(startLoadingData) toTarget:self withObject:nil];
 }
 

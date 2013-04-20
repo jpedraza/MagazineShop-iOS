@@ -11,11 +11,9 @@
 #import "MSInfoViewController.h"
 #import "MSHomeTopToolbarView.h"
 #import "MSHomeBottomToolbarView.h"
-#import "MSMagazineListSingleView.h"
-#import "MSMagazineListMediumView.h"
-#import "MSMagazineListDenseView.h"
+#import "MSMagazineView.h"
 
 
-@interface MSHomeViewController : MSViewController <MSHomeTopToolbarViewDelegate, MSMagazineListViewDataSource, MSMagazineListViewDelegate>
+@interface MSHomeViewController : MSViewController <MSHomeTopToolbarViewDelegate, MSMagazineListViewDelegate, MSMagazineViewDelegate, MSSubscriptionsViewControllerDelegate>
 
 @end

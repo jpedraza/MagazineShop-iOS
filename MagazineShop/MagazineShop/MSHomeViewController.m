@@ -14,11 +14,19 @@
 @property (nonatomic, strong) MSHomeTopToolbarView *topToolbar;
 @property (nonatomic, strong) MSHomeBottomToolbarView *bottomToolbar;
 
+@property (nonatomic, strong) MSMagazineView *magazineView;
+
 @end
 
 
 @implementation MSHomeViewController
 
+
+#pragma mark Positioning
+
+- (CGRect)freeSpaceRect {
+    return CGRectMake(0, _topToolbar.bottom, [super screenWidth], ([super screenHeight] - _topToolbar.height - _bottomToolbar.height));
+}
 
 #pragma mark Layout
 
@@ -29,6 +37,9 @@
         [_bottomToolbar setWidth:[super screenWidth]];
         [_bottomToolbar setYOrigin:([super screenHeight] - 49)];
     }
+    [UIView animateWithDuration:0.3 animations:^{
+        [_magazineView setFrame:[self freeSpaceRect]];
+    }];
 }
 
 #pragma mark Creating elements
@@ -46,9 +57,17 @@
     [self.view addSubview:_bottomToolbar];
 }
 
+- (void)createMagazineView {
+    _magazineView = [[MSMagazineView alloc] initWithFrame:[self freeSpaceRect]];
+    [_magazineView setDelegate:self];
+    [_magazineView setMagazineDelegate:self];
+    [self.view addSubview:_magazineView];
+}
+
 - (void)createAllElements {
     [super createAllElements];
     [self createToolbars];
+    [self createMagazineView];
 }
 
 - (void)showSubscriptionsFromElement:(UIView *)element {
@@ -92,6 +111,7 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    [_magazineView loadProducts];
 }
 
 #pragma mark Magazine shop delegate & data source methods
@@ -100,10 +120,33 @@
     
 }
 
+#pragma mark Magazine view delegate methods
+
+- (void)magazineViewDidStartLoadingData:(MSMagazineView *)view {
+    [super showBlocker];
+    [super showHUDWithStyle:MBProgressHUDModeIndeterminate withTitle:MSLangGet(@"Loading products ...")];
+}
+
+- (void)magazineViewDidFinishLoadingData:(MSMagazineView *)view {
+    [super hideBlocker];
+    [super hideHUD];
+    [_topToolbar showElements:YES];
+    [_bottomToolbar showElements:YES];
+}
+
+#pragma mark Subscription controller delegate methods
+
+- (void)subscriptionController:(MSSubscriptionsViewController *)controller requestsPurchaseForProduct:(SKProduct *)product {
+    
+}
+
+- (void)subscriptionControllerRequestsPurchaseRestore:(MSSubscriptionsViewController *)controller {
+    
+}
+
 #pragma mark Top toolbar delegate method
 
 - (void)homeTopToolbar:(MSHomeTopToolbarView *)toolbar requestsFunctionality:(MSHomeTopToolbarViewFunctionality)functionality fromElement:(UIView *)element {
-    NSLog(@"Requested functionality: %d", functionality);
     switch (functionality) {
         case MSHomeTopToolbarViewFunctionalitySubscriptions:
             [self showSubscriptionsFromElement:element];

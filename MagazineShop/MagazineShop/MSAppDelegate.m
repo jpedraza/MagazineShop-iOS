@@ -16,20 +16,16 @@
 #pragma mark App delegate methods
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    _window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     [MSTracking initTrackingSessions];
     
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeNewsstandContentAvailability];
     
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        self.viewController = [[MSHomeViewController alloc] init];
-    }
-    else {
-        self.viewController = [[MSHomeViewController alloc] init];
-    }
-    self.window.rootViewController = self.viewController;
-    [self.window makeKeyAndVisible];
+    _homeViewController = [[MSHomeViewController alloc] init];
+    
+    _window.rootViewController = _homeViewController;
+    [_window makeKeyAndVisible];
     return YES;
 }
 

@@ -1,0 +1,3 @@
+[submodule "MagazineShop/Thirdparty/MBProgressHUD"]
+	path = MagazineShop/Thirdparty/MBProgressHUD
+	url = git@github.com:jdg/MBProgressHUD.git

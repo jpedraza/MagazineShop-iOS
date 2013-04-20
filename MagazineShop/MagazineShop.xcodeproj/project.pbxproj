@@ -35,7 +35,6 @@
 		150710C617208EC0008A64F3 /* UIView+Layout.m in Sources */ = {isa = PBXBuildFile; fileRef = 150710BC17208EC0008A64F3 /* UIView+Layout.m */; };
 		150710CA17208EEE008A64F3 /* MSView.m in Sources */ = {isa = PBXBuildFile; fileRef = 150710C917208EEE008A64F3 /* MSView.m */; };
 		150710CB17208EEE008A64F3 /* MSView.m in Sources */ = {isa = PBXBuildFile; fileRef = 150710C917208EEE008A64F3 /* MSView.m */; };
-		150710D017208FD7008A64F3 /* libFlurry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 150710CF17208FD7008A64F3 /* libFlurry.a */; };
 		150710D417208FF3008A64F3 /* MSLang.m in Sources */ = {isa = PBXBuildFile; fileRef = 150710D317208FF3008A64F3 /* MSLang.m */; };
 		150710D817209059008A64F3 /* MSTracking.m in Sources */ = {isa = PBXBuildFile; fileRef = 150710D717209059008A64F3 /* MSTracking.m */; };
 		150710DC172090FD008A64F3 /* MSConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 150710DB172090FD008A64F3 /* MSConfig.m */; };
@@ -147,6 +146,9 @@
 		1533BF9D17218D26001213DE /* MSMagazineListMediumView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1533BF9C17218D26001213DE /* MSMagazineListMediumView.m */; };
 		1533BFA017218D3F001213DE /* MSMagazineListSingleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1533BF9F17218D3F001213DE /* MSMagazineListSingleView.m */; };
 		1533BFA317218D52001213DE /* MSMagazineListDenseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1533BFA217218D52001213DE /* MSMagazineListDenseView.m */; };
+		158E83B61722FC7E00D52A15 /* MSAPIConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = 158E83B51722FC7E00D52A15 /* MSAPIConnector.m */; };
+		158E83DF1722FEBB00D52A15 /* libFlurry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 158E83BA1722FEBB00D52A15 /* libFlurry.a */; };
+		158E83F01722FEBB00D52A15 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 158E83D81722FEBB00D52A15 /* MBProgressHUD.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -197,8 +199,6 @@
 		150710BC17208EC0008A64F3 /* UIView+Layout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Layout.m"; sourceTree = "<group>"; };
 		150710C817208EEE008A64F3 /* MSView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSView.h; sourceTree = "<group>"; };
 		150710C917208EEE008A64F3 /* MSView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSView.m; sourceTree = "<group>"; };
-		150710CE17208FD7008A64F3 /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
-		150710CF17208FD7008A64F3 /* libFlurry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry.a; sourceTree = "<group>"; };
 		150710D217208FF3008A64F3 /* MSLang.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSLang.h; sourceTree = "<group>"; };
 		150710D317208FF3008A64F3 /* MSLang.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSLang.m; sourceTree = "<group>"; };
 		150710D617209059008A64F3 /* MSTracking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSTracking.h; sourceTree = "<group>"; };
@@ -322,6 +322,12 @@
 		1533BF9F17218D3F001213DE /* MSMagazineListSingleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSMagazineListSingleView.m; sourceTree = "<group>"; };
 		1533BFA117218D52001213DE /* MSMagazineListDenseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSMagazineListDenseView.h; sourceTree = "<group>"; };
 		1533BFA217218D52001213DE /* MSMagazineListDenseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSMagazineListDenseView.m; sourceTree = "<group>"; };
+		158E83B41722FC7E00D52A15 /* MSAPIConnector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAPIConnector.h; sourceTree = "<group>"; };
+		158E83B51722FC7E00D52A15 /* MSAPIConnector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSAPIConnector.m; sourceTree = "<group>"; };
+		158E83B91722FEBB00D52A15 /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
+		158E83BA1722FEBB00D52A15 /* libFlurry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry.a; sourceTree = "<group>"; };
+		158E83D71722FEBB00D52A15 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		158E83D81722FEBB00D52A15 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -343,7 +349,7 @@
 				1507106017208D3B008A64F3 /* UIKit.framework in Frameworks */,
 				1507106217208D3B008A64F3 /* Foundation.framework in Frameworks */,
 				1507106417208D3B008A64F3 /* CoreGraphics.framework in Frameworks */,
-				150710D017208FD7008A64F3 /* libFlurry.a in Frameworks */,
+				158E83DF1722FEBB00D52A15 /* libFlurry.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -405,8 +411,8 @@
 		1507106517208D3B008A64F3 /* MagazineShop */ = {
 			isa = PBXGroup;
 			children = (
+				158E83B71722FEBB00D52A15 /* Thirdparty */,
 				150711051720932A008A64F3 /* Bundles */,
-				150710CC17208FD7008A64F3 /* Thirdparty */,
 				150710D9172090E8008A64F3 /* Config */,
 				150710A117208D6D008A64F3 /* Categories */,
 				150710A017208D62008A64F3 /* Data */,
@@ -484,6 +490,7 @@
 		150710A017208D62008A64F3 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				158E83B31722FC4C00D52A15 /* API */,
 			);
 			name = Data;
 			sourceTree = "<group>";
@@ -557,23 +564,6 @@
 				150710C917208EEE008A64F3 /* MSView.m */,
 			);
 			name = Basic;
-			sourceTree = "<group>";
-		};
-		150710CC17208FD7008A64F3 /* Thirdparty */ = {
-			isa = PBXGroup;
-			children = (
-				150710CD17208FD7008A64F3 /* Flurry */,
-			);
-			path = Thirdparty;
-			sourceTree = "<group>";
-		};
-		150710CD17208FD7008A64F3 /* Flurry */ = {
-			isa = PBXGroup;
-			children = (
-				150710CE17208FD7008A64F3 /* Flurry.h */,
-				150710CF17208FD7008A64F3 /* libFlurry.a */,
-			);
-			path = Flurry;
 			sourceTree = "<group>";
 		};
 		150710D117208FE1008A64F3 /* Languages */ = {
@@ -849,6 +839,42 @@
 			name = Basic;
 			sourceTree = "<group>";
 		};
+		158E83B31722FC4C00D52A15 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				158E83B41722FC7E00D52A15 /* MSAPIConnector.h */,
+				158E83B51722FC7E00D52A15 /* MSAPIConnector.m */,
+			);
+			name = API;
+			sourceTree = "<group>";
+		};
+		158E83B71722FEBB00D52A15 /* Thirdparty */ = {
+			isa = PBXGroup;
+			children = (
+				158E83B81722FEBB00D52A15 /* Flurry */,
+				158E83BB1722FEBB00D52A15 /* MBProgressHUD */,
+			);
+			path = Thirdparty;
+			sourceTree = SOURCE_ROOT;
+		};
+		158E83B81722FEBB00D52A15 /* Flurry */ = {
+			isa = PBXGroup;
+			children = (
+				158E83B91722FEBB00D52A15 /* Flurry.h */,
+				158E83BA1722FEBB00D52A15 /* libFlurry.a */,
+			);
+			path = Flurry;
+			sourceTree = "<group>";
+		};
+		158E83BB1722FEBB00D52A15 /* MBProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				158E83D71722FEBB00D52A15 /* MBProgressHUD.h */,
+				158E83D81722FEBB00D52A15 /* MBProgressHUD.m */,
+			);
+			path = MBProgressHUD;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1069,6 +1095,8 @@
 				1533BF9D17218D26001213DE /* MSMagazineListMediumView.m in Sources */,
 				1533BFA017218D3F001213DE /* MSMagazineListSingleView.m in Sources */,
 				1533BFA317218D52001213DE /* MSMagazineListDenseView.m in Sources */,
+				158E83B61722FC7E00D52A15 /* MSAPIConnector.m in Sources */,
+				158E83F01722FEBB00D52A15 /* MBProgressHUD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1187,6 +1215,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/MagazineShop/Thirdparty/Flurry\"",
+					"\"$(SRCROOT)/Thirdparty/Flurry\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -1204,6 +1233,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/MagazineShop/Thirdparty/Flurry\"",
+					"\"$(SRCROOT)/Thirdparty/Flurry\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -1280,6 +1310,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/MagazineShop/Thirdparty/Flurry\"",
+					"\"$(SRCROOT)/Thirdparty/Flurry\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;

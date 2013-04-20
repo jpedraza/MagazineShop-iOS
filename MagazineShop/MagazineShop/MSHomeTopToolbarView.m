@@ -57,7 +57,7 @@
     CGFloat xPos = [super isTablet] ? 20 : 46;
     UIButton *b = [UIButton buttonWithType:UIButtonTypeCustom];
     [b addTarget:self action:@selector(didClickSubscriptionsButton:) forControlEvents:UIControlEventTouchUpInside];
-    [b setFrame:CGRectMake(xPos, 5, 80, 34)];
+    [b setFrame:CGRectMake(xPos, 5, 84, 34)];
     [b setTitle:MSLangGet(@"Subscriptions") forState:UIControlStateNormal];
     [b setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
     [b.titleLabel setFont:[UIFont boldSystemFontOfSize:12]];

@@ -24,6 +24,17 @@
 
 #pragma mark Creating elements
 
+- (void)configureSubscriptionButton:(UIButton *)b {
+    [b.layer setBorderColor:[UIColor darkGrayColor].CGColor];
+    [b.layer setBorderWidth:1];
+    [b setBackgroundColor:[UIColor viewFlipsideBackgroundColor]];
+    [b setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [b setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+    [b.titleLabel setShadowColor:[UIColor darkGrayColor]];
+    [b.titleLabel setShadowOffset:CGSizeMake(1, 1)];
+    [b.titleLabel setFont:[UIFont boldSystemFontOfSize:12]];
+}
+
 - (void)createSubscriptionButtons {
     if (!_subscriptionInfo) return;
     
@@ -31,7 +42,8 @@
     
     int x = 0;
     
-    UIButton *b = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    UIButton *b = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self configureSubscriptionButton:b];
     [b addTarget:self action:@selector(didClickRenewPurchases:) forControlEvents:UIControlEventTouchUpInside];
     [b setTitle:MSLangGet(@"Renew purchases") forState:UIControlStateNormal];
     [b setFrame:CGRectMake(20, yPos, 280, 36)];
@@ -45,7 +57,8 @@
     NSTimeInterval delay = 0.1;
     
     for (NSDictionary *subscription in _subscriptionInfo) {
-        UIButton *b = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        UIButton *b = [UIButton buttonWithType:UIButtonTypeCustom];
+        [self configureSubscriptionButton:b];
         [b addTarget:self action:@selector(didClickSubscriptionButton:) forControlEvents:UIControlEventTouchUpInside];
         [b setTag:x];
         float price = [[subscription objectForKey:@"price"] floatValue];
@@ -71,6 +84,8 @@
 
 - (void)createAllElements {
     [super createAllElements];
+    
+    if (![super isTablet]) [self.view setBackgroundColor:[UIColor scrollViewTexturedBackgroundColor]];
     
     CGFloat screenHeight = [super isTablet] ? 322 : self.view.height;
     

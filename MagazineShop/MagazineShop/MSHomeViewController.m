@@ -65,6 +65,7 @@
 }
 
 - (void)createAllElements {
+    [kMSInAppPurchase setDelegate:self];
     [super createAllElements];
     [self createToolbars];
     [self createMagazineView];
@@ -73,6 +74,7 @@
 - (void)showSubscriptionsFromElement:(UIView *)element {
     if ([SKPaymentQueue canMakePayments]) {
         MSSubscriptionsViewController *c = [[MSSubscriptionsViewController alloc] init];
+        [c setDelegate:self];
         [c setTitle:MSLangGet(@"Subscriptions")];
         if ([super isTablet]) {
             [super showViewController:c asPopoverFromView:element];
@@ -104,7 +106,7 @@
 }
 
 - (void)changeMagazineListViewTo:(MSConfigMainMagazineListViewType)type {
-    
+    [_magazineView setListViewType:type];
 }
 
 #pragma mark View lifecycle
@@ -112,6 +114,22 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [_magazineView loadProducts];
+}
+
+#pragma mark In app purchase delegate methods
+
+- (void)inAppPurchase:(MSInAppPurchase *)purchase didFinishPurchase:(SKPayment *)payment {
+    NSLog(@"Finished purchase: %@", payment.productIdentifier);
+}
+
+- (void)inAppPurchase:(MSInAppPurchase *)purchase didRestorePurchases:(NSArray *)payments {
+    for (SKPayment *p in payments) {
+        NSLog(@"Restored purchase: %@", p.productIdentifier);
+    }
+}
+
+- (void)inAppPurchase:(MSInAppPurchase *)purchase failedToPurchase:(SKPayment *)payment withError:(NSError *)error {
+    NSLog(@"Failed purchase: %@", payment.productIdentifier);
 }
 
 #pragma mark Magazine shop delegate & data source methods
@@ -137,11 +155,27 @@
 #pragma mark Subscription controller delegate methods
 
 - (void)subscriptionController:(MSSubscriptionsViewController *)controller requestsPurchaseForProduct:(SKProduct *)product {
-    
+    if ([super isTablet]) {
+        [self.popover dismissPopoverAnimated:YES];
+        [kMSInAppPurchase buyProduct:product];
+    }
+    else {
+        [controller dismissViewControllerAnimated:YES completion:^{
+            [kMSInAppPurchase buyProduct:product];
+        }];
+    }
 }
 
 - (void)subscriptionControllerRequestsPurchaseRestore:(MSSubscriptionsViewController *)controller {
-    
+    if ([super isTablet]) {
+        [self.popover dismissPopoverAnimated:YES];
+        [kMSInAppPurchase restoreTransactions];
+    }
+    else {
+        [controller dismissViewControllerAnimated:YES completion:^{
+            [kMSInAppPurchase restoreTransactions];
+        }];
+    }
 }
 
 #pragma mark Top toolbar delegate method

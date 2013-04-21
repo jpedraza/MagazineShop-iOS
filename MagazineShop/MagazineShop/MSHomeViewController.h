@@ -14,6 +14,6 @@
 #import "MSMagazineView.h"
 
 
-@interface MSHomeViewController : MSViewController <MSHomeTopToolbarViewDelegate, MSMagazineListViewDelegate, MSMagazineViewDelegate, MSSubscriptionsViewControllerDelegate>
+@interface MSHomeViewController : MSViewController <MSHomeTopToolbarViewDelegate, MSMagazineListViewDelegate, MSMagazineViewDelegate, MSSubscriptionsViewControllerDelegate, MSInAppPurchaseDelegate>
 
 @end

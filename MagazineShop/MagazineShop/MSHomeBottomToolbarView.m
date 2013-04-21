@@ -18,8 +18,8 @@
     
     [self setAutoresizingMask:UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth];
     CALayer *topBorder = [CALayer layer];
-    [topBorder setFrame:CGRectMake(0, 0, self.frame.size.width, 1)];
-    [topBorder setBackgroundColor:[UIColor blackColor].CGColor];
+    [topBorder setFrame:CGRectMake(0, 0, 1024, 1)];
+    [topBorder setBackgroundColor:[UIColor darkGrayColor].CGColor];
     [self.layer addSublayer:topBorder];
 }
 

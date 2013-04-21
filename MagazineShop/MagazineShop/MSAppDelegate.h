@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MSInAppPurchase.h"
 
 
 #define kAppDelegate                            (MSAppDelegate *)[[UIApplication sharedApplication] delegate]
@@ -16,8 +17,10 @@
 
 @interface MSAppDelegate : UIResponder <UIApplicationDelegate>
 
-@property (strong, nonatomic) UIWindow *window;
-@property (strong, nonatomic) MSHomeViewController *homeViewController;
+@property (nonatomic, strong) UIWindow *window;
+@property (nonatomic, strong) MSHomeViewController *homeViewController;
+
+@property (nonatomic, strong) MSInAppPurchase *inAppPurchase;
 
 
 @end

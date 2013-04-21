@@ -22,8 +22,9 @@
 @end
 
 
-@interface MSMagazineView : MSView <MSMagazineListViewDataSource>
+@interface MSMagazineView : MSView <MSMagazineListViewDataSource, SKProductsRequestDelegate>
 
+@property (nonatomic) MSConfigMainMagazineListViewType listViewType;
 @property (nonatomic, weak) id <MSMagazineViewDelegate> delegate;
 
 - (void)loadProducts;

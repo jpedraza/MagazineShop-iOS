@@ -46,7 +46,7 @@
 		150710FD172092CA008A64F3 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 150710F4172092C9008A64F3 /* MediaPlayer.framework */; };
 		150710FE172092CA008A64F3 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 150710F5172092C9008A64F3 /* MessageUI.framework */; };
 		150710FF172092CA008A64F3 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 150710F6172092C9008A64F3 /* Security.framework */; };
-		15071100172092CA008A64F3 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 150710F7172092C9008A64F3 /* Social.framework */; };
+		15071100172092CA008A64F3 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 150710F7172092C9008A64F3 /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		15071101172092CA008A64F3 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 150710F8172092CA008A64F3 /* StoreKit.framework */; };
 		15071102172092CA008A64F3 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 150710F9172092CA008A64F3 /* SystemConfiguration.framework */; };
 		150711111720932A008A64F3 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1507110D1720932A008A64F3 /* Default-568h@2x.png */; };
@@ -153,6 +153,9 @@
 		158E83FF1723289000D52A15 /* MSMagazineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 158E83FE1723288F00D52A15 /* MSMagazineView.m */; };
 		158E840317233C5B00D52A15 /* MSInAppPurchase.m in Sources */ = {isa = PBXBuildFile; fileRef = 158E840217233C5B00D52A15 /* MSInAppPurchase.m */; };
 		158E840417233C5E00D52A15 /* MSInAppPurchase.m in Sources */ = {isa = PBXBuildFile; fileRef = 158E840217233C5B00D52A15 /* MSInAppPurchase.m */; };
+		158E84061723605300D52A15 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 158E84051723605300D52A15 /* Twitter.framework */; };
+		158E840A172364ED00D52A15 /* MSMagazineBasicCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 158E8409172364ED00D52A15 /* MSMagazineBasicCell.m */; };
+		158E840E1723657000D52A15 /* MSMagazineMediumCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 158E840D1723657000D52A15 /* MSMagazineMediumCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -338,6 +341,11 @@
 		158E83FE1723288F00D52A15 /* MSMagazineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSMagazineView.m; sourceTree = "<group>"; };
 		158E840117233C5B00D52A15 /* MSInAppPurchase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSInAppPurchase.h; sourceTree = "<group>"; };
 		158E840217233C5B00D52A15 /* MSInAppPurchase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSInAppPurchase.m; sourceTree = "<group>"; };
+		158E84051723605300D52A15 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
+		158E8408172364ED00D52A15 /* MSMagazineBasicCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSMagazineBasicCell.h; sourceTree = "<group>"; };
+		158E8409172364ED00D52A15 /* MSMagazineBasicCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSMagazineBasicCell.m; sourceTree = "<group>"; };
+		158E840C1723657000D52A15 /* MSMagazineMediumCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSMagazineMediumCell.h; sourceTree = "<group>"; };
+		158E840D1723657000D52A15 /* MSMagazineMediumCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSMagazineMediumCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -345,6 +353,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				158E84061723605300D52A15 /* Twitter.framework in Frameworks */,
 				150710FA172092CA008A64F3 /* CoreData.framework in Frameworks */,
 				150710FB172092CA008A64F3 /* CoreText.framework in Frameworks */,
 				150710FC172092CA008A64F3 /* MapKit.framework in Frameworks */,
@@ -399,6 +408,7 @@
 		1507105E17208D3B008A64F3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				158E84051723605300D52A15 /* Twitter.framework */,
 				150710F1172092C9008A64F3 /* CoreData.framework */,
 				150710F2172092C9008A64F3 /* CoreText.framework */,
 				150710F3172092C9008A64F3 /* MapKit.framework */,
@@ -839,6 +849,7 @@
 		1533BF931721892C001213DE /* List */ = {
 			isa = PBXGroup;
 			children = (
+				158E840B1723654500D52A15 /* Cells */,
 				1533BF9B17218D26001213DE /* MSMagazineListMediumView.h */,
 				1533BF9C17218D26001213DE /* MSMagazineListMediumView.m */,
 			);
@@ -848,6 +859,7 @@
 		1533BF9417218941001213DE /* Basic */ = {
 			isa = PBXGroup;
 			children = (
+				158E8407172364CD00D52A15 /* Cells */,
 				1533BF951721895A001213DE /* MSMagazineListView.h */,
 				1533BF961721895A001213DE /* MSMagazineListView.m */,
 			);
@@ -897,6 +909,24 @@
 				158E840217233C5B00D52A15 /* MSInAppPurchase.m */,
 			);
 			name = "In App Purchase";
+			sourceTree = "<group>";
+		};
+		158E8407172364CD00D52A15 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				158E8408172364ED00D52A15 /* MSMagazineBasicCell.h */,
+				158E8409172364ED00D52A15 /* MSMagazineBasicCell.m */,
+			);
+			name = Cells;
+			sourceTree = "<group>";
+		};
+		158E840B1723654500D52A15 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				158E840C1723657000D52A15 /* MSMagazineMediumCell.h */,
+				158E840D1723657000D52A15 /* MSMagazineMediumCell.m */,
+			);
+			name = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1124,6 +1154,8 @@
 				158E83FC1723216E00D52A15 /* SKProduct+Tools.m in Sources */,
 				158E83FF1723289000D52A15 /* MSMagazineView.m in Sources */,
 				158E840317233C5B00D52A15 /* MSInAppPurchase.m in Sources */,
+				158E840A172364ED00D52A15 /* MSMagazineBasicCell.m in Sources */,
+				158E840E1723657000D52A15 /* MSMagazineMediumCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1198,7 +1230,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1224,7 +1256,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1242,7 +1274,6 @@
 				INFOPLIST_FILE = "Bundles/FuerteMagazine/FuerteMagazine-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/MagazineShop/Thirdparty/Flurry\"",
 					"\"$(SRCROOT)/Thirdparty/Flurry\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1260,7 +1291,6 @@
 				INFOPLIST_FILE = "Bundles/FuerteMagazine/FuerteMagazine-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/MagazineShop/Thirdparty/Flurry\"",
 					"\"$(SRCROOT)/Thirdparty/Flurry\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1321,7 +1351,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1337,7 +1367,6 @@
 				INFOPLIST_FILE = "Bundles/FuerteMagazine/FuerteMagazine-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/MagazineShop/Thirdparty/Flurry\"",
 					"\"$(SRCROOT)/Thirdparty/Flurry\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";

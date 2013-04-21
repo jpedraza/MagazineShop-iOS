@@ -22,8 +22,6 @@
 
 - (void)configureView {
     [super configureView];
-    
-    [self setBackgroundColor:[UIColor randomColor]];
 }
 
 

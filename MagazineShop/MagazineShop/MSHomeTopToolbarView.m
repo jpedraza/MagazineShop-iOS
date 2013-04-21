@@ -113,8 +113,8 @@
     
     [self setAutoresizingMask:UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleWidth];
     CALayer *bottomBorder = [CALayer layer];
-    [bottomBorder setFrame:CGRectMake(0, 43, self.width, 1)];
-    [bottomBorder setBackgroundColor:[UIColor blackColor].CGColor];
+    [bottomBorder setFrame:CGRectMake(0, 43, 1024, 1)];
+    [bottomBorder setBackgroundColor:[UIColor darkTextColor].CGColor];
     [self.layer addSublayer:bottomBorder];
     
     [self createTitleLabel];

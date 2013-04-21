@@ -17,8 +17,9 @@
 
 @property (nonatomic, strong) MSMagazineListView *currentMagazineView;
 
-@property (nonatomic, strong) NSMutableArray *products;
+@property (nonatomic, strong) NSMutableDictionary *products;
 @property (nonatomic, strong) NSArray *productsInfo;
+@property (nonatomic) NSInteger pricedProductCount;
 
 @property (nonatomic, strong) id <MSMagazineListViewDelegate> magazineDelegate;
 
@@ -48,7 +49,7 @@
 }
 
 - (void)createAllElements {
-    [self setBackgroundColor:[UIColor randomColor]];
+    [self setBackgroundColor:[UIColor clearColor]];
     
     [super createAllElements];
     [self createMagazineListView];
@@ -58,12 +59,18 @@
 
 - (void)setFrame:(CGRect)frame {
     [super setFrame:frame];
-    NSLog(@"Magazine view: %@", NSStringFromCGRect(self.frame));
 }
 
 - (void)setMagazineDelegate:(id<MSMagazineListViewDelegate>)delegate {
     _magazineDelegate = delegate;
     [_magazineListView setDelegate:_magazineDelegate];
+}
+
+- (void)setListViewType:(MSConfigMainMagazineListViewType)listViewType {
+    if (_listViewType != listViewType) {
+        _listViewType = listViewType;
+        
+    }
 }
 
 #pragma mark Data
@@ -74,10 +81,22 @@
 
 - (void)loadData {
     @autoreleasepool {
-        sleep(1.5);
-        [self performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
-        if ([_delegate respondsToSelector:@selector(magazineViewDidFinishLoadingData:)]) {
-            [(NSObject *)_delegate performSelectorOnMainThread:@selector(magazineViewDidFinishLoadingData:) withObject:self waitUntilDone:NO];
+        NSString *url = [kMSConfigBaseUrl stringByAppendingPathComponent:@"api/issues.json"];
+        NSError *err;
+        NSData *jsonData = [NSData dataWithContentsOfURL:[NSURL URLWithString:url] options:NSDataReadingUncached error:&err];
+        if (!err) {
+            NSDictionary *d = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&err];
+            _productsInfo = [d objectForKey:@"issues"];
+            _products = [NSMutableDictionary dictionary];
+            _pricedProductCount = 0;
+            for (NSDictionary *s in _productsInfo) {
+                if ([[s objectForKey:@"price"] floatValue] > 0) {
+                    _pricedProductCount++;
+                    SKProductsRequest *request = [[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithObject:[s objectForKey:@"identifier"]]];
+                    [request setDelegate:self];
+                    [request start];
+                }
+            }
         }
     }
 }
@@ -95,9 +114,23 @@
     [NSThread detachNewThreadSelector:@selector(startLoadingProducts) toTarget:self withObject:nil];
 }
 
+#pragma mark StoreKit delegate methods
+
+- (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response {
+    for (SKProduct *p in response.products) {
+        [_products setObject:p forKey:p.productIdentifier];
+    }
+    if (_pricedProductCount == [[_products allKeys] count]) {
+        [self performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+        if ([_delegate respondsToSelector:@selector(magazineViewDidFinishLoadingData:)]) {
+            [(NSObject *)_delegate performSelectorOnMainThread:@selector(magazineViewDidFinishLoadingData:) withObject:self waitUntilDone:NO];
+        }
+    }
+}
+
 #pragma mark Magazine list view datasource methods
 
-- (NSArray *)magazineListViewProductsForCollectionView:(MSMagazineListView *)view {
+- (NSDictionary *)magazineListViewProductsForCollectionView:(MSMagazineListView *)view {
     return _products;
 }
 

@@ -7,12 +7,30 @@
 //
 
 #import "MSMagazineListMediumView.h"
+#import "MSMagazineMediumCell.h"
 
 
 @implementation MSMagazineListMediumView
 
 
 #pragma mark Creating elements
+
+- (UICollectionViewFlowLayout *)flowLayout {
+    UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
+    [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
+    [flowLayout setItemSize:CGSizeMake(200, 200)];
+    [flowLayout setMinimumInteritemSpacing:0.0f];
+    [flowLayout setMinimumLineSpacing:0.0f];
+    return flowLayout;
+}
+
+- (NSString *)cellIdentifier {
+    return @"MSMagazineMediumCell";
+}
+
+- (void)registerCell {
+    [super.collectionView registerClass:[MSMagazineMediumCell class] forCellWithReuseIdentifier:[self cellIdentifier]];
+}
 
 - (void)createAllElements {
     [super createAllElements];
@@ -22,8 +40,14 @@
 
 - (void)configureView {
     [super configureView];
+}
+
+#pragma mark Collection view data source methods
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    MSMagazineMediumCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[self cellIdentifier] forIndexPath:indexPath];
     
-    [self setBackgroundColor:[UIColor randomColor]];
+    return cell;
 }
 
 

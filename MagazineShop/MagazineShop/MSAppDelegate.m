@@ -20,6 +20,9 @@
     
     [MSTracking initTrackingSessions];
     
+    _inAppPurchase = [[MSInAppPurchase alloc] init];
+    [[SKPaymentQueue defaultQueue] addTransactionObserver:_inAppPurchase];
+    
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeNewsstandContentAvailability];
     
     _homeViewController = [[MSHomeViewController alloc] init];

@@ -13,14 +13,16 @@
 @implementation MSMagazineListMediumView
 
 
-#pragma mark Creating elements
+#pragma mark Configuration
 
 - (UICollectionViewFlowLayout *)flowLayout {
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-    [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
-    [flowLayout setItemSize:CGSizeMake(200, 200)];
-    [flowLayout setMinimumInteritemSpacing:0.0f];
-    [flowLayout setMinimumLineSpacing:0.0f];
+    [flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
+    if ([super isTablet]) [flowLayout setItemSize:CGSizeMake(300, 300)];
+    else [flowLayout setItemSize:CGSizeMake(120, 200)];
+    [flowLayout setMinimumInteritemSpacing:20];
+    [flowLayout setMinimumLineSpacing:40];
+    
     return flowLayout;
 }
 
@@ -31,6 +33,8 @@
 - (void)registerCell {
     [super.collectionView registerClass:[MSMagazineMediumCell class] forCellWithReuseIdentifier:[self cellIdentifier]];
 }
+
+#pragma mark Creating elements
 
 - (void)createAllElements {
     [super createAllElements];
@@ -43,6 +47,16 @@
 }
 
 #pragma mark Collection view data source methods
+
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
+    if ([super isTablet]) {
+        if (self.width > self.height) return UIEdgeInsetsMake(50, 20, 50, 20);
+        else return UIEdgeInsetsMake(50, 50, 50, 50);
+    }
+    else {
+        return UIEdgeInsetsMake(20, 20, 20, 20);
+    }
+}
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     MSMagazineMediumCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[self cellIdentifier] forIndexPath:indexPath];

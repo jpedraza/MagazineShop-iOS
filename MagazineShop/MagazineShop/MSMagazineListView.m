@@ -27,10 +27,9 @@
 }
 
 - (void)createCollectionView {
-    _collectionView = [[UICollectionView alloc] initWithFrame:self.bounds collectionViewLayout:[self flowLayout]];
+    CGRect r = self.bounds;
+    _collectionView = [[UICollectionView alloc] initWithFrame:r collectionViewLayout:[self flowLayout]];
     [_collectionView setAutoresizingWidthAndHeight];
-    [_collectionView setBackgroundColor:[UIColor yellowColor]];
-    [_collectionView setDataSource:self];
     [_collectionView setDelegate:self];
     [_collectionView setBounces:YES];
     [self registerCell];
@@ -45,11 +44,28 @@
 #pragma mark Settings
 
 - (void)show {
-    
+    [UIView animateWithDuration:0.3 animations:^{
+        [self setAlpha:1];
+    } completion:^(BOOL finished) {
+        if ([_delegate respondsToSelector:@selector(magazineListView:changedVisibilityStatus:)]) {
+            [_delegate magazineListView:self changedVisibilityStatus:MSMagazineListViewVisibilityStatusVisible];
+        }
+    }];
 }
 
 - (void)hide {
-    
+    [UIView animateWithDuration:0.3 animations:^{
+        [self setAlpha:0];
+    } completion:^(BOOL finished) {
+        if ([_delegate respondsToSelector:@selector(magazineListView:changedVisibilityStatus:)]) {
+            [_delegate magazineListView:self changedVisibilityStatus:MSMagazineListViewVisibilityStatusHidden];
+        }
+    }];
+}
+
+- (void)setFrame:(CGRect)frame {
+    [super setFrame:frame];
+    [_collectionView reloadData];
 }
 
 #pragma mark StoreKit methods
@@ -61,6 +77,7 @@
 #pragma mark Data
 
 - (void)reloadData {
+    [_collectionView setDataSource:self];
     [_collectionView reloadData];
 }
 
@@ -81,11 +98,20 @@
 #pragma mark Collection view datasource & delegate methods
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return [[self productsInfo] count];
+    return 50;
+    //return [[self productsInfo] count];
+}
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    return 1;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     return nil;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    [collectionView deselectItemAtIndexPath:indexPath animated:YES];
 }
 
 

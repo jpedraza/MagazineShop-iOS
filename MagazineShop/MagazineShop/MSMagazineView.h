@@ -29,6 +29,7 @@
 
 - (void)loadProducts;
 - (void)setMagazineDelegate:(id <MSMagazineListViewDelegate>)delegate;
+- (void)showNewMagazineView;
 
 
 @end

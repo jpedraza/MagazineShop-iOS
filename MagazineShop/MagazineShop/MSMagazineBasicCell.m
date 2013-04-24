@@ -15,7 +15,7 @@
 #pragma mark Creating elements
 
 - (void)createAllElements {
-    
+    [self setBackgroundColor:[UIColor scrollViewTexturedBackgroundColor]];
 }
 
 #pragma mark Initialization

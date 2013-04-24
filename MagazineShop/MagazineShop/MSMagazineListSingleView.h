@@ -8,6 +8,6 @@
 
 #import "MSMagazineListView.h"
 
-@interface MSMagazineListSingleView : MSMagazineListView
+@interface MSMagazineListSingleView : MSMagazineListView <UIScrollViewDelegate>
 
 @end

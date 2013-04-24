@@ -135,7 +135,7 @@
 #pragma mark Magazine shop delegate & data source methods
 
 - (void)magazineListView:(MSMagazineListView *)magazineView changedVisibilityStatus:(MSMagazineListViewVisibilityStatus)status {
-    
+    [_magazineView showNewMagazineView];
 }
 
 #pragma mark Magazine view delegate methods

@@ -11,6 +11,8 @@
 
 @interface MSMagazineBasicCell : UICollectionViewCell
 
+@property (nonatomic, strong) UIImageView *imageView;
+
 - (void)createAllElements;
 
 

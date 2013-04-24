@@ -23,6 +23,8 @@
 
 @property (nonatomic, strong) id <MSMagazineListViewDelegate> magazineDelegate;
 
+@property (nonatomic) BOOL firstStart;
+
 @end
 
 
@@ -32,24 +34,39 @@
 #pragma mark Creating elements
 
 - (void)createMagazineSingleView {
-    
+    _magazineSingleView = [[MSMagazineListSingleView alloc] initWithFrame:self.bounds];
+    [_magazineSingleView setAlpha:0];
+    [_magazineSingleView setAutoresizingWidthAndHeight];
+    [_magazineSingleView setDataSource:self];
+    [_magazineSingleView setDelegate:_magazineDelegate];
+    [self addSubview:_magazineSingleView];
+    _currentMagazineView = _magazineSingleView;
 }
 
 - (void)createMagazineListView {
     _magazineListView = [[MSMagazineListMediumView alloc] initWithFrame:self.bounds];
+    if (!_firstStart) [_magazineListView setAlpha:0];
     [_magazineListView setAutoresizingWidthAndHeight];
     [_magazineListView setDataSource:self];
     [_magazineListView setDelegate:_magazineDelegate];
     [self addSubview:_magazineListView];
     _currentMagazineView = _magazineListView;
+    _firstStart = NO;
 }
 
 - (void)createMagazineDenseView {
-    
+    _magazineDenseView = [[MSMagazineListDenseView alloc] initWithFrame:self.bounds];
+    [_magazineDenseView setAlpha:0];
+    [_magazineDenseView setAutoresizingWidthAndHeight];
+    [_magazineDenseView setDataSource:self];
+    [_magazineDenseView setDelegate:_magazineDelegate];
+    [self addSubview:_magazineDenseView];
+    _currentMagazineView = _magazineDenseView;
 }
 
 - (void)createAllElements {
-    [self setBackgroundColor:[UIColor clearColor]];
+    _firstStart = YES;
+    _listViewType = MSConfigMainMagazineListViewTypeList;
     
     [super createAllElements];
     [self createMagazineListView];
@@ -57,19 +74,74 @@
 
 #pragma mark Settings
 
-- (void)setFrame:(CGRect)frame {
-    [super setFrame:frame];
-}
-
 - (void)setMagazineDelegate:(id<MSMagazineListViewDelegate>)delegate {
     _magazineDelegate = delegate;
     [_magazineListView setDelegate:_magazineDelegate];
 }
 
+- (void)removeAllViews {
+    [_magazineSingleView removeFromSuperview];
+    _magazineSingleView = nil;
+
+    [_magazineListView removeFromSuperview];
+    _magazineListView = nil;
+
+    [_magazineDenseView removeFromSuperview];
+    _magazineDenseView = nil;
+}
+
+- (void)animateNewMagazineViewOn {
+    [_currentMagazineView reloadData];
+    [UIView animateWithDuration:0.3 animations:^{
+        [_currentMagazineView setAlpha:1];
+    } completion:^(BOOL finished) {
+        
+    }];
+}
+
+- (void)showMagazineSingleView {
+    [self removeAllViews];
+    [self createMagazineSingleView];
+    [self animateNewMagazineViewOn];
+}
+
+- (void)showMagazineListView {
+    [self removeAllViews];
+    [self createMagazineListView];
+    [self animateNewMagazineViewOn];
+}
+
+- (void)showMagazineDenseView {
+    [self removeAllViews];
+    [self createMagazineDenseView];
+    [self animateNewMagazineViewOn];
+}
+
+- (void)showNewMagazineView {
+    SEL selector = nil;
+    switch (_listViewType) {
+        case MSConfigMainMagazineListViewTypeSigle:
+            selector = @selector(showMagazineSingleView);
+            break;
+            
+        case MSConfigMainMagazineListViewTypeList:
+            selector = @selector(showMagazineListView);
+            break;
+            
+        case MSConfigMainMagazineListViewTypeDense:
+            selector = @selector(showMagazineDenseView);
+            break;
+            
+        default:
+            break;
+    }
+    [self performSelectorOnMainThread:selector withObject:nil waitUntilDone:YES];
+}
+
 - (void)setListViewType:(MSConfigMainMagazineListViewType)listViewType {
     if (_listViewType != listViewType) {
         _listViewType = listViewType;
-        
+        [_currentMagazineView hide];
     }
 }
 

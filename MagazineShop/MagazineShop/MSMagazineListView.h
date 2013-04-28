@@ -7,6 +7,7 @@
 //
 
 #import "MSView.h"
+#import "MSProduct.h"
 
 
 typedef enum {
@@ -45,6 +46,9 @@ typedef enum {
 - (void)show;
 - (void)hide;
 
+- (NSDictionary *)products;
+- (NSArray *)productsInfo;
+- (MSProduct *)productAtIndex:(NSInteger)index;
 - (void)buyProduct:(SKProduct *)product;
 
 - (void)reloadData;

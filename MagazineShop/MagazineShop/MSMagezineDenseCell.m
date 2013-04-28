@@ -12,10 +12,23 @@
 @implementation MSMagezineDenseCell
 
 
+#pragma mark Positioning
+
+- (void)layoutElements {
+    
+}
+
 #pragma mark Creating elements
 
 - (void)createAllElements {
     [super createAllElements];
+}
+
+#pragma mark Settings
+
+- (void)setIssueData:(MSProduct *)issueData {
+    [super setIssueData:issueData];
+    [self.imageView setImageUrlString:self.issueData.thumbnail withDefaultImage:[UIImage imageNamed:@"IconNS"] andCacheLifetime:MSImageViewCacheLifetimeForever];
 }
 
 

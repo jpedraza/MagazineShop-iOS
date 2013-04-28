@@ -9,7 +9,9 @@
 #import <Foundation/Foundation.h>
 
 
-#define kMSConfigBaseUrl                                 @"http://fuertemag.fuerteint.com/"
+#define kDebug                                              YES
+
+#define kMSConfigBaseUrl                                    @"http://fuertemag.fuerteint.com/"
 
 
 typedef enum {

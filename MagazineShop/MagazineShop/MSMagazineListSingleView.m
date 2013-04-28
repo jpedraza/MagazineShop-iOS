@@ -92,7 +92,8 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     MSMagazineSingeCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[self cellIdentifier] forIndexPath:indexPath];
-    
+    MSProduct *issueData = [super productAtIndex:indexPath.row];
+    [cell setIssueData:issueData];
     return cell;
 }
 

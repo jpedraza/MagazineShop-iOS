@@ -10,7 +10,9 @@
 #import "MSInAppPurchase.h"
 
 
-#define kAppDelegate                            (MSAppDelegate *)[[UIApplication sharedApplication] delegate]
+#define kAppDelegate                                        (MSAppDelegate *)[[UIApplication sharedApplication] delegate]
+#define kDownloadOperation                                  [kAppDelegate downloadOperationQueue]
+#define kProcessingOperation                                [kAppDelegate processingOperationQueue]
 
 
 @class MSHomeViewController;
@@ -21,6 +23,9 @@
 @property (nonatomic, strong) MSHomeViewController *homeViewController;
 
 @property (nonatomic, strong) MSInAppPurchase *inAppPurchase;
+
+@property (nonatomic, strong) NSOperationQueue *downloadOperationQueue;
+@property (nonatomic, strong) NSOperationQueue *processingOperationQueue;
 
 
 @end

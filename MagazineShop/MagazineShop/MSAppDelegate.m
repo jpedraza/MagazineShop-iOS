@@ -8,23 +8,51 @@
 
 #import "MSAppDelegate.h"
 #import "MSHomeViewController.h"
+#import "MSImageView.h"
 
 
 @implementation MSAppDelegate
 
+
+#pragma mark Operation queues
+
+- (void)createOperationQueues {
+    _downloadOperationQueue = [[NSOperationQueue alloc] init];
+    [_downloadOperationQueue setMaxConcurrentOperationCount:2];
+    [_downloadOperationQueue cancelAllOperations];
+    
+    _processingOperationQueue = [[NSOperationQueue alloc] init];
+    [_processingOperationQueue setMaxConcurrentOperationCount:1];
+    [_processingOperationQueue cancelAllOperations];
+}
 
 #pragma mark App delegate methods
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     _window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
+    // Initialize tracing
     [MSTracking initTrackingSessions];
     
+    // Handle caching
+    [MSImageView clearCache:MSImageViewCacheLifetimeTerminate];
+    if (kDebug) {
+        [MSImageView clearCache:MSImageViewCacheLifetimeSession];
+        [MSImageView clearCache:MSImageViewCacheLifetimeTerminate];
+        [MSImageView clearCache:MSImageViewCacheLifetimeForever];
+    }
+    
+    // Operations
+    [self createOperationQueues];
+    
+    // In app purchase
     _inAppPurchase = [[MSInAppPurchase alloc] init];
     [[SKPaymentQueue defaultQueue] addTransactionObserver:_inAppPurchase];
     
+    // Notifications
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeNewsstandContentAvailability];
     
+    // App stuff :)
     _homeViewController = [[MSHomeViewController alloc] init];
     
     _window.rootViewController = _homeViewController;
@@ -33,25 +61,23 @@
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
-    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-    // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+    
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
-    // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    [MSImageView clearCache:MSImageViewCacheLifetimeSession];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    
 }
 
 

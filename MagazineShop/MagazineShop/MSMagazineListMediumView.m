@@ -60,7 +60,8 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     MSMagazineMediumCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[self cellIdentifier] forIndexPath:indexPath];
-    
+    MSProduct *issueData = [super productAtIndex:indexPath.row];
+    [cell setIssueData:issueData];
     return cell;
 }
 

@@ -7,13 +7,22 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MSImageView.h"
+#import "MSProduct.h"
 
 
 @interface MSMagazineBasicCell : UICollectionViewCell
 
-@property (nonatomic, strong) UIImageView *imageView;
+@property (nonatomic, strong) MSImageView *imageView;
+@property (nonatomic, strong) UILabel *titleLabel;
+@property (nonatomic, strong) UILabel *dateLabel;
+@property (nonatomic, strong) UILabel *infoLabel;
+@property (nonatomic, strong) UIButton *actionButton;
+
+@property (nonatomic, strong) MSProduct *issueData;
 
 - (void)createAllElements;
+- (void)layoutElements;
 
 
 @end

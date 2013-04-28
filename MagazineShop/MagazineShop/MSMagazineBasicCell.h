@@ -24,5 +24,9 @@
 - (void)createAllElements;
 - (void)layoutElements;
 
+- (BOOL)isTablet;
+- (BOOL)isBigPhone;
+- (BOOL)isRetina;
+
 
 @end

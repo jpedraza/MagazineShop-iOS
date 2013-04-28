@@ -33,6 +33,7 @@
     [_collectionView setAutoresizingWidthAndHeight];
     [_collectionView setDelegate:self];
     [_collectionView setBounces:YES];
+    [_collectionView setClipsToBounds:YES];
     [self registerCell];
     [self addSubview:_collectionView];
 }

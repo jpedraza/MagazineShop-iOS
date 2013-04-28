@@ -7,14 +7,17 @@
 //
 
 #import "MSMagazineListSingleView.h"
+#import "MSMagazineListSingleInvisibleScrollView.h"
 #import "MSMagazineSingeCell.h"
 
 
 @interface MSMagazineListSingleView ()
 
-@property (nonatomic, strong) UIScrollView *secretScrollView;
+@property (nonatomic, strong) MSMagazineListSingleInvisibleScrollView *secretScrollView;
 @property (nonatomic) NSInteger currentPage;
 @property (nonatomic) BOOL firstLayoutFinished;
+
+@property (nonatomic, strong) UIView *touchIndicator;
 
 @end
 
@@ -32,8 +35,10 @@
 - (void)setNeedsLayout {
     [super setNeedsLayout];
     
-    [self.collectionView setHeight:[self cardSizeOnTablet].height];
-    [self.collectionView centerVertically];
+    if ([super isTablet]) {
+        [self.collectionView setHeight:[self cardSizeOnTablet].height];
+        [self.collectionView centerVertically];
+    }
 }
 
 #pragma mark Configuration
@@ -41,9 +46,8 @@
 - (UICollectionViewFlowLayout *)flowLayout {
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
     [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
-    [flowLayout setMinimumInteritemSpacing:50];
+    [flowLayout setMinimumInteritemSpacing:([super isTablet] ? 50 : 50)];
     [flowLayout setMinimumLineSpacing:50];
-    
     return flowLayout;
 }
 
@@ -58,7 +62,7 @@
 #pragma mark Creating elements
 
 - (void)createSecretScrollView {
-    _secretScrollView = [[UIScrollView alloc] initWithFrame:self.bounds];
+    _secretScrollView = [[MSMagazineListSingleInvisibleScrollView alloc] initWithFrame:self.bounds];
     [_secretScrollView setAutoresizingWidthAndHeight];
     [_secretScrollView setDelegate:self];
     [_secretScrollView setPagingEnabled:YES];
@@ -67,7 +71,13 @@
 
 - (void)createAllElements {
     [super createAllElements];
-    [self createSecretScrollView];
+    if ([super isTablet]) {
+        [self createSecretScrollView];
+        [self setNeedsLayout];
+    }
+    else {
+        [self.collectionView setPagingEnabled:YES];
+    }
 }
 
 #pragma mark Data
@@ -94,10 +104,7 @@
     [_secretScrollView setContentOffset:CGPointMake(((_currentPage + 0) * frame.size.width), 0)];
     [self setOffsetForScrollView:_secretScrollView];
     
-    [self.collectionView setHeight:[self cardSizeOnTablet].height];
-    [self.collectionView centerVertically];
-    
-    NSLog(@"Current page (F): %d", _currentPage);
+    [self setNeedsLayout];
 }
 
 #pragma mark Collection view data source methods
@@ -107,7 +114,7 @@
         if (self.width > self.height) return UIEdgeInsetsMake(50, 50, 50, 50);
         else return UIEdgeInsetsMake(50, 50, 50, 50);
     }
-    else return UIEdgeInsetsMake(20, 20, 20, 20);
+    else return UIEdgeInsetsMake(20, 10, 20, 10);
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -115,7 +122,7 @@
         return [self cardSizeOnTablet];
     }
     else {
-        return CGSizeMake(280, 320);
+        return CGSizeMake(300, 320);
     }
 }
 
@@ -137,15 +144,16 @@
     BOOL isLandscape = (self.width > self.height);
     CGFloat iw = 0;
     CGFloat deduction = 0;
+    CGFloat x = 0;
     if ([super isTablet]) {
         deduction = (isLandscape ? 110 : 70);
         iw = isLandscape ? 750.0f : 575.0f;
     }
     else {
-        iw = 280;
-        deduction = -40;
+        iw = 310;
+        deduction = 10;
     }
-    CGFloat x = ((((scrollView.contentOffset.x * 1) / self.width) * iw) - deduction);
+    x = (((scrollView.contentOffset.x / self.width) * iw) - deduction);
     [self.collectionView setContentOffset:CGPointMake(x, 0)];
 }
 

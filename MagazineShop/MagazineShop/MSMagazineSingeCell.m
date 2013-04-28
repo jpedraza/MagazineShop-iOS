@@ -22,6 +22,8 @@
 
 - (void)createAllElements {
     [super createAllElements];
+    
+    [self.actionButton setExclusiveTouch:YES];
 }
 
 #pragma mark Settings

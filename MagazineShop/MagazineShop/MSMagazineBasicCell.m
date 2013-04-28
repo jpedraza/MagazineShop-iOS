@@ -18,6 +18,20 @@
 @implementation MSMagazineBasicCell
 
 
+#pragma mark Environment
+
+- (BOOL)isTablet {
+    return ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad);
+}
+
+- (BOOL)isBigPhone {
+    return ([[UIScreen mainScreen] bounds].size.height == 568);
+}
+
+- (BOOL)isRetina {
+    return ([[UIScreen mainScreen] respondsToSelector:@selector(displayLinkWithTarget:selector:)] && ([UIScreen mainScreen].scale == 2.0));
+}
+
 #pragma mark Positioning
 
 - (void)layoutElements {
@@ -59,7 +73,11 @@
 }
 
 - (void)createButtons {
-    
+    _actionButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [_actionButton setTitle:@"Action" forState:UIControlStateNormal];
+    [_actionButton setFrame:CGRectMake(10, (self.height - 44), 100, 34)];
+    [_actionButton setAutoresizingBottomLeft];
+    [self addSubview:_actionButton];
 }
 
 - (void)createAllElements {

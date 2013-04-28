@@ -157,6 +157,12 @@
 		158E840E1723657000D52A15 /* MSMagazineMediumCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 158E840D1723657000D52A15 /* MSMagazineMediumCell.m */; };
 		158E8412172375F900D52A15 /* MSMagazineSingeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 158E8411172375F900D52A15 /* MSMagazineSingeCell.m */; };
 		158E84161723761000D52A15 /* MSMagezineDenseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 158E84151723761000D52A15 /* MSMagezineDenseCell.m */; };
+		15DED002172D1238004CA548 /* MSMagazineReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 15DED001172D1238004CA548 /* MSMagazineReader.m */; };
+		15DED006172D133D004CA548 /* MSMagazineReaderData.m in Sources */ = {isa = PBXBuildFile; fileRef = 15DED005172D133D004CA548 /* MSMagazineReaderData.m */; };
+		15DED00A172D15D7004CA548 /* MSMagazineReaderBasicPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 15DED009172D15D7004CA548 /* MSMagazineReaderBasicPageView.m */; };
+		15DED00E172D16E4004CA548 /* MSMagazineReaderCurledPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15DED00D172D16E4004CA548 /* MSMagazineReaderCurledPageViewController.m */; };
+		15DED011172D1721004CA548 /* MSMagazineReaderPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15DED010172D1721004CA548 /* MSMagazineReaderPageViewController.m */; };
+		15DED014172D1756004CA548 /* MSMagazineReaderFlatPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15DED013172D1756004CA548 /* MSMagazineReaderFlatPageViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -351,6 +357,18 @@
 		158E8411172375F900D52A15 /* MSMagazineSingeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSMagazineSingeCell.m; sourceTree = "<group>"; };
 		158E84141723761000D52A15 /* MSMagezineDenseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSMagezineDenseCell.h; sourceTree = "<group>"; };
 		158E84151723761000D52A15 /* MSMagezineDenseCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSMagezineDenseCell.m; sourceTree = "<group>"; };
+		15DED000172D1238004CA548 /* MSMagazineReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSMagazineReader.h; sourceTree = "<group>"; };
+		15DED001172D1238004CA548 /* MSMagazineReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSMagazineReader.m; sourceTree = "<group>"; };
+		15DED004172D133D004CA548 /* MSMagazineReaderData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSMagazineReaderData.h; sourceTree = "<group>"; };
+		15DED005172D133D004CA548 /* MSMagazineReaderData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSMagazineReaderData.m; sourceTree = "<group>"; };
+		15DED008172D15D7004CA548 /* MSMagazineReaderBasicPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSMagazineReaderBasicPageView.h; sourceTree = "<group>"; };
+		15DED009172D15D7004CA548 /* MSMagazineReaderBasicPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSMagazineReaderBasicPageView.m; sourceTree = "<group>"; };
+		15DED00C172D16E4004CA548 /* MSMagazineReaderCurledPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSMagazineReaderCurledPageViewController.h; sourceTree = "<group>"; };
+		15DED00D172D16E4004CA548 /* MSMagazineReaderCurledPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSMagazineReaderCurledPageViewController.m; sourceTree = "<group>"; };
+		15DED00F172D1721004CA548 /* MSMagazineReaderPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSMagazineReaderPageViewController.h; sourceTree = "<group>"; };
+		15DED010172D1721004CA548 /* MSMagazineReaderPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSMagazineReaderPageViewController.m; sourceTree = "<group>"; };
+		15DED012172D1756004CA548 /* MSMagazineReaderFlatPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSMagazineReaderFlatPageViewController.h; sourceTree = "<group>"; };
+		15DED013172D1756004CA548 /* MSMagazineReaderFlatPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSMagazineReaderFlatPageViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -442,6 +460,7 @@
 				150710A017208D62008A64F3 /* Data */,
 				1507109F17208D5B008A64F3 /* Libs */,
 				1507109E17208D55008A64F3 /* Views */,
+				15DECFF8172D0FCE004CA548 /* Magazine reader */,
 				1507109D17208D4D008A64F3 /* Controllers */,
 				1507106E17208D3B008A64F3 /* MSAppDelegate.h */,
 				1507106F17208D3B008A64F3 /* MSAppDelegate.m */,
@@ -953,6 +972,89 @@
 			name = Cells;
 			sourceTree = "<group>";
 		};
+		15DECFF8172D0FCE004CA548 /* Magazine reader */ = {
+			isa = PBXGroup;
+			children = (
+				15DED003172D131D004CA548 /* Data */,
+				15DECFFD172D11FA004CA548 /* Views */,
+				15DECFFC172D11F2004CA548 /* Controllers */,
+				15DED000172D1238004CA548 /* MSMagazineReader.h */,
+				15DED001172D1238004CA548 /* MSMagazineReader.m */,
+			);
+			name = "Magazine reader";
+			sourceTree = "<group>";
+		};
+		15DECFF9172D0FD7004CA548 /* Pages */ = {
+			isa = PBXGroup;
+			children = (
+				15DED007172D15BA004CA548 /* Basic */,
+			);
+			name = Pages;
+			sourceTree = "<group>";
+		};
+		15DECFFB172D11B6004CA548 /* Flat */ = {
+			isa = PBXGroup;
+			children = (
+				15DED012172D1756004CA548 /* MSMagazineReaderFlatPageViewController.h */,
+				15DED013172D1756004CA548 /* MSMagazineReaderFlatPageViewController.m */,
+			);
+			name = Flat;
+			sourceTree = "<group>";
+		};
+		15DECFFC172D11F2004CA548 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				15DECFFE172D120D004CA548 /* Curled */,
+				15DECFFB172D11B6004CA548 /* Flat */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		15DECFFD172D11FA004CA548 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				15DECFF9172D0FD7004CA548 /* Pages */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		15DECFFE172D120D004CA548 /* Curled */ = {
+			isa = PBXGroup;
+			children = (
+				15DED00B172D16B9004CA548 /* Page */,
+				15DED00C172D16E4004CA548 /* MSMagazineReaderCurledPageViewController.h */,
+				15DED00D172D16E4004CA548 /* MSMagazineReaderCurledPageViewController.m */,
+			);
+			name = Curled;
+			sourceTree = "<group>";
+		};
+		15DED003172D131D004CA548 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				15DED004172D133D004CA548 /* MSMagazineReaderData.h */,
+				15DED005172D133D004CA548 /* MSMagazineReaderData.m */,
+			);
+			name = Data;
+			sourceTree = "<group>";
+		};
+		15DED007172D15BA004CA548 /* Basic */ = {
+			isa = PBXGroup;
+			children = (
+				15DED008172D15D7004CA548 /* MSMagazineReaderBasicPageView.h */,
+				15DED009172D15D7004CA548 /* MSMagazineReaderBasicPageView.m */,
+			);
+			name = Basic;
+			sourceTree = "<group>";
+		};
+		15DED00B172D16B9004CA548 /* Page */ = {
+			isa = PBXGroup;
+			children = (
+				15DED00F172D1721004CA548 /* MSMagazineReaderPageViewController.h */,
+				15DED010172D1721004CA548 /* MSMagazineReaderPageViewController.m */,
+			);
+			name = Page;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1182,6 +1284,12 @@
 				158E840E1723657000D52A15 /* MSMagazineMediumCell.m in Sources */,
 				158E8412172375F900D52A15 /* MSMagazineSingeCell.m in Sources */,
 				158E84161723761000D52A15 /* MSMagezineDenseCell.m in Sources */,
+				15DED002172D1238004CA548 /* MSMagazineReader.m in Sources */,
+				15DED006172D133D004CA548 /* MSMagazineReaderData.m in Sources */,
+				15DED00A172D15D7004CA548 /* MSMagazineReaderBasicPageView.m in Sources */,
+				15DED00E172D16E4004CA548 /* MSMagazineReaderCurledPageViewController.m in Sources */,
+				15DED011172D1721004CA548 /* MSMagazineReaderPageViewController.m in Sources */,
+				15DED014172D1756004CA548 /* MSMagazineReaderFlatPageViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

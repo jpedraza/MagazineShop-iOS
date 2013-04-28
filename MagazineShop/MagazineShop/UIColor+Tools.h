@@ -12,23 +12,16 @@
 @interface UIColor (Tools)
 
 + (UIColor *)colorWithRealRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue alpha:(CGFloat)alpha;
-
 - (UIColor *)colorWithRealRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue alpha:(CGFloat)alpha;
 
-
 + (UIColor *)randomColor;
-
 + (UIColor *)randomColorWithAlpha:(CGFloat)alpha;
-
 
 + (UIColor *)colorWithHexString:(NSString *)stringToConvert andAlpha:(CGFloat)alpha;
 + (UIColor *)colorWithHexString:(NSString *)stringToConvert;
 
-
-+ (UIColor *)alphaPatternImageColorWithSguareSide:(CGFloat)side withColor1:(UIColor *)color1 andColor2:(UIColor *)color2;
-
-+ (UIColor *)alphaPatternImageColorWithSguareSide:(CGFloat)side;
-
++ (UIColor *)alphaPatternImageColorWithSquareSide:(CGFloat)side withColor1:(UIColor *)color1 andColor2:(UIColor *)color2;
++ (UIColor *)alphaPatternImageColorWithSquareSide:(CGFloat)side;
 + (UIColor *)alphaPatternImageColor;
 
 

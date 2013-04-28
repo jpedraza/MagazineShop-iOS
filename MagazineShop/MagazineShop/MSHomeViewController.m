@@ -155,10 +155,6 @@
     [_bottomToolbar showElements:YES];
 }
 
-- (void)aaaaaaa {
-    
-}
-
 #pragma mark Subscription controller delegate methods
 
 - (void)subscriptionController:(MSSubscriptionsViewController *)controller requestsPurchaseForProduct:(SKProduct *)product {

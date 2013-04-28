@@ -7,6 +7,7 @@
 //
 
 #import "MSMagazineBasicCell.h"
+#import "UILabel+DynamicHeight.h"
 
 
 @interface MSMagazineBasicCell ()
@@ -20,7 +21,8 @@
 #pragma mark Positioning
 
 - (void)layoutElements {
-    
+    [_dateLabel setYOrigin:(_titleLabel.bottom + 3)];
+    [_infoLabel setYOrigin:(_dateLabel.bottom + 6)];
 }
 
 #pragma mark Creating elements
@@ -31,8 +33,29 @@
     [self addSubview:_imageView];
 }
 
+- (void)configureLabel:(UILabel *)label {
+    [label setBackgroundColor:[UIColor clearColor]];
+    [label setLineBreakMode:NSLineBreakByTruncatingTail];
+}
+
 - (void)createLabels {
+    _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake((_imageView.right + 10), 10, (self.width - (_imageView.right + 20)), 20)];
+    [_titleLabel setTextColor:[UIColor colorWithHexString:kColorCellTitleLabel]];
+    [_titleLabel setFont:[UIFont boldSystemFontOfSize:13]];
+    [self configureLabel:_titleLabel];
+    [self addSubview:_titleLabel];
     
+    _dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(_titleLabel.xOrigin, (_titleLabel.bottom + 2), _titleLabel.width, 12)];
+    [_titleLabel setTextColor:[UIColor colorWithHexString:kColorCellDateLabel]];
+    [_dateLabel setFont:[UIFont boldSystemFontOfSize:10]];
+    [self configureLabel:_dateLabel];
+    [self addSubview:_dateLabel];
+    
+    _infoLabel = [[UILabel alloc] initWithFrame:CGRectMake(_titleLabel.xOrigin, (_dateLabel.bottom + 2), _titleLabel.width, 999)];
+    [_titleLabel setTextColor:[UIColor colorWithHexString:kColorCellInfoLabel]];
+    [_infoLabel setFont:[UIFont boldSystemFontOfSize:11]];
+    [self configureLabel:_infoLabel];
+    [self addSubview:_infoLabel];
 }
 
 - (void)createButtons {
@@ -45,8 +68,6 @@
     [self createImageView];
     [self createLabels];
     [self createButtons];
-    
-    
 }
 
 #pragma mark Initialization
@@ -64,12 +85,15 @@
 - (void)setIssueData:(MSProduct *)issueData {
     _issueData = issueData;
     
-    [_titleLabel setText:issueData.name];
+    [_titleLabel setText:issueData.name withWidth:_titleLabel.width];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateStyle:NSDateFormatterMediumStyle];
     [formatter setTimeStyle:NSDateFormatterNoStyle];
-    [_dateLabel setText:[formatter stringFromDate:issueData.date]];
-    [_infoLabel setText:issueData.info];
+    NSString *dateText = [formatter stringFromDate:issueData.date];
+    [_dateLabel setText:dateText];
+    [_infoLabel setText:issueData.info withWidth:_infoLabel.width];
+    
+    [self layoutElements];
 }
 
 

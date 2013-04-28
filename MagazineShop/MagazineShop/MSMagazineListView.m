@@ -29,6 +29,7 @@
 - (void)createCollectionView {
     CGRect r = self.bounds;
     _collectionView = [[UICollectionView alloc] initWithFrame:r collectionViewLayout:[self flowLayout]];
+    [_collectionView setBackgroundColor:[UIColor clearColor]];
     [_collectionView setAutoresizingWidthAndHeight];
     [_collectionView setDelegate:self];
     [_collectionView setBounces:YES];

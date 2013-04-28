@@ -13,12 +13,28 @@
 @interface MSMagazineListSingleView ()
 
 @property (nonatomic, strong) UIScrollView *secretScrollView;
+@property (nonatomic) NSInteger currentPage;
+@property (nonatomic) BOOL firstLayoutFinished;
 
 @end
 
 
 @implementation MSMagazineListSingleView
 
+
+#pragma mark Positioning
+
+- (CGSize)cardSizeOnTablet {
+    if (self.width > self.height) return CGSizeMake(700, 525);
+    else return CGSizeMake(525, 700);
+}
+
+- (void)setNeedsLayout {
+    [super setNeedsLayout];
+    
+    [self.collectionView setHeight:[self cardSizeOnTablet].height];
+    [self.collectionView centerVertically];
+}
 
 #pragma mark Configuration
 
@@ -61,13 +77,27 @@
     
     NSInteger count = [super collectionView:self.collectionView numberOfItemsInSection:0];
     [_secretScrollView setContentSize:CGSizeMake((count * self.width), self.height)];
-    [self scrollViewDidScroll:_secretScrollView];
 }
 
 #pragma mark Initialization
 
 - (void)configureView {
     [super configureView];
+}
+
+#pragma mark Settings
+
+- (void)setFrame:(CGRect)frame {
+    [super setFrame:frame];
+    [self reloadData];
+    
+    [_secretScrollView setContentOffset:CGPointMake(((_currentPage + 0) * frame.size.width), 0)];
+    [self setOffsetForScrollView:_secretScrollView];
+    
+    [self.collectionView setHeight:[self cardSizeOnTablet].height];
+    [self.collectionView centerVertically];
+    
+    NSLog(@"Current page (F): %d", _currentPage);
 }
 
 #pragma mark Collection view data source methods
@@ -82,8 +112,7 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     if ([super isTablet]) {
-        if (self.width > self.height) return CGSizeMake(700, 525);
-        else return CGSizeMake(525, 700);
+        return [self cardSizeOnTablet];
     }
     else {
         return CGSizeMake(280, 320);
@@ -91,6 +120,11 @@
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    if (!_firstLayoutFinished) {
+        _firstLayoutFinished = YES;
+        [_secretScrollView setContentOffset:CGPointMake((_currentPage * _secretScrollView.width), 0)];
+        [self scrollViewDidScroll:_secretScrollView];
+    }
     MSMagazineSingeCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[self cellIdentifier] forIndexPath:indexPath];
     MSProduct *issueData = [super productAtIndex:indexPath.row];
     [cell setIssueData:issueData];
@@ -99,23 +133,38 @@
 
 #pragma mark ScrollView delegate methods
 
+- (void)setOffsetForScrollView:(UIScrollView *)scrollView {
+    BOOL isLandscape = (self.width > self.height);
+    CGFloat iw = 0;
+    CGFloat deduction = 0;
+    if ([super isTablet]) {
+        deduction = (isLandscape ? 110 : 70);
+        iw = isLandscape ? 750.0f : 575.0f;
+    }
+    else {
+        iw = 280;
+        deduction = -40;
+    }
+    CGFloat x = ((((scrollView.contentOffset.x * 1) / self.width) * iw) - deduction);
+    [self.collectionView setContentOffset:CGPointMake(x, 0)];
+}
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (scrollView == _secretScrollView) {
-        BOOL isLandscape = (self.width > self.height);
-        CGFloat offset = scrollView.contentOffset.x;
-        CGFloat iw = 0;
-        CGFloat deduction = 0;
-        if ([super isTablet]) {
-            deduction = (isLandscape ? 110 : 70);
-            iw = isLandscape ? 750.0f : 575.0f;
-        }
-        else {
-            iw = 280;
-            deduction = -40;
-        }
-        CGFloat x = ((((offset * 1) / self.width) * iw) - deduction);
-        //NSLog(@"X: %f (%f)", x, offset);
-        [self.collectionView setContentOffset:CGPointMake(x, 0)];
+        [self setOffsetForScrollView:scrollView];
+        _currentPage = (scrollView.contentOffset.x / self.width);
+    }
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    _currentPage = (scrollView.contentOffset.x / self.width);
+    NSLog(@"Current page: %d", _currentPage);
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    if (!decelerate) {
+        _currentPage = (scrollView.contentOffset.x / self.width);
+        NSLog(@"Current page: %d", _currentPage);
     }
 }
 

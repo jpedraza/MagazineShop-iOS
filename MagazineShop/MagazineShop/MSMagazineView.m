@@ -20,6 +20,7 @@
 @property (nonatomic, strong) NSMutableDictionary *products;
 @property (nonatomic, strong) NSArray *productsInfo;
 @property (nonatomic) NSInteger pricedProductCount;
+@property (nonatomic) NSInteger pricedProductCountFinished;
 
 @property (nonatomic, strong) id <MSMagazineListViewDelegate> magazineDelegate;
 
@@ -151,48 +152,23 @@
     [_currentMagazineView reloadData];
 }
 
-- (void)loadData {
-    @autoreleasepool {
-        NSString *url = [kMSConfigBaseUrl stringByAppendingPathComponent:@"api/issues.json"];
-        NSError *err;
-        NSData *jsonData = [NSData dataWithContentsOfURL:[NSURL URLWithString:url] options:NSDataReadingUncached error:&err];
-        if (!err) {
-            NSDictionary *d = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&err];
-            _productsInfo = [d objectForKey:@"issues"];
-            _products = [NSMutableDictionary dictionary];
-            _pricedProductCount = 0;
-            for (NSDictionary *s in _productsInfo) {
-                if ([[s objectForKey:@"price"] floatValue] > 0) {
-                    _pricedProductCount++;
-                    SKProductsRequest *request = [[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithObject:[s objectForKey:@"identifier"]]];
-                    [request setDelegate:self];
-                    [request start];
-                }
-            }
-        }
-    }
-}
-
-- (void)startLoadingProducts {
-    @autoreleasepool {
-        [self performSelectorInBackground:@selector(loadData) withObject:nil];
-    }
-}
-
 - (void)loadProducts {
     if ([_delegate respondsToSelector:@selector(magazineViewDidStartLoadingData:)]) {
         [_delegate magazineViewDidStartLoadingData:self];
     }
-    [NSThread detachNewThreadSelector:@selector(startLoadingProducts) toTarget:self withObject:nil];
+    NSString *url = [kMSConfigBaseUrl stringByAppendingPathComponent:@"api/issues.json"];
+    MSDownload *download = [[MSDownload alloc] initWithURL:url andDelegate:self];
+    [kDownloadOperation addOperation:download];
 }
 
 #pragma mark StoreKit delegate methods
 
 - (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response {
+    _pricedProductCountFinished++;
     for (SKProduct *p in response.products) {
         [_products setObject:p forKey:p.productIdentifier];
     }
-    if (_pricedProductCount == [[_products allKeys] count]) {
+    if (_pricedProductCount == _pricedProductCountFinished) {
         [self performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
         if ([_delegate respondsToSelector:@selector(magazineViewDidFinishLoadingData:)]) {
             [(NSObject *)_delegate performSelectorOnMainThread:@selector(magazineViewDidFinishLoadingData:) withObject:self waitUntilDone:NO];
@@ -208,6 +184,39 @@
 
 - (NSArray *)magazineListViewProductsInfoForCollectionView:(MSMagazineListView *)view {
     return _productsInfo;
+}
+
+#pragma mark Download delegate methods
+
+- (void)download:(MSDownload *)download didFinishLoadingWithData:(NSData *)data {
+    NSError *err;
+    NSDictionary *d = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&err];
+    if (!err) {
+        _productsInfo = [d objectForKey:@"issues"];
+        _products = [NSMutableDictionary dictionary];
+        _pricedProductCount = 0;
+        _pricedProductCountFinished = 0;
+        for (NSDictionary *s in _productsInfo) {
+            if ([[s objectForKey:@"price"] floatValue] > 0) {
+                _pricedProductCount++;
+                if (![_products objectForKey:[s objectForKey:@"identifier"]]) {
+                    SKProductsRequest *request = [[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithObject:[s objectForKey:@"identifier"]]];
+                    [request setDelegate:self];
+                    [request start];
+                }
+            }
+        }
+    }
+}
+
+- (void)download:(MSDownload *)download didFinishLoadingWithError:(NSError *)error {
+    
+}
+
+- (void)download:(MSDownload *)download didUpdatePercentageProgressStatus:(CGFloat)percentage {
+    if ([_delegate respondsToSelector:@selector(magazineView:didUpdatePercentageValue:)]) {
+        [_delegate magazineView:self didUpdatePercentageValue:percentage];
+    }
 }
 
 

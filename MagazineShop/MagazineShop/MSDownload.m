@@ -12,6 +12,7 @@
 @interface MSDownload ()
 
 @property (nonatomic, strong) NSMutableData *receivedData;
+@property (nonatomic) long long totalDataSize;
 
 @end
 
@@ -22,11 +23,23 @@
 #pragma mark Initialization
 
 - (id)initWithURL:(NSString *)urlPath andDelegate:(id <MSDownloadDelegate>)delegate {
-    
+    self = [super init];
+    if (self) {
+        _connectionURL = urlPath;
+        _postParameters = nil;
+        _delegate = delegate;
+    }
+    return self;
 }
 
 - (id)initWithURL:(NSString *)urlPath withPostParameters:(NSMutableDictionary *)postParameters andDelegate:(id <MSDownloadDelegate>)delegate {
-    
+    self = [super init];
+    if (self) {
+        _connectionURL = urlPath;
+        _postParameters = postParameters;
+        _delegate = delegate;
+    }
+    return self;
 }
 
 - (id)initWithURL:(NSString *)urlPath withPostParameters:(NSMutableDictionary *)postParameters andUrlConnectionDelegate:(id<NSURLConnectionDelegate,NSURLConnectionDataDelegate>)delegate {
@@ -126,11 +139,11 @@
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
-    
     if ([_connectionDelegate respondsToSelector:@selector(connection:didReceiveResponse:)]) {
         [_connectionDelegate connection:connection didReceiveResponse:response];
     }
     else {
+        _totalDataSize = response.expectedContentLength;
         _receivedData = [NSMutableData data];
     }
 }
@@ -141,6 +154,12 @@
     }
     else {
         [_receivedData appendData:data];
+        if ([_delegate respondsToSelector:@selector(download:didUpdatePercentageProgressStatus:)]) {
+            CGFloat p = (([_receivedData length] * 100) / _totalDataSize);
+            if (p > 100) p = 100;
+            [_delegate download:self didUpdatePercentageProgressStatus:p];
+            NSLog(@"Percent download: %f", p);
+        }
     }
 }
 

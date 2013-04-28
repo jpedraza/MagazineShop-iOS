@@ -13,9 +13,12 @@
 
 @protocol MSDownloadDelegate <NSObject>
 
+@required
 - (void)download:(MSDownload *)download didFinishLoadingWithData:(NSData *)data;
+
+@optional
 - (void)download:(MSDownload *)download didFinishLoadingWithError:(NSError *)error;
-- (void)download:(MSDownload *)download didUpdatePercentageProgressStatus:(NSInteger)percentage;
+- (void)download:(MSDownload *)download didUpdatePercentageProgressStatus:(CGFloat)percentage;
 
 @end
 

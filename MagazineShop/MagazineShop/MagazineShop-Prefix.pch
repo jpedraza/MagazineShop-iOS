@@ -15,6 +15,7 @@
     #import <StoreKit/StoreKit.h>
     #import "MSAppDelegate.h"
     #import "MSConfig.h"
+    #import "MSColorConfig.h"
     #import "MSLang.h"
     #import "MSTracking.h"
     #import "UIView+Layout.h"

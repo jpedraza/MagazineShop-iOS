@@ -9,20 +9,21 @@
 #import "MSMagazineListSingleView.h"
 #import "MSMagazineListMediumView.h"
 #import "MSMagazineListDenseView.h"
+#import "MSDownload.h"
 
 
 @class MSMagazineView;
 
 @protocol MSMagazineViewDelegate <NSObject>
 
-@optional
 - (void)magazineViewDidStartLoadingData:(MSMagazineView *)view;
 - (void)magazineViewDidFinishLoadingData:(MSMagazineView *)view;
+- (void)magazineView:(MSMagazineView *)view didUpdatePercentageValue:(CGFloat)percentage;
 
 @end
 
 
-@interface MSMagazineView : MSView <MSMagazineListViewDataSource, SKProductsRequestDelegate>
+@interface MSMagazineView : MSView <MSMagazineListViewDataSource, SKProductsRequestDelegate, MSDownloadDelegate>
 
 @property (nonatomic) MSConfigMainMagazineListViewType listViewType;
 @property (nonatomic, weak) id <MSMagazineViewDelegate> delegate;

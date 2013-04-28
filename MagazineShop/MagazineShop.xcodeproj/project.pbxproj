@@ -166,6 +166,7 @@
 		15DED01B172D5991004CA548 /* MSImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 15DED01A172D5991004CA548 /* MSImageView.m */; };
 		15DED01F172D6FE4004CA548 /* MSProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = 15DED01E172D6FE4004CA548 /* MSProduct.m */; };
 		15DED023172D7A8E004CA548 /* MSDownload.m in Sources */ = {isa = PBXBuildFile; fileRef = 15DED022172D7A8E004CA548 /* MSDownload.m */; };
+		15DED02A172DA325004CA548 /* MSLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 15DED029172DA325004CA548 /* MSLabel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -379,6 +380,9 @@
 		15DED01E172D6FE4004CA548 /* MSProduct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSProduct.m; sourceTree = "<group>"; };
 		15DED021172D7A8E004CA548 /* MSDownload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSDownload.h; sourceTree = "<group>"; };
 		15DED022172D7A8E004CA548 /* MSDownload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSDownload.m; sourceTree = "<group>"; };
+		15DED024172DA1DE004CA548 /* MSColorConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSColorConfig.h; sourceTree = "<group>"; };
+		15DED028172DA325004CA548 /* MSLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSLabel.h; sourceTree = "<group>"; };
+		15DED029172DA325004CA548 /* MSLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSLabel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -524,6 +528,7 @@
 		1507109E17208D55008A64F3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				15DED027172DA314004CA548 /* Label */,
 				15DED018172D597A004CA548 /* Image view */,
 				1533BF9017218902001213DE /* Magazine lists */,
 				150711201720B4E2008A64F3 /* Toolbars */,
@@ -648,6 +653,7 @@
 			children = (
 				150710DA172090FD008A64F3 /* MSConfig.h */,
 				150710DB172090FD008A64F3 /* MSConfig.m */,
+				15DED024172DA1DE004CA548 /* MSColorConfig.h */,
 			);
 			name = Config;
 			sourceTree = "<group>";
@@ -1096,6 +1102,15 @@
 			name = Download;
 			sourceTree = "<group>";
 		};
+		15DED027172DA314004CA548 /* Label */ = {
+			isa = PBXGroup;
+			children = (
+				15DED028172DA325004CA548 /* MSLabel.h */,
+				15DED029172DA325004CA548 /* MSLabel.m */,
+			);
+			name = Label;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1334,6 +1349,7 @@
 				15DED01B172D5991004CA548 /* MSImageView.m in Sources */,
 				15DED01F172D6FE4004CA548 /* MSProduct.m in Sources */,
 				15DED023172D7A8E004CA548 /* MSDownload.m in Sources */,
+				15DED02A172DA325004CA548 /* MSLabel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

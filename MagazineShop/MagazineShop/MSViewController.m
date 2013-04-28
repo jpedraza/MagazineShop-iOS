@@ -64,7 +64,7 @@
 #pragma mark Creating elements
 
 - (void)createAllElements {
-    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"MS_bcg_main.png"]]];
+    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"MS_bcg_main"]]];
 }
 
 #pragma mark Settings

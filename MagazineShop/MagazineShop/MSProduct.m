@@ -21,7 +21,7 @@
     _thumbnail = [data objectForKey:@"thumbnail"];
     _cover = [data objectForKey:@"cover"];
     _identifier = [data objectForKey:@"identifier"];
-    _date = [data objectForKey:@"date"];
+    _date = [NSDate dateWithTimeIntervalSince1970:[[data objectForKey:@"date"] integerValue]];
 }
 
 @end

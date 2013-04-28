@@ -7,7 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MSMagazineReaderViewControllerDataProtocol.h"
 
-@interface MSMagazineReaderData : NSObject
+
+@interface MSMagazineReaderData : NSObject <MSMagazineReaderViewControllerDataProtocolDatasource, MSMagazineReaderViewControllerDataProtocolDelegate>
 
 @end

@@ -6,8 +6,12 @@
 //  Copyright (c) 2013 Fuerte Innovations. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "MSMagazineReaderBasicPageView.h"
+
 
 @interface MSMagazineReaderPageViewController : UIViewController
+
+@property (nonatomic, strong) MSMagazineReaderBasicPageView *pageView;
+
 
 @end

@@ -11,7 +11,7 @@
 
 + (UIImage *)alphaPatternImageWithSquareSide:(CGFloat)side withColor1:(UIColor *)color1 andColor2:(UIColor *)color2;
 
-+ (UIImage *)alphaPatternImageWithSguareSide:(CGFloat)side;
++ (UIImage *)alphaPatternImageWithSquareSide:(CGFloat)side;
 
 + (UIImage *)alphaPatternImage;
 

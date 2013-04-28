@@ -369,6 +369,7 @@
 		15DED010172D1721004CA548 /* MSMagazineReaderPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSMagazineReaderPageViewController.m; sourceTree = "<group>"; };
 		15DED012172D1756004CA548 /* MSMagazineReaderFlatPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSMagazineReaderFlatPageViewController.h; sourceTree = "<group>"; };
 		15DED013172D1756004CA548 /* MSMagazineReaderFlatPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSMagazineReaderFlatPageViewController.m; sourceTree = "<group>"; };
+		15DED015172D5464004CA548 /* MSMagazineReaderViewControllerDataProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSMagazineReaderViewControllerDataProtocol.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1004,6 +1005,7 @@
 		15DECFFC172D11F2004CA548 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				15DED015172D5464004CA548 /* MSMagazineReaderViewControllerDataProtocol.h */,
 				15DECFFE172D120D004CA548 /* Curled */,
 				15DECFFB172D11B6004CA548 /* Flat */,
 			);

@@ -7,6 +7,7 @@
 //
 
 #import "MSHomeViewController.h"
+#import "MSMagazineReader.h"
 
 
 @interface MSHomeViewController ()
@@ -15,6 +16,8 @@
 @property (nonatomic, strong) MSHomeBottomToolbarView *bottomToolbar;
 
 @property (nonatomic, strong) MSMagazineView *magazineView;
+
+@property (nonatomic, strong) MSMagazineReader *magazineReader;
 
 @end
 
@@ -150,6 +153,10 @@
     [super hideHUD];
     [_topToolbar showElements:YES];
     [_bottomToolbar showElements:YES];
+}
+
+- (void)aaaaaaa {
+    
 }
 
 #pragma mark Subscription controller delegate methods

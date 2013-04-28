@@ -98,8 +98,7 @@
 #pragma mark Collection view datasource & delegate methods
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 50;
-    //return [[self productsInfo] count];
+    return [[self productsInfo] count];
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {

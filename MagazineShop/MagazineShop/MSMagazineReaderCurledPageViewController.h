@@ -7,7 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MSMagazineReaderViewControllerDataProtocol.h"
+
 
 @interface MSMagazineReaderCurledPageViewController : UIPageViewController
+
+@property (nonatomic, weak) id <MSMagazineReaderViewControllerDataProtocolDatasource> magazineDataSource;
+@property (nonatomic, weak) id <MSMagazineReaderViewControllerDataProtocolDelegate> magazineDelegate;
+
 
 @end

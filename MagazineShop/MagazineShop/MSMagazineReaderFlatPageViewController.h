@@ -7,7 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MSMagazineReaderViewControllerDataProtocol.h"
+
 
 @interface MSMagazineReaderFlatPageViewController : UIViewController
+
+@property (nonatomic, weak) id <MSMagazineReaderViewControllerDataProtocolDatasource> magazineDataSource;
+@property (nonatomic, weak) id <MSMagazineReaderViewControllerDataProtocolDelegate> magazineDelegate;
+
 
 @end

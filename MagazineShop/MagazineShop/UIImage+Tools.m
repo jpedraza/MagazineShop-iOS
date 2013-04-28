@@ -132,13 +132,13 @@ static inline CGFloat toRadians (CGFloat degrees) { return degrees * M_PI/180.0f
 	return patternImage;
 }
 
-+ (UIImage *)alphaPatternImageWithSguareSide:(CGFloat)side {
++ (UIImage *)alphaPatternImageWithSquareSide:(CGFloat)side {
 	CGFloat c = 245;
 	return [self alphaPatternImageWithSquareSide:side withColor1:[UIColor colorWithRealRed:c green:c blue:c alpha:1] andColor2:[UIColor whiteColor]];
 }
 
 + (UIImage *)alphaPatternImage {
-	return [self alphaPatternImageWithSguareSide:12];
+	return [self alphaPatternImageWithSquareSide:12];
 }
 
 - (UIImage *)rotate:(UIImageOrientation)orient {

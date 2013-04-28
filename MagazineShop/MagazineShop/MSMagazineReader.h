@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "MSMagazineReaderData.h"
+#import "MSMagazineReaderCurledPageViewController.h"
+#import "MSMagazineReaderFlatPageViewController.h"
 
 
 typedef enum {
@@ -21,6 +23,9 @@ typedef enum {
 
 @property (nonatomic, readonly) MSMagazineReaderDisplayType displayType;
 @property (nonatomic, strong, readonly) MSMagazineReaderData *magazineData;
+
+- (MSMagazineReaderCurledPageViewController *)curledViewController;
+- (MSMagazineReaderFlatPageViewController *)flatViewController;
 
 - (id)initWithType:(MSMagazineReaderDisplayType)type;
 

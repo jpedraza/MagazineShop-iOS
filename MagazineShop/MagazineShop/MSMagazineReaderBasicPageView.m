@@ -17,7 +17,7 @@
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        
+        [self setBackgroundColor:[UIColor alphaPatternImageColorWithSquareSide:20]];
     }
     return self;
 }

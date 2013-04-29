@@ -19,7 +19,7 @@
 - (UICollectionViewFlowLayout *)flowLayout {
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
     [flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
-    [flowLayout setItemSize:CGSizeMake(180, 180)];
+    [flowLayout setItemSize:CGSizeMake(180, 240)];
     [flowLayout setMinimumInteritemSpacing:20];
     return flowLayout;
 }

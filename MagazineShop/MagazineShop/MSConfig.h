@@ -10,6 +10,7 @@
 
 
 #define kDebug                                              YES
+#define kDegugClearCache                                    YES
 #define kDebugLabels                                        NO
 
 #define kMSConfigBaseUrl                                    @"http://fuertemag.fuerteint.com/"
@@ -23,5 +24,7 @@ typedef enum {
 
 
 @interface MSConfig : NSObject
+
+
 
 @end

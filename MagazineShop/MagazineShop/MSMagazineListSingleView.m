@@ -30,7 +30,7 @@
         else return CGSizeMake(525, 700);
     }
     else {
-        return CGSizeMake(300, 320);
+        return CGSizeMake(320, 320);
     }
 }
 
@@ -48,8 +48,8 @@
 - (UICollectionViewFlowLayout *)flowLayout {
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
     [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
-    [flowLayout setMinimumInteritemSpacing:([super isTablet] ? 50 : 50)];
-    [flowLayout setMinimumLineSpacing:50];
+    [flowLayout setMinimumInteritemSpacing:([super isTablet] ? 50 : 0)];
+    [flowLayout setMinimumLineSpacing:([super isTablet] ? 50 : 0)];
     return flowLayout;
 }
 
@@ -65,6 +65,10 @@
 
 - (void)createAllElements {
     [super createAllElements];
+    
+    if (![self isTablet]) {
+        [self.collectionView setPagingEnabled:YES];
+    }
 }
 
 #pragma mark Data
@@ -98,7 +102,7 @@
         if (self.width > self.height) return UIEdgeInsetsMake(50, 50, 50, 50);
         else return UIEdgeInsetsMake(50, 50, 50, 50);
     }
-    else return UIEdgeInsetsMake(20, 10, 20, 10);
+    else return UIEdgeInsetsMake(0, 0, 0, 0);
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -128,63 +132,65 @@
 }
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
-    CGFloat horizontalVelocity = fabs(velocity.x);
-	CGFloat currentXOffset = scrollView.contentOffset.x;
-	CGPoint middlePoint = CGPointMake(CGRectGetMidX(scrollView.bounds), CGRectGetMidY(scrollView.bounds));
-	
-	UIView *currentView = nil;
-	NSArray *visibleCellViews = self.visibleCellViews;
-	
-	for (UIView *v in visibleCellViews) {
-		if (CGRectContainsPoint(v.frame, middlePoint)) {
-			currentView = v;
-			break;
-		}
-	}
-	
-	CGFloat convertedCenterOffsetX = [self convertPoint:currentView.center fromView:scrollView].x;
-	CGFloat midWidth = self.bounds.size.width / 2.0;
-	
-	CGFloat finalXOffset = 0.0;
-	if (targetContentOffset->x < currentXOffset) {
-		// Going left
-		if (horizontalVelocity > 0.15 && convertedCenterOffsetX > midWidth) {
-            if (currentView) {
-				NSInteger currentViewIndex = [visibleCellViews indexOfObject:currentView];
-                if (currentViewIndex > 0) {
-                    UIView *viewBefore = visibleCellViews[currentViewIndex - 1];
-                    finalXOffset = viewBefore.center.x - midWidth;
-                }
-                else {
-					finalXOffset = currentView.center.x - midWidth;
-				}
+    if ([self isTablet]) {
+        CGFloat horizontalVelocity = fabs(velocity.x);
+        CGFloat currentXOffset = scrollView.contentOffset.x;
+        CGPoint middlePoint = CGPointMake(CGRectGetMidX(scrollView.bounds), CGRectGetMidY(scrollView.bounds));
+        
+        UIView *currentView = nil;
+        NSArray *visibleCellViews = self.visibleCellViews;
+        
+        for (UIView *v in visibleCellViews) {
+            if (CGRectContainsPoint(v.frame, middlePoint)) {
+                currentView = v;
+                break;
             }
-		}
-        else {
-			finalXOffset = currentView.center.x - midWidth;
-		}
-	}
-    else {
-		// Going right
-		if (horizontalVelocity > 0.15 && convertedCenterOffsetX < midWidth) {
-            if (currentView) {
-				NSInteger currentViewIndex = [visibleCellViews indexOfObject:currentView];
-                if (currentViewIndex < visibleCellViews.count) {
-                    UIView *viewAfter = visibleCellViews[currentViewIndex + 1];
-                    finalXOffset = viewAfter.center.x - midWidth;
+        }
+        
+        CGFloat convertedCenterOffsetX = [self convertPoint:currentView.center fromView:scrollView].x;
+        CGFloat midWidth = self.bounds.size.width / 2.0;
+        
+        CGFloat finalXOffset = 0.0;
+        if (targetContentOffset->x < currentXOffset) {
+            // Going left
+            if (horizontalVelocity > 0.15 && convertedCenterOffsetX > midWidth) {
+                if (currentView) {
+                    NSInteger currentViewIndex = [visibleCellViews indexOfObject:currentView];
+                    if (currentViewIndex > 0) {
+                        UIView *viewBefore = visibleCellViews[currentViewIndex - 1];
+                        finalXOffset = viewBefore.center.x - midWidth;
+                    }
+                    else {
+                        finalXOffset = currentView.center.x - midWidth;
+                    }
                 }
             }
-		}
+            else {
+                finalXOffset = currentView.center.x - midWidth;
+            }
+        }
         else {
-			finalXOffset = currentView.center.x - midWidth;
-		}
-	}
-	finalXOffset = roundf(finalXOffset);
-	if (finalXOffset <= 0) finalXOffset = 0 + FLT_EPSILON;
-	if (finalXOffset >= scrollView.contentSize.width - scrollView.bounds.size.width) {
-		finalXOffset = scrollView.contentSize.width - scrollView.bounds.size.width - 0.1;
-	}
-	targetContentOffset->x = finalXOffset;
+            // Going right
+            if (horizontalVelocity > 0.15 && convertedCenterOffsetX < midWidth) {
+                if (currentView) {
+                    NSInteger currentViewIndex = [visibleCellViews indexOfObject:currentView];
+                    if (currentViewIndex < visibleCellViews.count) {
+                        UIView *viewAfter = visibleCellViews[currentViewIndex + 1];
+                        finalXOffset = viewAfter.center.x - midWidth;
+                    }
+                }
+            }
+            else {
+                finalXOffset = currentView.center.x - midWidth;
+            }
+        }
+        finalXOffset = roundf(finalXOffset);
+        if (finalXOffset <= 0) finalXOffset = 0 + FLT_EPSILON;
+        if (finalXOffset >= scrollView.contentSize.width - scrollView.bounds.size.width) {
+            finalXOffset = scrollView.contentSize.width - scrollView.bounds.size.width - 0.1;
+        }
+        targetContentOffset->x = finalXOffset;
+    }
 }
 
 

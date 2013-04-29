@@ -24,6 +24,7 @@
 
 @interface MSMagazineBasicCell : UICollectionViewCell
 
+@property (nonatomic, strong) UIView *cellBackgroundView;
 @property (nonatomic, strong) MSImageView *imageView;
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UILabel *dateLabel;

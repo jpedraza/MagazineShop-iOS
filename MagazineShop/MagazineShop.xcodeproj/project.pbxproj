@@ -142,6 +142,7 @@
 		150711CE172163DF008A64F3 /* MS_icon_zoomout@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 15071180172163DF008A64F3 /* MS_icon_zoomout@2x.png */; };
 		150711D11721664F008A64F3 /* MS_icon_onecolumn.png in Resources */ = {isa = PBXBuildFile; fileRef = 150711CF1721664F008A64F3 /* MS_icon_onecolumn.png */; };
 		150711D21721664F008A64F3 /* MS_icon_onecolumn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 150711D01721664F008A64F3 /* MS_icon_onecolumn@2x.png */; };
+		1515609F172F1C8F00DF4485 /* MSBorderOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1515609E172F1C8F00DF4485 /* MSBorderOverlayView.m */; };
 		1533BF971721895A001213DE /* MSMagazineListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1533BF961721895A001213DE /* MSMagazineListView.m */; };
 		1533BF9D17218D26001213DE /* MSMagazineListMediumView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1533BF9C17218D26001213DE /* MSMagazineListMediumView.m */; };
 		1533BFA017218D3F001213DE /* MSMagazineListSingleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1533BF9F17218D3F001213DE /* MSMagazineListSingleView.m */; };
@@ -335,6 +336,8 @@
 		15071180172163DF008A64F3 /* MS_icon_zoomout@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MS_icon_zoomout@2x.png"; sourceTree = "<group>"; };
 		150711CF1721664F008A64F3 /* MS_icon_onecolumn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MS_icon_onecolumn.png; sourceTree = "<group>"; };
 		150711D01721664F008A64F3 /* MS_icon_onecolumn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MS_icon_onecolumn@2x.png"; sourceTree = "<group>"; };
+		1515609D172F1C8F00DF4485 /* MSBorderOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSBorderOverlayView.h; sourceTree = "<group>"; };
+		1515609E172F1C8F00DF4485 /* MSBorderOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSBorderOverlayView.m; sourceTree = "<group>"; };
 		1533BF951721895A001213DE /* MSMagazineListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSMagazineListView.h; sourceTree = "<group>"; };
 		1533BF961721895A001213DE /* MSMagazineListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSMagazineListView.m; sourceTree = "<group>"; };
 		1533BF9B17218D26001213DE /* MSMagazineListMediumView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSMagazineListMediumView.h; sourceTree = "<group>"; };
@@ -538,6 +541,8 @@
 		1507109E17208D55008A64F3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				1515609D172F1C8F00DF4485 /* MSBorderOverlayView.h */,
+				1515609E172F1C8F00DF4485 /* MSBorderOverlayView.m */,
 				15DED030172E66B8004CA548 /* Lazy scroll view */,
 				15DED02F172E66AB004CA548 /* Page control */,
 				15DED027172DA314004CA548 /* Label */,
@@ -1386,6 +1391,7 @@
 				15DED033172E66D5004CA548 /* MSPageControl.m in Sources */,
 				15DED039172E66DE004CA548 /* MSLazyPageScrollView.m in Sources */,
 				15DED03A172E66DE004CA548 /* MSLazyPageView.m in Sources */,
+				1515609F172F1C8F00DF4485 /* MSBorderOverlayView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

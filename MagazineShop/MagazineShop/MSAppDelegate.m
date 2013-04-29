@@ -36,13 +36,15 @@
     [MSTracking initTrackingSessions];
     
     // Handle caching
-    [MSImageView clearCache:MSImageViewCacheLifetimeTerminate];
-    [MSDownload clearCache:MSDownloadCacheLifetimeTerminate];
-    if (kDebug) {
-        [MSImageView clearCache:MSImageViewCacheLifetimeSession];
-        [MSImageView clearCache:MSImageViewCacheLifetimeForever];
-        [MSDownload clearCache:MSDownloadCacheLifetimeSession];
-        [MSDownload clearCache:MSDownloadCacheLifetimeForever];
+    if (kDegugClearCache) {
+        [MSImageView clearCache:MSImageViewCacheLifetimeTerminate];
+        [MSDownload clearCache:MSDownloadCacheLifetimeTerminate];
+        if (kDebug) {
+            [MSImageView clearCache:MSImageViewCacheLifetimeSession];
+            [MSImageView clearCache:MSImageViewCacheLifetimeForever];
+            [MSDownload clearCache:MSDownloadCacheLifetimeSession];
+            [MSDownload clearCache:MSDownloadCacheLifetimeForever];
+        }
     }
     
     // Operations
@@ -76,8 +78,10 @@
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    [MSImageView clearCache:MSImageViewCacheLifetimeSession];
-    [MSDownload clearCache:MSDownloadCacheLifetimeSession];
+    if (kDegugClearCache) {
+        [MSImageView clearCache:MSImageViewCacheLifetimeSession];
+        [MSDownload clearCache:MSDownloadCacheLifetimeSession];
+    }
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {

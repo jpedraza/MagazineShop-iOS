@@ -9,6 +9,6 @@
 
 #pragma mark Cells
 
-#define kColorCellTitleLabel                                    @"000000"
-#define kColorCellDateLabel                                     @"FF0000"
-#define kColorCellInfoLabel                                     @"CC0000"
+#define kColorCellTitleLabel                                    @"FFFFFF"
+#define kColorCellDateLabel                                     @"F2F2F2"
+#define kColorCellInfoLabel                                     @"F2F2F2"

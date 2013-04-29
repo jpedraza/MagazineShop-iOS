@@ -7,7 +7,9 @@
 //
 
 #import "MSMagazineBasicCell.h"
+#import "MSBorderOverlayView.h"
 #import "UILabel+DynamicHeight.h"
+#import "SKProduct+Tools.h"
 
 
 @interface MSMagazineBasicCell ()
@@ -44,7 +46,7 @@
 #pragma mark Creating elements
 
 - (void)createImageView {
-    _imageView = [[MSImageView alloc] initWithFrame:CGRectMake(10, 10, 130, 190)];
+    _imageView = [[MSImageView alloc] initWithFrame:CGRectMake(18, 18, 130, 190)];
     [_imageView setUserInteractionEnabled:YES];
     [self addSubview:_imageView];
     
@@ -65,21 +67,21 @@
 }
 
 - (void)createLabels {
-    _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake((_imageView.right + 10), 10, (self.width - (_imageView.right + 20)), 20)];
+    _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake((_imageView.right + 10), 18, (self.width - (_imageView.right + 20)), 20)];
     [_titleLabel setTextColor:[UIColor colorWithHexString:kColorCellTitleLabel]];
     [_titleLabel setFont:[UIFont boldSystemFontOfSize:13]];
     [self configureLabel:_titleLabel];
     [self addSubview:_titleLabel];
     
     _dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(_titleLabel.xOrigin, (_titleLabel.bottom + 2), _titleLabel.width, 12)];
-    [_titleLabel setTextColor:[UIColor colorWithHexString:kColorCellDateLabel]];
+    [_dateLabel setTextColor:[UIColor colorWithHexString:kColorCellDateLabel]];
     [_dateLabel setFont:[UIFont boldSystemFontOfSize:10]];
     [self configureLabel:_dateLabel];
     [self addSubview:_dateLabel];
     
-    _infoLabel = [[UILabel alloc] initWithFrame:CGRectMake(_titleLabel.xOrigin, (_dateLabel.bottom + 2), _titleLabel.width, 999)];
-    [_titleLabel setTextColor:[UIColor colorWithHexString:kColorCellInfoLabel]];
-    [_infoLabel setFont:[UIFont boldSystemFontOfSize:11]];
+    _infoLabel = [[UILabel alloc] initWithFrame:CGRectMake(_titleLabel.xOrigin, (_dateLabel.bottom + 12), _titleLabel.width, 999)];
+    [_infoLabel setTextColor:[UIColor colorWithHexString:kColorCellInfoLabel]];
+    [_infoLabel setFont:[UIFont systemFontOfSize:11]];
     [self configureLabel:_infoLabel];
     [self addSubview:_infoLabel];
 }
@@ -99,7 +101,7 @@
     _actionButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_actionButton addTarget:self action:@selector(didClickActionsButton:) forControlEvents:UIControlEventTouchUpInside];
     [self configureButton:_actionButton];
-    [_actionButton setFrame:CGRectMake(10, (self.height - 44), 90, 34)];
+    [_actionButton setFrame:CGRectMake(18, (self.height - 52), 90, 34)];
     [_actionButton setAutoresizingBottomLeft];
     [self addSubview:_actionButton];
     
@@ -107,17 +109,29 @@
     [_detailButton addTarget:self action:@selector(didClickDetailButton:) forControlEvents:UIControlEventTouchUpInside];
     [self configureButton:_detailButton];
     [_detailButton setTitle:MSLangGet(@"Detail") forState:UIControlStateNormal];
-    [_detailButton setFrame:CGRectMake((_actionButton.right + 2), (self.height - 44), 60, 34)];
+    [_detailButton setFrame:CGRectMake((_actionButton.right + 2), _actionButton.yOrigin, 60, 34)];
     [_detailButton setAutoresizingBottomLeft];
     [self addSubview:_detailButton];
 }
 
-- (void)createAllElements {
-    [self setBackgroundColor:[UIColor scrollViewTexturedBackgroundColor]];
+- (void)createBackgroundView {
+    _cellBackgroundView = [[UIView alloc] initWithFrame:self.bounds];
+    [_cellBackgroundView setBackgroundColor:[UIColor colorWithWhite:0 alpha:0.1]];
+    [_cellBackgroundView setAutoresizingWidthAndHeight];
+    [self addSubview:_cellBackgroundView];
     
+    UIView *border = [[MSBorderOverlayView alloc] initWithFrame:_cellBackgroundView.bounds];
+    [border setAutoresizingWidthAndHeight];
+    [_cellBackgroundView addSubview:border];
+}
+
+- (void)createAllElements {
+    [self setBackgroundColor:[UIColor clearColor]];
+    
+    [self createBackgroundView];
     [self createImageView];
-    [self createLabels];
     [self createButtons];
+    [self createLabels];
 }
 
 #pragma mark Actions
@@ -171,11 +185,13 @@
     NSString *dateText = [formatter stringFromDate:issueData.date];
     [_dateLabel setText:dateText];
     [_infoLabel setText:issueData.info withWidth:_infoLabel.width];
+    CGFloat h = (self.height - _infoLabel.yOrigin - 24 - _actionButton.height);
+    if (_infoLabel.height > h) _infoLabel.height = h;
     
     // TODO: Make sure this doesn't go after rotation if it's supposed to be disabled
     [_actionButton setEnabled:YES];
     
-    NSString *actionTitle = MSLangGet(@"Buy");
+    NSString *actionTitle = [NSString stringWithFormat:@"%@ (%@)", MSLangGet(@"Buy"), issueData.product.priceAsString];
     if ([MSInAppPurchase isProductPurchased:issueData]) {
         MSProductAvailability a = [issueData productAvailability];
         switch (a) {
@@ -193,6 +209,12 @@
         }
     }
     [_actionButton setTitle:actionTitle forState:UIControlStateNormal];
+    CGRect r = _actionButton.frame;
+    [_actionButton sizeToFit];
+    r.size.width = (_actionButton.width + 20);
+    [_actionButton setFrame:r];
+    
+    [_detailButton setXOrigin:(_actionButton.right + 4)];
     
     [self layoutElements];
 }

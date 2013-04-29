@@ -2,7 +2,7 @@
 //  UIView+Layout.m
 //
 //  Created by Simon Lee on 21/12/2009.
-//  Copyright 2009 Fuerte International. All rights reserved.
+//  Copyright 2009 Fuerte Innovations. All rights reserved.
 //
 
 #import <QuartzCore/QuartzCore.h>

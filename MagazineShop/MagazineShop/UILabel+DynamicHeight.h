@@ -2,7 +2,7 @@
 //  UILabel+DynamicHeight.h
 //
 //  Created by Simon Lee on 22/10/2009.
-//  Copyright 2009 Fuerte International. All rights reserved.
+//  Copyright 2009 Fuerte Innovations. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

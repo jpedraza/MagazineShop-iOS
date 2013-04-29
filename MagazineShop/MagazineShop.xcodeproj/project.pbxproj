@@ -167,7 +167,9 @@
 		15DED01F172D6FE4004CA548 /* MSProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = 15DED01E172D6FE4004CA548 /* MSProduct.m */; };
 		15DED023172D7A8E004CA548 /* MSDownload.m in Sources */ = {isa = PBXBuildFile; fileRef = 15DED022172D7A8E004CA548 /* MSDownload.m */; };
 		15DED02A172DA325004CA548 /* MSLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 15DED029172DA325004CA548 /* MSLabel.m */; };
-		15DED02E172DC6F2004CA548 /* MSMagazineListSingleInvisibleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 15DED02D172DC6F2004CA548 /* MSMagazineListSingleInvisibleScrollView.m */; };
+		15DED033172E66D5004CA548 /* MSPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 15DED032172E66D5004CA548 /* MSPageControl.m */; };
+		15DED039172E66DE004CA548 /* MSLazyPageScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 15DED035172E66DE004CA548 /* MSLazyPageScrollView.m */; };
+		15DED03A172E66DE004CA548 /* MSLazyPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 15DED037172E66DE004CA548 /* MSLazyPageView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -384,8 +386,13 @@
 		15DED024172DA1DE004CA548 /* MSColorConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSColorConfig.h; sourceTree = "<group>"; };
 		15DED028172DA325004CA548 /* MSLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSLabel.h; sourceTree = "<group>"; };
 		15DED029172DA325004CA548 /* MSLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSLabel.m; sourceTree = "<group>"; };
-		15DED02C172DC6F2004CA548 /* MSMagazineListSingleInvisibleScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSMagazineListSingleInvisibleScrollView.h; sourceTree = "<group>"; };
-		15DED02D172DC6F2004CA548 /* MSMagazineListSingleInvisibleScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSMagazineListSingleInvisibleScrollView.m; sourceTree = "<group>"; };
+		15DED031172E66D5004CA548 /* MSPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSPageControl.h; sourceTree = "<group>"; };
+		15DED032172E66D5004CA548 /* MSPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSPageControl.m; sourceTree = "<group>"; };
+		15DED034172E66DE004CA548 /* MSLazyPageScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSLazyPageScrollView.h; sourceTree = "<group>"; };
+		15DED035172E66DE004CA548 /* MSLazyPageScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSLazyPageScrollView.m; sourceTree = "<group>"; };
+		15DED036172E66DE004CA548 /* MSLazyPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSLazyPageView.h; sourceTree = "<group>"; };
+		15DED037172E66DE004CA548 /* MSLazyPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSLazyPageView.m; sourceTree = "<group>"; };
+		15DED038172E66DE004CA548 /* MSLazyReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSLazyReusableView.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -531,6 +538,8 @@
 		1507109E17208D55008A64F3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				15DED030172E66B8004CA548 /* Lazy scroll view */,
+				15DED02F172E66AB004CA548 /* Page control */,
 				15DED027172DA314004CA548 /* Label */,
 				15DED018172D597A004CA548 /* Image view */,
 				1533BF9017218902001213DE /* Magazine lists */,
@@ -876,7 +885,6 @@
 		1533BF9117218916001213DE /* Single */ = {
 			isa = PBXGroup;
 			children = (
-				15DED02B172DC6B9004CA548 /* Invisible scroll view */,
 				158E840F172375D000D52A15 /* Cells */,
 				1533BF9E17218D3F001213DE /* MSMagazineListSingleView.h */,
 				1533BF9F17218D3F001213DE /* MSMagazineListSingleView.m */,
@@ -1115,13 +1123,25 @@
 			name = Label;
 			sourceTree = "<group>";
 		};
-		15DED02B172DC6B9004CA548 /* Invisible scroll view */ = {
+		15DED02F172E66AB004CA548 /* Page control */ = {
 			isa = PBXGroup;
 			children = (
-				15DED02C172DC6F2004CA548 /* MSMagazineListSingleInvisibleScrollView.h */,
-				15DED02D172DC6F2004CA548 /* MSMagazineListSingleInvisibleScrollView.m */,
+				15DED031172E66D5004CA548 /* MSPageControl.h */,
+				15DED032172E66D5004CA548 /* MSPageControl.m */,
 			);
-			name = "Invisible scroll view";
+			name = "Page control";
+			sourceTree = "<group>";
+		};
+		15DED030172E66B8004CA548 /* Lazy scroll view */ = {
+			isa = PBXGroup;
+			children = (
+				15DED034172E66DE004CA548 /* MSLazyPageScrollView.h */,
+				15DED035172E66DE004CA548 /* MSLazyPageScrollView.m */,
+				15DED036172E66DE004CA548 /* MSLazyPageView.h */,
+				15DED037172E66DE004CA548 /* MSLazyPageView.m */,
+				15DED038172E66DE004CA548 /* MSLazyReusableView.h */,
+			);
+			name = "Lazy scroll view";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1363,7 +1383,9 @@
 				15DED01F172D6FE4004CA548 /* MSProduct.m in Sources */,
 				15DED023172D7A8E004CA548 /* MSDownload.m in Sources */,
 				15DED02A172DA325004CA548 /* MSLabel.m in Sources */,
-				15DED02E172DC6F2004CA548 /* MSMagazineListSingleInvisibleScrollView.m in Sources */,
+				15DED033172E66D5004CA548 /* MSPageControl.m in Sources */,
+				15DED039172E66DE004CA548 /* MSLazyPageScrollView.m in Sources */,
+				15DED03A172E66DE004CA548 /* MSLazyPageView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

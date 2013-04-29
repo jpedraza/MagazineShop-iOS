@@ -7,7 +7,7 @@
 //
 
 
-#pragma mark - Cells
+#pragma mark Cells
 
 #define kColorCellTitleLabel                                    @"000000"
 #define kColorCellDateLabel                                     @"FF0000"

@@ -2,7 +2,7 @@
 //  UIImage+Tools.h
 //
 //  Created by Ondrej Rafaj on 26/09/2011.
-//  Copyright (c) 2011 Fuerte International. All rights reserved.
+//  Copyright (c) 2011 Fuerte Innovations. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

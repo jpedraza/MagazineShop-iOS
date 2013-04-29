@@ -8,6 +8,7 @@
 
 #import "MSMagazineListDenseView.h"
 #import "MSMagezineDenseCell.h"
+#import "MSMagazineView.h"
 
 
 @implementation MSMagazineListDenseView
@@ -59,6 +60,7 @@
     MSMagezineDenseCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[self cellIdentifier] forIndexPath:indexPath];
     MSProduct *issueData = [super productAtIndex:indexPath.row];
     [cell setIssueData:issueData];
+    [cell setDelegate:(MSMagazineView *)self.superview];
     return cell;
 }
 

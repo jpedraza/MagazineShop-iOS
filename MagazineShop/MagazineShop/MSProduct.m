@@ -24,4 +24,11 @@
     _date = [NSDate dateWithTimeIntervalSince1970:[[data objectForKey:@"date"] integerValue]];
 }
 
+#pragma mark Issue management
+
+- (MSProductAvailability)productAvailability {
+    return MSProductAvailabilityNotPresent;
+}
+
+
 @end

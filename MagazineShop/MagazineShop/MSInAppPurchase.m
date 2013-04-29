@@ -7,6 +7,7 @@
 //
 
 #import "MSInAppPurchase.h"
+#import "MSProduct.h"
 
 
 @implementation MSInAppPurchase
@@ -35,16 +36,23 @@
 
 #pragma mark Payment transactions delegate methods
 
+- (void)recordTransaction:(SKPaymentTransaction *)transaction {
+    NSString *identifierKey = [NSString stringWithFormat:@"iap-%@", transaction.payment.productIdentifier];
+    BOOL isPurchased = (transaction.transactionState == SKPaymentTransactionStateRestored || transaction.transactionState == SKPaymentTransactionStatePurchased);
+    [[NSUserDefaults standardUserDefaults] setBool:isPurchased forKey:identifierKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
 - (void)completeTransaction:(SKPaymentTransaction *)transaction {
-    //[self recordTransaction:transaction];
     if ([_delegate respondsToSelector:@selector(inAppPurchase:didFinishPurchase:)]) {
         [_delegate inAppPurchase:self didFinishPurchase:transaction.payment];
+        [self recordTransaction:transaction];
     }
     [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
 }
 
 - (void)restoreTransaction:(SKPaymentTransaction *)transaction {
-    //[self recordTransaction:transaction];
+    [self recordTransaction:transaction];
     [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
 }
 
@@ -79,6 +87,11 @@
             [_delegate inAppPurchase:self didRestorePurchases:restored];
         }
     }
+}
+
++ (BOOL)isProductPurchased:(MSProduct *)product {
+    if (!product.product) return YES;
+    return [[NSUserDefaults standardUserDefaults] boolForKey:[NSString stringWithFormat:@"iap-%@", product.identifier]];
 }
 
 

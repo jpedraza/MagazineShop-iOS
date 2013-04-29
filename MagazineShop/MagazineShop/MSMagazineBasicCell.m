@@ -12,6 +12,8 @@
 
 @interface MSMagazineBasicCell ()
 
+@property (nonatomic, strong) UIView *coverImageHighlight;
+
 @end
 
 
@@ -43,8 +45,19 @@
 
 - (void)createImageView {
     _imageView = [[MSImageView alloc] initWithFrame:CGRectMake(10, 10, 130, 190)];
+    [_imageView setUserInteractionEnabled:YES];
     [_imageView setBackgroundColor:[UIColor randomColor]];
     [self addSubview:_imageView];
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapCoverImage:)];
+    [_imageView addGestureRecognizer:tap];
+    
+    _coverImageHighlight = [[UIView alloc] initWithFrame:_imageView.bounds];
+    [_coverImageHighlight setBackgroundColor:[UIColor whiteColor]];
+    [_coverImageHighlight setAutoresizingWidthAndHeight];
+    [_coverImageHighlight setUserInteractionEnabled:NO];
+    [_coverImageHighlight setAlpha:0];
+    [_imageView addSubview:_coverImageHighlight];
 }
 
 - (void)configureLabel:(UILabel *)label {
@@ -72,12 +85,32 @@
     [self addSubview:_infoLabel];
 }
 
+- (void)configureButton:(UIButton *)b {
+    [b.layer setBorderColor:[UIColor darkGrayColor].CGColor];
+    [b.layer setBorderWidth:1];
+    [b setBackgroundColor:[UIColor viewFlipsideBackgroundColor]];
+    [b setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [b setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+    [b.titleLabel setShadowColor:[UIColor darkGrayColor]];
+    [b.titleLabel setShadowOffset:CGSizeMake(1, 1)];
+    [b.titleLabel setFont:[UIFont boldSystemFontOfSize:12]];
+}
+
 - (void)createButtons {
-    _actionButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [_actionButton setTitle:@"Action" forState:UIControlStateNormal];
-    [_actionButton setFrame:CGRectMake(10, (self.height - 44), 100, 34)];
+    _actionButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_actionButton addTarget:self action:@selector(didClickActionsButton:) forControlEvents:UIControlEventTouchUpInside];
+    [self configureButton:_actionButton];
+    [_actionButton setFrame:CGRectMake(10, (self.height - 44), 90, 34)];
     [_actionButton setAutoresizingBottomLeft];
     [self addSubview:_actionButton];
+    
+    _detailButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_detailButton addTarget:self action:@selector(didClickDetailButton:) forControlEvents:UIControlEventTouchUpInside];
+    [self configureButton:_detailButton];
+    [_detailButton setTitle:MSLangGet(@"Detail") forState:UIControlStateNormal];
+    [_detailButton setFrame:CGRectMake((_actionButton.right + 2), (self.height - 44), 60, 34)];
+    [_detailButton setAutoresizingBottomLeft];
+    [self addSubview:_detailButton];
 }
 
 - (void)createAllElements {
@@ -86,6 +119,35 @@
     [self createImageView];
     [self createLabels];
     [self createButtons];
+}
+
+#pragma mark Actions
+
+- (void)didClickActionsButton:(UIButton *)sender {
+    if ([_delegate respondsToSelector:@selector(magazineBasicCell:didRequestActionFor:)]) {
+        [_delegate magazineBasicCell:self didRequestActionFor:_issueData];
+    }
+}
+
+- (void)didClickDetailButton:(UIButton *)sender {
+    if ([_delegate respondsToSelector:@selector(magazineBasicCell:didRequestDetailFor:)]) {
+        [_delegate magazineBasicCell:self didRequestDetailFor:_issueData];
+    }
+}
+
+- (void)didTapCoverImage:(UITapGestureRecognizer *)recognizer {
+    if ([_delegate respondsToSelector:@selector(magazineBasicCell:didRequestCoverFor:)]) {
+        [_delegate magazineBasicCell:self didRequestCoverFor:_issueData];
+    }
+    [UIView animateWithDuration:0.15 animations:^{
+        [_coverImageHighlight setAlpha:0.5];
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.3 animations:^{
+            [_coverImageHighlight setAlpha:0];
+        } completion:^(BOOL finished) {
+            
+        }];
+    }];
 }
 
 #pragma mark Initialization
@@ -110,6 +172,26 @@
     NSString *dateText = [formatter stringFromDate:issueData.date];
     [_dateLabel setText:dateText];
     [_infoLabel setText:issueData.info withWidth:_infoLabel.width];
+    
+    NSString *actionTitle = MSLangGet(@"Buy");
+    if ([MSInAppPurchase isProductPurchased:issueData]) {
+        [_actionButton setEnabled:YES];
+        MSProductAvailability a = [issueData productAvailability];
+        switch (a) {
+            case MSProductAvailabilityNotPresent:
+                actionTitle = MSLangGet(@"Download");
+                break;
+                
+            case MSProductAvailabilityPartiallyDownloaded:
+                actionTitle = MSLangGet(@"Preview");
+                break;
+                
+            case MSProductAvailabilityDownloaded:
+                actionTitle = MSLangGet(@"Read");
+                break;
+        }
+    }
+    [_actionButton setTitle:actionTitle forState:UIControlStateNormal];
     
     [self layoutElements];
 }

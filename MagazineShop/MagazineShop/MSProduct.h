@@ -9,6 +9,13 @@
 #import <Foundation/Foundation.h>
 
 
+typedef enum {
+    MSProductAvailabilityNotPresent,
+    MSProductAvailabilityPartiallyDownloaded,
+    MSProductAvailabilityDownloaded
+} MSProductAvailability;
+
+
 @interface MSProduct : NSObject
 
 @property (nonatomic, strong) SKProduct *product;
@@ -22,6 +29,8 @@
 @property (nonatomic, strong, readonly) NSDate *date;
 
 - (void)fillDataFromDictionary:(NSDictionary *)data;
+
+- (MSProductAvailability)productAvailability;
 
 
 @end

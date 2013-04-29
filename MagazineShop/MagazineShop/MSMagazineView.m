@@ -157,8 +157,26 @@
         [_delegate magazineViewDidStartLoadingData:self];
     }
     NSString *url = [kMSConfigBaseUrl stringByAppendingPathComponent:@"api/issues.json"];
-    MSDownload *download = [[MSDownload alloc] initWithURL:url andDelegate:self];
+    MSDownload *download = [[MSDownload alloc] initWithURL:url withDelegate:self andCacheLifetime:MSDownloadCacheLifetimeSession];
     [kDownloadOperation addOperation:download];
+}
+
+#pragma mark Product cell delegate methods
+
+- (void)magazineBasicCell:(MSMagazineBasicCell *)cell didRequestActionFor:(MSProduct *)product {
+    if (![MSInAppPurchase isProductPurchased:product]) {
+        [kMSInAppPurchase buyProduct:product.product];
+        [cell.actionButton setTitle:MSLangGet(@"Buying") forState:UIControlStateNormal];
+        [cell.actionButton setEnabled:NO];
+    }
+}
+
+- (void)magazineBasicCell:(MSMagazineBasicCell *)cell didRequestDetailFor:(MSProduct *)product {
+    
+}
+
+- (void)magazineBasicCell:(MSMagazineBasicCell *)cell didRequestCoverFor:(MSProduct *)product {
+    
 }
 
 #pragma mark StoreKit delegate methods
@@ -189,20 +207,22 @@
 #pragma mark Download delegate methods
 
 - (void)download:(MSDownload *)download didFinishLoadingWithData:(NSData *)data {
-    NSError *err;
-    NSDictionary *d = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&err];
-    if (!err) {
-        _productsInfo = [d objectForKey:@"issues"];
-        _products = [NSMutableDictionary dictionary];
-        _pricedProductCount = 0;
-        _pricedProductCountFinished = 0;
-        for (NSDictionary *s in _productsInfo) {
-            if ([[s objectForKey:@"price"] floatValue] > 0) {
-                _pricedProductCount++;
-                if (![_products objectForKey:[s objectForKey:@"identifier"]]) {
-                    SKProductsRequest *request = [[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithObject:[s objectForKey:@"identifier"]]];
-                    [request setDelegate:self];
-                    [request start];
+    if (data) {
+        NSError *err;
+        NSDictionary *d = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&err];
+        if (!err) {
+            _productsInfo = [d objectForKey:@"issues"];
+            _products = [NSMutableDictionary dictionary];
+            _pricedProductCount = 0;
+            _pricedProductCountFinished = 0;
+            for (NSDictionary *s in _productsInfo) {
+                if ([[s objectForKey:@"price"] floatValue] > 0) {
+                    _pricedProductCount++;
+                    if (![_products objectForKey:[s objectForKey:@"identifier"]]) {
+                        SKProductsRequest *request = [[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithObject:[s objectForKey:@"identifier"]]];
+                        [request setDelegate:self];
+                        [request start];
+                    }
                 }
             }
         }

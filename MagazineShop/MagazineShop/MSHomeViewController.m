@@ -123,16 +123,19 @@
 
 - (void)inAppPurchase:(MSInAppPurchase *)purchase didFinishPurchase:(SKPayment *)payment {
     NSLog(@"Finished purchase: %@", payment.productIdentifier);
+    [_magazineView reloadData];
 }
 
 - (void)inAppPurchase:(MSInAppPurchase *)purchase didRestorePurchases:(NSArray *)payments {
     for (SKPayment *p in payments) {
         NSLog(@"Restored purchase: %@", p.productIdentifier);
+        [_magazineView reloadData];
     }
 }
 
 - (void)inAppPurchase:(MSInAppPurchase *)purchase failedToPurchase:(SKPayment *)payment withError:(NSError *)error {
     NSLog(@"Failed purchase: %@", payment.productIdentifier);
+    [_magazineView reloadData];
 }
 
 #pragma mark Magazine shop delegate & data source methods

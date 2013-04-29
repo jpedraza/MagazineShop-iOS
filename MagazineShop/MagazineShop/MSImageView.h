@@ -11,6 +11,7 @@
 
 
 typedef enum {
+    MSImageViewCacheLifetimeNone,
     MSImageViewCacheLifetimeForever,
     MSImageViewCacheLifetimeSession,
     MSImageViewCacheLifetimeTerminate

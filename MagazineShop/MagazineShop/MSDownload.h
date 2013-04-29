@@ -9,11 +9,19 @@
 #import <Foundation/Foundation.h>
 
 
+typedef enum {
+    MSDownloadCacheLifetimeNone,
+    MSDownloadCacheLifetimeForever,
+    MSDownloadCacheLifetimeSession,
+    MSDownloadCacheLifetimeTerminate
+} MSDownloadCacheLifetime;
+
+
 @class MSDownload;
 
 @protocol MSDownloadDelegate <NSObject>
 
-@required
+
 - (void)download:(MSDownload *)download didFinishLoadingWithData:(NSData *)data;
 
 @optional
@@ -31,13 +39,14 @@
 @property (nonatomic) BOOL executing;
 @property (nonatomic) BOOL finished;
 
+@property (nonatomic, readonly) MSDownloadCacheLifetime cacheLifetime;
 @property (nonatomic, strong, readonly) NSURLConnection *connection;
 
 @property (nonatomic, weak, readonly) id <NSURLConnectionDelegate, NSURLConnectionDataDelegate> connectionDelegate;
 @property (nonatomic, weak, readonly) id <MSDownloadDelegate> delegate;
 
-- (id)initWithURL:(NSString *)urlPath andDelegate:(id <MSDownloadDelegate>)delegate;
-- (id)initWithURL:(NSString *)urlPath withPostParameters:(NSMutableDictionary *)postParameters andDelegate:(id <MSDownloadDelegate>)delegate;
+- (id)initWithURL:(NSString *)urlPath withDelegate:(id <MSDownloadDelegate>)delegate andCacheLifetime:(MSDownloadCacheLifetime)lifetime;
+- (id)initWithURL:(NSString *)urlPath withPostParameters:(NSMutableDictionary *)postParameters withDelegate:(id <MSDownloadDelegate>)delegate andCacheLifetime:(MSDownloadCacheLifetime)lifetime;
 - (id)initWithURL:(NSString *)urlPath withPostParameters:(NSMutableDictionary *)postParameters andUrlConnectionDelegate:(id <NSURLConnectionDelegate, NSURLConnectionDataDelegate>)delegate;
 
 - (BOOL)isConcurrent;
@@ -45,6 +54,9 @@
 - (BOOL)isFinished;
 
 - (void)cancel;
+
++ (void)clearCache:(MSDownloadCacheLifetime)cacheLifetime;
+
 
 
 @end

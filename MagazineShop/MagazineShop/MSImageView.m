@@ -26,7 +26,7 @@
 
 + (NSString *)folderPath:(MSImageViewCacheLifetime)cacheLifetime {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    return [[paths lastObject] stringByAppendingPathComponent:[NSString stringWithFormat:@"cache-%d", cacheLifetime]];
+    return [[paths lastObject] stringByAppendingPathComponent:[NSString stringWithFormat:@"image-cache-%d", cacheLifetime]];
 }
 
 + (void)clearCache:(MSImageViewCacheLifetime)cacheLifetime {
@@ -144,7 +144,7 @@
     _cacheLifetime = lifetime;
     _cacheFilePath = [self cacheFilePathConstruct];
     
-    if ([[NSFileManager defaultManager] fileExistsAtPath:_cacheFilePath]) {
+    if ([[NSFileManager defaultManager] fileExistsAtPath:_cacheFilePath] && _cacheLifetime != MSImageViewCacheLifetimeNone) {
         NSData *imageData = [NSData dataWithContentsOfFile:_cacheFilePath];
         [self setImage:[UIImage imageWithData:imageData]];
     }
@@ -211,7 +211,7 @@
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-    [_receivedData writeToFile:_cacheFilePath atomically:YES];
+    if (_cacheLifetime != MSImageViewCacheLifetimeNone) [_receivedData writeToFile:_cacheFilePath atomically:YES];
     if ([_delegate respondsToSelector:@selector(imageView:didFinishLoadingImage:)]) {
         [_delegate imageView:self didFinishLoadingImage:self.image];
     }

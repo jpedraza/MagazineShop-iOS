@@ -8,6 +8,7 @@
 
 #import "MSMagazineListSingleView.h"
 #import "MSMagazineSingeCell.h"
+#import "MSMagazineView.h"
 
 
 @interface MSMagazineListSingleView ()
@@ -39,7 +40,7 @@
 
 - (void)scrollCollectionViewToPage:(NSInteger)page {
     NSIndexPath *indexPath = [NSIndexPath indexPathForItem:page inSection:0];
-    [self.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
+    [self.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
 }
 
 #pragma mark Configuration
@@ -108,6 +109,7 @@
     MSMagazineSingeCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[self cellIdentifier] forIndexPath:indexPath];
     MSProduct *issueData = [super productAtIndex:indexPath.row];
     [cell setIssueData:issueData];
+    [cell setDelegate:(MSMagazineView *)self.superview];
     return cell;
 }
 
@@ -115,49 +117,74 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     _currentPage = (scrollView.contentOffset.x / [self cardSize].width);
-    NSLog(@"Current page: %d", _currentPage);
 }
 
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    
-}
-
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-    if (!decelerate) {
-        [self scrollCollectionViewToPage:_currentPage];
-    }
+- (NSArray *)visibleCellViews {
+    NSMutableArray *orderedCells = self.collectionView.visibleCells.mutableCopy;
+    [orderedCells sortUsingComparator:^NSComparisonResult(UIView *v1, UIView *v2) {
+        return [@(v1.xOrigin) compare:@(v2.xOrigin)];
+    }];
+    return orderedCells;
 }
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
-//    CGFloat verticalVelocity = fabs(velocity.y);
-//    
-//    CGFloat currentYOffset = scrollView.contentOffset.y;
-//    
-//    CGFloat currentPageOffset = roundf(currentYOffset / _relaxedItemHeight) * _relaxedItemHeight;
-//    
-//    CGFloat finalYOffset = 0.0;
-//    if (targetContentOffset->y < currentYOffset) {
-//        //going upward
-//        if (targetContentOffset->y == self.contentSize.height - self.bounds.size.height) {
-//            finalYOffset = targetContentOffset->y;
-//        } else if (verticalVelocity > 0.15) {
-//            finalYOffset = currentPageOffset - _relaxedItemHeight;
-//        } else {
-//            finalYOffset = currentPageOffset;
-//        }
-//    } else {
-//        //going downward
-//        if (targetContentOffset->y == 0) {
-//            finalYOffset = targetContentOffset->y;
-//        } else if (verticalVelocity > 0.15) {
-//            finalYOffset = currentPageOffset + _relaxedItemHeight;
-//        } else {
-//            finalYOffset = currentPageOffset;
-//        }
-//    }
-//    if (finalYOffset < 0) finalYOffset = 0;
-//    if (finalYOffset > scrollView.contentSize.height - scrollView.bounds.size.height) finalYOffset = scrollView.contentSize.height - scrollView.bounds.size.height;
-//    targetContentOffset->y = finalYOffset;
+    CGFloat horizontalVelocity = fabs(velocity.x);
+	CGFloat currentXOffset = scrollView.contentOffset.x;
+	CGPoint middlePoint = CGPointMake(CGRectGetMidX(scrollView.bounds), CGRectGetMidY(scrollView.bounds));
+	
+	UIView *currentView = nil;
+	NSArray *visibleCellViews = self.visibleCellViews;
+	
+	for (UIView *v in visibleCellViews) {
+		if (CGRectContainsPoint(v.frame, middlePoint)) {
+			currentView = v;
+			break;
+		}
+	}
+	
+	CGFloat convertedCenterOffsetX = [self convertPoint:currentView.center fromView:scrollView].x;
+	CGFloat midWidth = self.bounds.size.width / 2.0;
+	
+	CGFloat finalXOffset = 0.0;
+	if (targetContentOffset->x < currentXOffset) {
+		// Going left
+		if (horizontalVelocity > 0.15 && convertedCenterOffsetX > midWidth) {
+            if (currentView) {
+				NSInteger currentViewIndex = [visibleCellViews indexOfObject:currentView];
+                if (currentViewIndex > 0) {
+                    UIView *viewBefore = visibleCellViews[currentViewIndex - 1];
+                    finalXOffset = viewBefore.center.x - midWidth;
+                }
+                else {
+					finalXOffset = currentView.center.x - midWidth;
+				}
+            }
+		}
+        else {
+			finalXOffset = currentView.center.x - midWidth;
+		}
+	}
+    else {
+		// Going right
+		if (horizontalVelocity > 0.15 && convertedCenterOffsetX < midWidth) {
+            if (currentView) {
+				NSInteger currentViewIndex = [visibleCellViews indexOfObject:currentView];
+                if (currentViewIndex < visibleCellViews.count) {
+                    UIView *viewAfter = visibleCellViews[currentViewIndex + 1];
+                    finalXOffset = viewAfter.center.x - midWidth;
+                }
+            }
+		}
+        else {
+			finalXOffset = currentView.center.x - midWidth;
+		}
+	}
+	finalXOffset = roundf(finalXOffset);
+	if (finalXOffset <= 0) finalXOffset = 0 + FLT_EPSILON;
+	if (finalXOffset >= scrollView.contentSize.width - scrollView.bounds.size.width) {
+		finalXOffset = scrollView.contentSize.width - scrollView.bounds.size.width - 0.1;
+	}
+	targetContentOffset->x = finalXOffset;
 }
 
 

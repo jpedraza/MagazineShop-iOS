@@ -12,7 +12,7 @@
 #define kMSInAppPurchase                            [MSInAppPurchase purchaseObject]
 
 
-@class MSInAppPurchase;
+@class MSInAppPurchase, MSProduct;
 
 @protocol MSInAppPurchaseDelegate <NSObject>
 
@@ -31,6 +31,7 @@
 
 - (void)buyProduct:(SKProduct *)product;
 - (void)restoreTransactions;
++ (BOOL)isProductPurchased:(MSProduct *)product;
 
 
 @end

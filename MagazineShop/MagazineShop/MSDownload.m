@@ -11,7 +11,10 @@
 
 @interface MSDownload ()
 
+@property (nonatomic, strong) NSString *safeUrlString;
+@property (nonatomic, strong) NSString *cacheFilePath;
 @property (nonatomic, strong) NSMutableData *receivedData;
+@property (nonatomic) NSInteger repeatedConnectionCounter;
 @property (nonatomic) long long totalDataSize;
 
 @end
@@ -20,24 +23,78 @@
 @implementation MSDownload
 
 
+#pragma mark Caching
+
++ (NSString *)folderPath:(MSDownloadCacheLifetime)cacheLifetime {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    return [[paths lastObject] stringByAppendingPathComponent:[NSString stringWithFormat:@"download-cache-%d", cacheLifetime]];
+}
+
++ (void)clearCache:(MSDownloadCacheLifetime)cacheLifetime {
+    // TODO: Clear only when connected to the internet!
+    NSString *folderPath = [self folderPath:cacheLifetime];
+    BOOL isDir;
+    BOOL isFile = [[NSFileManager defaultManager] fileExistsAtPath:folderPath isDirectory:&isDir];
+    if (isFile) {
+        NSError *err;
+        [[NSFileManager defaultManager] removeItemAtPath:folderPath error:&err];
+        if (err) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:MSLangGet(@"Error") message:[err localizedDescription] delegate:nil cancelButtonTitle:MSLangGet(@"Ok") otherButtonTitles:nil];
+            [alert show];
+        }
+    }
+}
+
+- (NSString *)safeText:(NSString *)text {
+	NSString *newText = @"";
+	NSString *a;
+	for(int i = 0; i < [text length]; i++) {
+		a = [text substringWithRange:NSMakeRange(i, 1)];
+        NSCharacterSet *unwantedCharacters = [[NSCharacterSet alphanumericCharacterSet] invertedSet];
+		if ([a rangeOfCharacterFromSet:unwantedCharacters].location != NSNotFound) a = @"-";
+        newText = [NSString stringWithFormat:@"%@%@", newText, a];
+	}
+	return newText;
+}
+
+- (NSString *)cacheFilePathConstruct {
+    NSString *folderPath = [MSDownload folderPath:_cacheLifetime];
+    BOOL isDir;
+    BOOL isFile = [[NSFileManager defaultManager] fileExistsAtPath:folderPath isDirectory:&isDir];
+    if (!isFile || !isDir) {
+        NSError *err;
+        [[NSFileManager defaultManager] createDirectoryAtPath:folderPath withIntermediateDirectories:YES attributes:nil error:&err];
+        if (err) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:MSLangGet(@"Error") message:[err localizedDescription] delegate:nil cancelButtonTitle:MSLangGet(@"Ok") otherButtonTitles:nil];
+            [alert show];
+            return nil;
+        }
+    }
+    return [folderPath stringByAppendingPathComponent:_safeUrlString];
+}
+
 #pragma mark Initialization
 
-- (id)initWithURL:(NSString *)urlPath andDelegate:(id <MSDownloadDelegate>)delegate {
+- (id)initWithURL:(NSString *)urlPath withDelegate:(id <MSDownloadDelegate>)delegate andCacheLifetime:(MSDownloadCacheLifetime)lifetime {
     self = [super init];
     if (self) {
         _connectionURL = urlPath;
+        _safeUrlString = [self safeText:_connectionURL];
         _postParameters = nil;
         _delegate = delegate;
+        _cacheLifetime = lifetime;
     }
     return self;
 }
 
-- (id)initWithURL:(NSString *)urlPath withPostParameters:(NSMutableDictionary *)postParameters andDelegate:(id <MSDownloadDelegate>)delegate {
+- (id)initWithURL:(NSString *)urlPath withPostParameters:(NSMutableDictionary *)postParameters withDelegate:(id <MSDownloadDelegate>)delegate andCacheLifetime:(MSDownloadCacheLifetime)lifetime {
     self = [super init];
     if (self) {
         _connectionURL = urlPath;
+        _safeUrlString = [self safeText:_connectionURL];
         _postParameters = postParameters;
         _delegate = delegate;
+        _cacheLifetime = lifetime;
     }
     return self;
 }
@@ -46,6 +103,7 @@
     self = [super init];
     if (self) {
         _connectionURL = urlPath;
+        _safeUrlString = [self safeText:_connectionURL];
         _postParameters = postParameters;
         _connectionDelegate = delegate;
     }
@@ -92,25 +150,35 @@
 
 - (void)main {
     @autoreleasepool {
-        NSURL *url = [[NSURL alloc] initWithString:_connectionURL];
-        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
-        [request setTimeoutInterval:8];
+        _safeUrlString = [self safeText:_connectionURL];
+        _cacheFilePath = [self cacheFilePathConstruct];
         
-        if (_postParameters) {
-            NSError *error;
-            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:_postParameters options:NSJSONWritingPrettyPrinted error:&error];
-            NSString *requestJSON = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-            
-            NSLog(@"JSONRequest: %@", requestJSON);
-            
-            NSData *requestData = [NSData dataWithBytes:[requestJSON UTF8String] length:[requestJSON length]];
-            [request setHTTPMethod:@"POST"];
-            [request setValue:[NSString stringWithFormat:@"%d", [requestData length]] forHTTPHeaderField:@"Content-Length"];
-            [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-            [request setHTTPBody:requestData];
+        if ([[NSFileManager defaultManager] fileExistsAtPath:_cacheFilePath] && _cacheLifetime != MSDownloadCacheLifetimeNone) {
+            NSData *data = [NSData dataWithContentsOfFile:_cacheFilePath];
+            if ([_delegate respondsToSelector:@selector(download:didFinishLoadingWithData:)]) {
+                [_delegate download:self didFinishLoadingWithData:data];
+            }
+            [self done];
         }
-        
-        _connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
+        else {
+            NSURL *url = [[NSURL alloc] initWithString:_connectionURL];
+            NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
+            [request setTimeoutInterval:8];
+            if (_postParameters) {
+                NSError *error;
+                NSData *jsonData = [NSJSONSerialization dataWithJSONObject:_postParameters options:NSJSONWritingPrettyPrinted error:&error];
+                NSString *requestJSON = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+                
+                NSLog(@"JSONRequest: %@", requestJSON);
+                
+                NSData *requestData = [NSData dataWithBytes:[requestJSON UTF8String] length:[requestJSON length]];
+                [request setHTTPMethod:@"POST"];
+                [request setValue:[NSString stringWithFormat:@"%d", [requestData length]] forHTTPHeaderField:@"Content-Length"];
+                [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+                [request setHTTPBody:requestData];
+            }
+            _connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
+        }
     }
 }
 
@@ -168,6 +236,7 @@
         [_connectionDelegate connectionDidFinishLoading:connection];
     }
     if ([_delegate respondsToSelector:@selector(download:didFinishLoadingWithData:)]) {
+        if (_cacheLifetime != MSDownloadCacheLifetimeNone) [_receivedData writeToFile:_cacheFilePath atomically:YES];
         [_delegate download:self didFinishLoadingWithData:_receivedData];
     }
     [self done];

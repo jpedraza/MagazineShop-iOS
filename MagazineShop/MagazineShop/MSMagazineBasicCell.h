@@ -11,6 +11,17 @@
 #import "MSProduct.h"
 
 
+@class MSMagazineBasicCell;
+
+@protocol MSMagazineBasicCellDelegate <NSObject>
+
+- (void)magazineBasicCell:(MSMagazineBasicCell *)cell didRequestActionFor:(MSProduct *)product;
+- (void)magazineBasicCell:(MSMagazineBasicCell *)cell didRequestDetailFor:(MSProduct *)product;
+- (void)magazineBasicCell:(MSMagazineBasicCell *)cell didRequestCoverFor:(MSProduct *)product;
+
+@end
+
+
 @interface MSMagazineBasicCell : UICollectionViewCell
 
 @property (nonatomic, strong) MSImageView *imageView;
@@ -18,8 +29,11 @@
 @property (nonatomic, strong) UILabel *dateLabel;
 @property (nonatomic, strong) UILabel *infoLabel;
 @property (nonatomic, strong) UIButton *actionButton;
+@property (nonatomic, strong) UIButton *detailButton;
 
 @property (nonatomic, strong) MSProduct *issueData;
+
+@property (nonatomic, weak) id <MSMagazineBasicCellDelegate> delegate;
 
 - (void)createAllElements;
 - (void)layoutElements;

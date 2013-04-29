@@ -9,6 +9,7 @@
 #import "MSAppDelegate.h"
 #import "MSHomeViewController.h"
 #import "MSImageView.h"
+#import "MSDownload.h"
 
 
 @implementation MSAppDelegate
@@ -36,10 +37,12 @@
     
     // Handle caching
     [MSImageView clearCache:MSImageViewCacheLifetimeTerminate];
+    [MSDownload clearCache:MSDownloadCacheLifetimeTerminate];
     if (kDebug) {
         [MSImageView clearCache:MSImageViewCacheLifetimeSession];
-        [MSImageView clearCache:MSImageViewCacheLifetimeTerminate];
         [MSImageView clearCache:MSImageViewCacheLifetimeForever];
+        [MSDownload clearCache:MSDownloadCacheLifetimeSession];
+        [MSDownload clearCache:MSDownloadCacheLifetimeForever];
     }
     
     // Operations
@@ -74,6 +77,7 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     [MSImageView clearCache:MSImageViewCacheLifetimeSession];
+    [MSDownload clearCache:MSDownloadCacheLifetimeSession];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {

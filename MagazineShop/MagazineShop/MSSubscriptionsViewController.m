@@ -7,6 +7,7 @@
 //
 
 #import "MSSubscriptionsViewController.h"
+#import "MSProduct.h"
 #import "SKProduct+Tools.h"
 
 
@@ -39,7 +40,6 @@
     if (!_subscriptionInfo) return;
     
     CGFloat yPos = 20;
-    
     int x = 0;
     
     UIButton *b = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -57,12 +57,23 @@
     NSTimeInterval delay = 0.1;
     
     for (NSDictionary *subscription in _subscriptionInfo) {
+        MSProduct *product = [[MSProduct alloc] init];
+        [product fillDataFromDictionary:subscription];
+        SKProduct *p = [_subscriptions objectForKey:[subscription objectForKey:@"identifier"]];
+        [product setProduct:p];
+        
         UIButton *b = [UIButton buttonWithType:UIButtonTypeCustom];
         [self configureSubscriptionButton:b];
+        
+        if ([MSInAppPurchase isProductPurchased:product]) {
+            [b setEnabled:NO];
+            [b setTitleColor:[UIColor greenColor] forState:UIControlStateNormal];
+        }
+        
         [b addTarget:self action:@selector(didClickSubscriptionButton:) forControlEvents:UIControlEventTouchUpInside];
         [b setTag:x];
         float price = [[subscription objectForKey:@"price"] floatValue];
-        SKProduct *p = [_subscriptions objectForKey:[subscription objectForKey:@"identifier"]];
+        
         NSString *name = MSLangGet([subscription objectForKey:@"name"]);
         NSString *title = (price > 0) ? [NSString stringWithFormat:@"%@ (%@)", name, p.priceAsString] : name;
         [b setTitle:title forState:UIControlStateNormal];

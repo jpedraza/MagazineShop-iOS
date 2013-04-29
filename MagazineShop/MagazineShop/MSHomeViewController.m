@@ -138,6 +138,10 @@
     [_magazineView reloadData];
 }
 
+- (void)inAppPurchase:(MSInAppPurchase *)purchase userCanceledTransaction:(SKPayment *)payment {
+    [_magazineView reloadData];
+}
+
 #pragma mark Magazine shop delegate & data source methods
 
 - (void)magazineListView:(MSMagazineListView *)magazineView changedVisibilityStatus:(MSMagazineListViewVisibilityStatus)status {

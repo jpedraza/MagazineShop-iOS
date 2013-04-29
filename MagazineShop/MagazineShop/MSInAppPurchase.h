@@ -19,6 +19,7 @@
 - (void)inAppPurchase:(MSInAppPurchase *)purchase didFinishPurchase:(SKPayment *)payment;
 - (void)inAppPurchase:(MSInAppPurchase *)purchase didRestorePurchases:(NSArray *)payments;
 - (void)inAppPurchase:(MSInAppPurchase *)purchase failedToPurchase:(SKPayment *)payment withError:(NSError *)error;
+- (void)inAppPurchase:(MSInAppPurchase *)purchase userCanceledTransaction:(SKPayment *)payment;
 
 @end
 

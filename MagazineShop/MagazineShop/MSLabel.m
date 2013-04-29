@@ -36,7 +36,7 @@
 
 - (void)setupView {
     [self setBackgroundColor:[UIColor clearColor]];
-    if (kDebug) {
+    if (kDebugLabels) {
         [self setBackgroundColor:[UIColor randomColor]];
     }
 }

@@ -62,6 +62,11 @@
             [_delegate inAppPurchase:self failedToPurchase:transaction.payment withError:transaction.error];
         }
     }
+    else {
+        if ([_delegate respondsToSelector:@selector(inAppPurchase:userCanceledTransaction:)]) {
+            [_delegate inAppPurchase:self userCanceledTransaction:transaction.payment];
+        }
+    }
     [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
 }
 

@@ -46,7 +46,6 @@
 - (void)createImageView {
     _imageView = [[MSImageView alloc] initWithFrame:CGRectMake(10, 10, 130, 190)];
     [_imageView setUserInteractionEnabled:YES];
-    [_imageView setBackgroundColor:[UIColor randomColor]];
     [self addSubview:_imageView];
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapCoverImage:)];
@@ -173,9 +172,11 @@
     [_dateLabel setText:dateText];
     [_infoLabel setText:issueData.info withWidth:_infoLabel.width];
     
+    // TODO: Make sure this doesn't go after rotation if it's supposed to be disabled
+    [_actionButton setEnabled:YES];
+    
     NSString *actionTitle = MSLangGet(@"Buy");
     if ([MSInAppPurchase isProductPurchased:issueData]) {
-        [_actionButton setEnabled:YES];
         MSProductAvailability a = [issueData productAvailability];
         switch (a) {
             case MSProductAvailabilityNotPresent:

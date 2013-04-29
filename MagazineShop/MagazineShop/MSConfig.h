@@ -10,6 +10,7 @@
 
 
 #define kDebug                                              YES
+#define kDebugLabels                                        NO
 
 #define kMSConfigBaseUrl                                    @"http://fuertemag.fuerteint.com/"
 

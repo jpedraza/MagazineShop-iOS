@@ -58,9 +58,10 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     MSMagezineDenseCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[self cellIdentifier] forIndexPath:indexPath];
-    MSProduct *issueData = [super productAtIndex:indexPath.row];
+    MSProduct *issueData = [[MSDataHolder sharedObject] productAtIndex:indexPath.row];
     [cell setIssueData:issueData];
     [cell setDelegate:(MSMagazineView *)self.superview];
+    [issueData setAssignedCell:cell];
     return cell;
 }
 

@@ -18,7 +18,7 @@
     
     [self setAutoresizingMask:UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth];
     CALayer *topBorder = [CALayer layer];
-    [topBorder setFrame:CGRectMake(0, 0, 1024, 1)];
+    [topBorder setFrame:CGRectMake(0, 0, ([super isTablet] ? 1024 : 320), 1)];
     [topBorder setBackgroundColor:[UIColor darkGrayColor].CGColor];
     [self.layer addSublayer:topBorder];
 }

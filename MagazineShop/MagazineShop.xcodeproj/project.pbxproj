@@ -171,6 +171,7 @@
 		15DED033172E66D5004CA548 /* MSPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 15DED032172E66D5004CA548 /* MSPageControl.m */; };
 		15DED039172E66DE004CA548 /* MSLazyPageScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 15DED035172E66DE004CA548 /* MSLazyPageScrollView.m */; };
 		15DED03A172E66DE004CA548 /* MSLazyPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 15DED037172E66DE004CA548 /* MSLazyPageView.m */; };
+		15F02D3E1730339A008204C5 /* MSDataHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = 15F02D3D1730339A008204C5 /* MSDataHolder.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -396,6 +397,8 @@
 		15DED036172E66DE004CA548 /* MSLazyPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSLazyPageView.h; sourceTree = "<group>"; };
 		15DED037172E66DE004CA548 /* MSLazyPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSLazyPageView.m; sourceTree = "<group>"; };
 		15DED038172E66DE004CA548 /* MSLazyReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSLazyReusableView.h; sourceTree = "<group>"; };
+		15F02D3C1730339A008204C5 /* MSDataHolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSDataHolder.h; sourceTree = "<group>"; };
+		15F02D3D1730339A008204C5 /* MSDataHolder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSDataHolder.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -567,6 +570,7 @@
 		150710A017208D62008A64F3 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				15F02D3B17303383008204C5 /* Data holder */,
 				15DED01C172D6FC7004CA548 /* Products */,
 				158E840017233C4200D52A15 /* In App Purchase */,
 				158E83B31722FC4C00D52A15 /* API */,
@@ -1149,6 +1153,15 @@
 			name = "Lazy scroll view";
 			sourceTree = "<group>";
 		};
+		15F02D3B17303383008204C5 /* Data holder */ = {
+			isa = PBXGroup;
+			children = (
+				15F02D3C1730339A008204C5 /* MSDataHolder.h */,
+				15F02D3D1730339A008204C5 /* MSDataHolder.m */,
+			);
+			name = "Data holder";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1392,6 +1405,7 @@
 				15DED039172E66DE004CA548 /* MSLazyPageScrollView.m in Sources */,
 				15DED03A172E66DE004CA548 /* MSLazyPageView.m in Sources */,
 				1515609F172F1C8F00DF4485 /* MSBorderOverlayView.m in Sources */,
+				15F02D3E1730339A008204C5 /* MSDataHolder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

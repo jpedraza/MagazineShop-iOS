@@ -10,11 +10,13 @@
 #import "MSBorderOverlayView.h"
 #import "UILabel+DynamicHeight.h"
 #import "SKProduct+Tools.h"
+#import "MBProgressHUD.h"
 
 
 @interface MSMagazineBasicCell ()
 
 @property (nonatomic, strong) UIView *coverImageHighlight;
+@property (nonatomic, strong) UIView *coverImageDownloadBcg;
 
 @end
 
@@ -59,6 +61,21 @@
     [_coverImageHighlight setUserInteractionEnabled:NO];
     [_coverImageHighlight setAlpha:0];
     [_imageView addSubview:_coverImageHighlight];
+    
+    _coverImageDownloadBcg = [[UIView alloc] initWithFrame:_imageView.bounds];
+    [_coverImageDownloadBcg setBackgroundColor:[UIColor colorWithWhite:0 alpha:0.3]];
+    [_coverImageDownloadBcg setAutoresizingWidthAndHeight];
+    [_coverImageDownloadBcg setUserInteractionEnabled:YES];
+    [_coverImageDownloadBcg setAlpha:0];
+    [_coverImageDownloadBcg setHidden:YES];
+    [_imageView addSubview:_coverImageDownloadBcg];
+    
+    _progressView = [[MBRoundProgressView alloc] init];
+    [_progressView setAlpha:0];
+    [_progressView setHidden:YES];
+    [_imageView addSubview:_progressView];
+    [_progressView centerInSuperview];
+    [_progressView setAutoresizingCenter];
 }
 
 - (void)configureLabel:(UILabel *)label {
@@ -176,6 +193,57 @@
 
 #pragma mark Settings
 
+- (void)showDownloadingIndicator:(BOOL)show {
+    if (show) {
+        if (_progressView.hidden == NO) return;
+        [_progressView setAlpha:0];
+        [_progressView setHidden:NO];
+        [_coverImageDownloadBcg setAlpha:0];
+        [_coverImageDownloadBcg setHidden:NO];
+    }
+    else if (_progressView.hidden == YES) return;
+    [UIView animateWithDuration:0.3 animations:^{
+        [_progressView setAlpha:(show ? 1 : 0)];
+        [_coverImageDownloadBcg setAlpha:(show ? 1 : 0)];
+    } completion:^(BOOL finished) {
+        if (!show) {
+            [_progressView setHidden:YES];
+            [_coverImageDownloadBcg setHidden:YES];
+        }
+    }];
+}
+
+- (void)resetActionButtonValues {
+    NSString *actionTitle = [NSString stringWithFormat:@"%@ (%@)", MSLangGet(@"Buy"), _issueData.product.priceAsString];
+    if ([MSInAppPurchase isProductPurchased:_issueData]) {
+        MSProductAvailability a = [_issueData productAvailability];
+        switch (a) {
+            case MSProductAvailabilityNotPresent:
+                actionTitle = MSLangGet(@"Download");
+                break;
+                
+            case MSProductAvailabilityPartiallyDownloaded:
+                actionTitle = MSLangGet(@"Preview");
+                break;
+                
+            case MSProductAvailabilityDownloaded:
+                actionTitle = MSLangGet(@"Read");
+                break;
+                
+            case MSProductAvailabilityIsDownloading:
+                actionTitle = MSLangGet(@"Downloading");
+                break;
+        }
+    }
+    [_actionButton setTitle:actionTitle forState:UIControlStateNormal];
+    CGRect r = _actionButton.frame;
+    [_actionButton sizeToFit];
+    r.size.width = (_actionButton.width + 20);
+    [_actionButton setFrame:r];
+    
+    [_detailButton setXOrigin:(_actionButton.right + 4)];
+}
+
 - (void)setIssueData:(MSProduct *)issueData {
     _issueData = issueData;
     
@@ -192,30 +260,7 @@
     // TODO: Make sure this doesn't go after rotation if it's supposed to be disabled
     [_actionButton setEnabled:YES];
     
-    NSString *actionTitle = [NSString stringWithFormat:@"%@ (%@)", MSLangGet(@"Buy"), issueData.product.priceAsString];
-    if ([MSInAppPurchase isProductPurchased:issueData]) {
-        MSProductAvailability a = [issueData productAvailability];
-        switch (a) {
-            case MSProductAvailabilityNotPresent:
-                actionTitle = MSLangGet(@"Download");
-                break;
-                
-            case MSProductAvailabilityPartiallyDownloaded:
-                actionTitle = MSLangGet(@"Preview");
-                break;
-                
-            case MSProductAvailabilityDownloaded:
-                actionTitle = MSLangGet(@"Read");
-                break;
-        }
-    }
-    [_actionButton setTitle:actionTitle forState:UIControlStateNormal];
-    CGRect r = _actionButton.frame;
-    [_actionButton sizeToFit];
-    r.size.width = (_actionButton.width + 20);
-    [_actionButton setFrame:r];
-    
-    [_detailButton setXOrigin:(_actionButton.right + 4)];
+    [self resetActionButtonValues];
     
     [self layoutElements];
 }

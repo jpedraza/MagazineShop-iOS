@@ -12,6 +12,11 @@
 #import "MSDownload.h"
 
 
+@interface MSAppDelegate ()
+
+@end
+
+
 @implementation MSAppDelegate
 
 
@@ -40,9 +45,7 @@
         [MSImageView clearCache:MSImageViewCacheLifetimeTerminate];
         [MSDownload clearCache:MSDownloadCacheLifetimeTerminate];
         if (kDebug) {
-            [MSImageView clearCache:MSImageViewCacheLifetimeSession];
             [MSImageView clearCache:MSImageViewCacheLifetimeForever];
-            [MSDownload clearCache:MSDownloadCacheLifetimeSession];
             [MSDownload clearCache:MSDownloadCacheLifetimeForever];
         }
     }

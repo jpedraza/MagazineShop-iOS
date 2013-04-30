@@ -17,6 +17,8 @@
 @property (nonatomic) NSInteger repeatedConnectionCounter;
 @property (nonatomic) long long totalDataSize;
 
+@property (nonatomic, assign, getter=isOperationStarted) BOOL operationStarted;
+
 @end
 
 
@@ -25,13 +27,18 @@
 
 #pragma mark Caching
 
-+ (NSString *)folderPath:(MSDownloadCacheLifetime)cacheLifetime withSpecialCacheFolder:(NSString *)specialCacheFolder andFile:(NSString *)specialCacheFile {
++ (NSString *)folderPath:(MSDownloadCacheLifetime)cacheLifetime withSpecialCacheFolder:(NSString *)specialCacheFolder {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *path = [paths lastObject];
+    NSString *path = [[paths lastObject] stringByAppendingPathComponent:[NSString stringWithFormat:@"download-cache-%d", cacheLifetime]];
     if (specialCacheFolder) {
         specialCacheFolder = [self safeText:specialCacheFolder];
         path = [path stringByAppendingPathComponent:specialCacheFolder];
     }
+    return path;
+}
+
++ (NSString *)filePath:(MSDownloadCacheLifetime)cacheLifetime withSpecialCacheFolder:(NSString *)specialCacheFolder andFile:(NSString *)specialCacheFile {
+    NSString *path = [self folderPath:cacheLifetime withSpecialCacheFolder:specialCacheFolder];
     if (specialCacheFile) {
         return [path stringByAppendingPathComponent:specialCacheFile];
     }
@@ -39,7 +46,7 @@
 }
 
 + (NSString *)folderPath:(MSDownloadCacheLifetime)cacheLifetime {
-    return [self folderPath:cacheLifetime withSpecialCacheFolder:nil andFile:nil];
+    return [self folderPath:cacheLifetime withSpecialCacheFolder:nil];
 }
 
 + (void)clearCache:(MSDownloadCacheLifetime)cacheLifetime {
@@ -47,10 +54,10 @@
     NSString *folderPath = [self folderPath:cacheLifetime];
     BOOL isDir;
     BOOL isFile = [[NSFileManager defaultManager] fileExistsAtPath:folderPath isDirectory:&isDir];
-    if (isFile) {
+    if (isDir || isFile) {
         NSError *err;
         [[NSFileManager defaultManager] removeItemAtPath:folderPath error:&err];
-        if (err) {
+        if (err && err.code != NSFileNoSuchFileError) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:MSLangGet(@"Error") message:[err localizedDescription] delegate:nil cancelButtonTitle:MSLangGet(@"Ok") otherButtonTitles:nil];
             [alert show];
         }
@@ -70,8 +77,8 @@
 }
 
 - (NSString *)cacheFilePathConstruct {
-    if (_cacheFilePath) return _cacheFilePath;
-    NSString *folderPath = [MSDownload folderPath:_cacheLifetime withSpecialCacheFolder:_specialCacheFolder andFile:_specialCacheFile];
+    //if (_cacheFilePath) return _cacheFilePath;
+    NSString *folderPath = [MSDownload folderPath:_cacheLifetime withSpecialCacheFolder:_specialCacheFolder];
     BOOL isDir;
     BOOL isFile = [[NSFileManager defaultManager] fileExistsAtPath:folderPath isDirectory:&isDir];
     if (!isFile || !isDir) {
@@ -83,7 +90,7 @@
             return nil;
         }
     }
-    return [folderPath stringByAppendingPathComponent:_safeUrlString];
+    return [MSDownload filePath:_cacheLifetime withSpecialCacheFolder:_specialCacheFolder andFile:_specialCacheFile];
 }
 
 #pragma mark Initialization
@@ -126,6 +133,7 @@
 #pragma mark Operation methods
 
 - (void)done {
+    if (![self isOperationStarted]) return;
     if(_connection) {
         [_connection cancel];
         _connection = nil;
@@ -144,6 +152,8 @@
 }
 
 - (void)start {
+    [self setOperationStarted:YES];
+    
     if(![NSThread isMainThread]) {
         [self performSelectorOnMainThread:@selector(start) withObject:nil waitUntilDone:NO];
         return;
@@ -249,7 +259,9 @@
         [_connectionDelegate connectionDidFinishLoading:connection];
     }
     if ([_delegate respondsToSelector:@selector(download:didFinishLoadingWithData:)]) {
-        if (_cacheLifetime != MSDownloadCacheLifetimeNone) [_receivedData writeToFile:_cacheFilePath atomically:YES];
+        if (_cacheLifetime != MSDownloadCacheLifetimeNone) {
+            [_receivedData writeToFile:_cacheFilePath atomically:YES];
+        }
         [_delegate download:self didFinishLoadingWithData:_receivedData];
     }
     [self done];

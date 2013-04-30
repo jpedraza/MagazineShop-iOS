@@ -48,7 +48,6 @@ typedef enum {
 
 - (NSDictionary *)products;
 - (NSArray *)productsInfo;
-- (MSProduct *)productAtIndex:(NSInteger)index;
 - (void)buyProduct:(SKProduct *)product;
 
 - (void)reloadData;

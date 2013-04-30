@@ -184,6 +184,7 @@
     [_download setCompletionBlock:^{
         [self_ performSelectorOnMainThread:@selector(displayImageWithAnimation) withObject:nil waitUntilDone:NO];
     }];
+    [_download setQueuePriority:NSOperationQueuePriorityHigh];
     [kDownloadOperation addOperation:_download];
     
     _repeatedConnectionCounter++;

@@ -10,6 +10,7 @@
 #import "MSMagazineListMediumView.h"
 #import "MSMagazineListDenseView.h"
 #import "MSDownload.h"
+#import "MSProduct.h"
 #import "MSMagazineBasicCell.h"
 
 
@@ -26,7 +27,7 @@
 @end
 
 
-@interface MSMagazineView : MSView <MSMagazineListViewDataSource, SKProductsRequestDelegate, MSDownloadDelegate, MSMagazineBasicCellDelegate>
+@interface MSMagazineView : MSView <MSMagazineListViewDataSource, SKProductsRequestDelegate, MSDownloadDelegate, MSMagazineBasicCellDelegate, MSProductDelegate>
 
 @property (nonatomic) MSConfigMainMagazineListViewType listViewType;
 @property (nonatomic, weak) id <MSMagazineViewDelegate> delegate;

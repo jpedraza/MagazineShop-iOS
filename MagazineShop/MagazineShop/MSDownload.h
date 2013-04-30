@@ -58,6 +58,8 @@ typedef enum {
 
 - (void)cancel;
 
++ (NSString *)folderPath:(MSDownloadCacheLifetime)cacheLifetime withSpecialCacheFolder:(NSString *)specialCacheFolder;
++ (NSString *)filePath:(MSDownloadCacheLifetime)cacheLifetime withSpecialCacheFolder:(NSString *)specialCacheFolder andFile:(NSString *)specialCacheFile;
 + (void)clearCache:(MSDownloadCacheLifetime)cacheLifetime;
 + (NSString *)safeText:(NSString *)text;
 

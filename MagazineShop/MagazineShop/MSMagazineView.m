@@ -169,6 +169,11 @@
         [cell.actionButton setTitle:MSLangGet(@"Buying") forState:UIControlStateNormal];
         [cell.actionButton setEnabled:NO];
     }
+    else {
+        if ([product productAvailability] == MSProductAvailabilityNotPresent) {
+            [product downloadIssueWithDelegate:self];
+        }
+    }
 }
 
 - (void)magazineBasicCell:(MSMagazineBasicCell *)cell didRequestDetailFor:(MSProduct *)product {
@@ -176,6 +181,13 @@
 }
 
 - (void)magazineBasicCell:(MSMagazineBasicCell *)cell didRequestCoverFor:(MSProduct *)product {
+    
+}
+
+#pragma mark Issue download delegate methods
+
+- (void)product:(MSProduct *)product didDownloadItem:(NSInteger)item of:(NSInteger)totalItems {
+    NSLog(@"Downloaded item: %d of %d (%@)", item, totalItems, ([product isPageWithIndex:item availableInSize:MSProductPageSize1024] ? @"Ok" : @"Fail"));
     
 }
 
@@ -187,6 +199,14 @@
         [_products setObject:p forKey:p.productIdentifier];
     }
     if (_pricedProductCount == _pricedProductCountFinished) {
+        NSMutableArray *arr = [NSMutableArray array];
+        for (NSDictionary *info in _productsInfo) {
+            MSProduct *product = [[MSProduct alloc] init];
+            [product fillDataFromDictionary:info];
+            [product setProduct:[_products objectForKey:product.identifier]];
+            [arr addObject:product];
+        }
+        [[MSDataHolder sharedObject] setProducts:arr];
         [self performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
         if ([_delegate respondsToSelector:@selector(magazineViewDidFinishLoadingData:)]) {
             [(NSObject *)_delegate performSelectorOnMainThread:@selector(magazineViewDidFinishLoadingData:) withObject:self waitUntilDone:NO];

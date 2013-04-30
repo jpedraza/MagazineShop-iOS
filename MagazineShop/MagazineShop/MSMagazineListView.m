@@ -83,13 +83,6 @@
     [_collectionView reloadData];
 }
 
-- (MSProduct *)productAtIndex:(NSInteger)index {
-    MSProduct *product = [[MSProduct alloc] init];
-    [product fillDataFromDictionary:[self.productsInfo objectAtIndex:index]];
-    [product setProduct:[self.products objectForKey:product.identifier]];
-    return product;
-}
-
 - (NSDictionary *)products {
     if ([_dataSource respondsToSelector:@selector(magazineListViewProductsForCollectionView:)]) {
         return [_dataSource magazineListViewProductsForCollectionView:self];

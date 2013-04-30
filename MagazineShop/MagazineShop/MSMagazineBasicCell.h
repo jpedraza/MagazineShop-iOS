@@ -11,7 +11,7 @@
 #import "MSProduct.h"
 
 
-@class MSMagazineBasicCell;
+@class MSMagazineBasicCell, MBRoundProgressView;
 
 @protocol MSMagazineBasicCellDelegate <NSObject>
 
@@ -31,6 +31,7 @@
 @property (nonatomic, strong) UILabel *infoLabel;
 @property (nonatomic, strong) UIButton *actionButton;
 @property (nonatomic, strong) UIButton *detailButton;
+@property (nonatomic, strong) MBRoundProgressView *progressView;
 
 @property (nonatomic, strong) MSProduct *issueData;
 
@@ -42,6 +43,10 @@
 - (BOOL)isTablet;
 - (BOOL)isBigPhone;
 - (BOOL)isRetina;
+
+- (void)resetActionButtonValues;
+
+- (void)showDownloadingIndicator:(BOOL)show;
 
 
 @end

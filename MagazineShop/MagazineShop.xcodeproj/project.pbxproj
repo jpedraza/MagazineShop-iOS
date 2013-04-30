@@ -1191,7 +1191,7 @@
 			attributes = {
 				CLASSPREFIX = MS;
 				LastUpgradeCheck = 0460;
-				ORGANIZATIONNAME = "Fuerte Innovations";
+				ORGANIZATIONNAME = DoTheMag.com;
 			};
 			buildConfigurationList = 1507105717208D3B008A64F3 /* Build configuration list for PBXProject "MagazineShop" */;
 			compatibilityVersion = "Xcode 3.2";

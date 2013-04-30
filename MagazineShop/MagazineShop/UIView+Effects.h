@@ -1,8 +1,9 @@
 //
 //  UIView+Tools.h
+//  MagazineShop
 //
 //  Created by Ondrej Rafaj on 20/02/2011.
-//  Copyright 2011 Fuerte Innovations. All rights reserved.
+//  Copyright 2011 DoTheMag.com. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

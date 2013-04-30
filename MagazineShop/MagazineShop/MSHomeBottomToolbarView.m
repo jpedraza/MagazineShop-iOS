@@ -3,7 +3,7 @@
 //  MagazineShop
 //
 //  Created by Ondrej Rafaj on 19/04/2013.
-//  Copyright (c) 2013 Fuerte Innovations. All rights reserved.
+//  Copyright (c) 2013 DoTheMag.com. All rights reserved.
 //
 
 #import "MSHomeBottomToolbarView.h"

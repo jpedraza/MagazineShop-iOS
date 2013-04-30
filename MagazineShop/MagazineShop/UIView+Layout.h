@@ -1,8 +1,9 @@
 //
 //  UIView+Layout.h
+//  MagazineShop
 //
-//  Created by Simon Lee on 21/12/2009.
-//  Copyright 2009 Fuerte Innovations. All rights reserved.
+//  Created by Ondrej Rafaj on 21/12/2009.
+//  Copyright 2009 DoTheMag.com. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

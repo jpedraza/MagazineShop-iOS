@@ -3,7 +3,7 @@
 //  MagazineShop
 //
 //  Created by Baldoph Pourprix on 13/12/2011.
-//  Copyright (c) 2011 Fuerte Innovations. All rights reserved.
+//  Copyright (c) 2011 DoTheMag.com. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

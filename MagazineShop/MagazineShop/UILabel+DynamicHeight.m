@@ -1,8 +1,9 @@
 //
 //  UILabel+DynamicHeight.m
+//  MagazineShop
 //
-//  Created by Simon Lee on 22/10/2009.
-//  Copyright 2009 Fuerte Innovations. All rights reserved.
+//  Created by Ondrej Rafaj on 22/10/2009.
+//  Copyright 2009 DoTheMag.com. All rights reserved.
 //
 
 #import "UILabel+DynamicHeight.h"

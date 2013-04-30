@@ -7,7 +7,6 @@
 //
 
 #import "MSSubscriptionsViewController.h"
-#import "MSProduct.h"
 #import "SKProduct+Tools.h"
 
 

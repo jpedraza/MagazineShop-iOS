@@ -7,7 +7,6 @@
 //
 
 #import "MSInAppPurchase.h"
-#import "MSProduct.h"
 
 
 @implementation MSInAppPurchase

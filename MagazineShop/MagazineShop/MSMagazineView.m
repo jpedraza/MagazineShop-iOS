@@ -173,6 +173,11 @@
         if ([product productAvailability] == MSProductAvailabilityNotPresent) {
             [product downloadIssueWithDelegate:self];
         }
+        else if ([product productAvailability] == MSProductAvailabilityDownloaded) {
+            if ([_delegate respondsToSelector:@selector(magazineView:didRequestReaderForProduct:)]) {
+                [_delegate magazineView:self didRequestReaderForProduct:product];
+            }
+        }
     }
 }
 

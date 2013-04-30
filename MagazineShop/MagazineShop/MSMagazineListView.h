@@ -7,7 +7,6 @@
 //
 
 #import "MSView.h"
-#import "MSProduct.h"
 
 
 typedef enum {

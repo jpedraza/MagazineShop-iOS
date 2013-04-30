@@ -41,6 +41,24 @@
 
 #pragma mark Issue management
 
+- (NSString *)textualRepresentationOfSize:(MSProductPageSize)size {
+    switch (size) {
+        case MSProductPageSize180:
+            return @"180";
+            break;
+        case MSProductPageSize400:
+            return @"400";
+            break;
+        case MSProductPageSize1024:
+            return @"1024";
+            break;
+        case MSProductPageSize2048:
+            return @"2048";
+            break;
+    }
+    return @"1024";
+}
+
 - (MSProductAvailability)productAvailability {
     if ([_downloadObjectsArray count] > 0) {
         return MSProductAvailabilityIsDownloading;
@@ -49,6 +67,29 @@
         if ([[NSUserDefaults standardUserDefaults] boolForKey:[NSString stringWithFormat:@"full-%@", self.identifier]]) return MSProductAvailabilityDownloaded;
         else return MSProductAvailabilityNotPresent;
     }
+}
+
+- (void)setCurrentPage:(NSInteger)currentPage {
+    [[NSUserDefaults standardUserDefaults] setInteger:currentPage forKey:[NSString stringWithFormat:@"current-page-%@", _identifier]];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (NSInteger)currentPage {
+    return [[NSUserDefaults standardUserDefaults] integerForKey:[NSString stringWithFormat:@"current-page-%@", _identifier]];
+}
+
+- (BOOL)isPageWithIndex:(NSInteger)index availableInSize:(MSProductPageSize)size {
+    NSString *path = [self pathForFileWithIndex:index andSize:size];
+    BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath:path];
+    return exists;
+}
+
+- (UIImage *)pageWithIndex:(NSInteger)index inSize:(MSProductPageSize)size {
+    NSString *path = [self pathForFileWithIndex:index andSize:size];
+    NSData *data = [NSData dataWithContentsOfFile:path];
+    if (!data) return nil;
+    UIImage *image = [UIImage imageWithData:data];
+    return image;
 }
 
 #pragma mark Environment
@@ -92,41 +133,10 @@
     }
 }
 
-- (NSString *)textualRepresentationOfSize:(MSProductPageSize)size {
-    switch (size) {
-        case MSProductPageSize180:
-            return @"180";
-            break;
-        case MSProductPageSize400:
-            return @"400";
-            break;
-        case MSProductPageSize1024:
-            return @"1024";
-            break;
-        case MSProductPageSize2048:
-            return @"2048";
-            break;
-    }
-    return @"1024";
-}
-
 - (NSString *)pathForFileWithIndex:(NSInteger)index andSize:(MSProductPageSize)size {
     NSString *sizeString = [self textualRepresentationOfSize:size];
     NSString *path = [MSDownload filePath:MSDownloadCacheLifetimeForever withSpecialCacheFolder:_identifier andFile:[NSString stringWithFormat:@"%@-%d.jpg", sizeString, index]];
     return path;
-}
-
-- (BOOL)isPageWithIndex:(NSInteger)index availableInSize:(MSProductPageSize)size {
-    NSString *path = [self pathForFileWithIndex:index andSize:size];
-    BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath:path];
-    return exists;
-}
-
-- (UIImage *)pageWithIndex:(NSInteger)index inSize:(MSProductPageSize)size {
-    NSString *path = [self pathForFileWithIndex:index andSize:size];
-    NSData *data = [NSData dataWithContentsOfFile:path];
-    UIImage *image = [UIImage imageWithData:data];
-    return image;
 }
 
 - (void)setAssignedCell:(MSMagazineBasicCell *)assignedCell {
@@ -149,7 +159,9 @@
         }
     }
     [_downloadObjectsArray removeObject:download];
-    
+    if (_pagesDownloaded == kMSConfigMinPagesForRead) {
+        // TODO: Change state partially downloaded
+    }
     if (_totalDownloads == _pagesDownloaded) {
         if ([_assignedCell respondsToSelector:@selector(progressView)]) {
             [_assignedCell showDownloadingIndicator:NO];

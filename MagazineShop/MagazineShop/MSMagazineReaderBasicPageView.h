@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MSMagazineReaderBasicPageView : UIView
+
+@interface MSMagazineReaderBasicPageView : UIView <UIScrollViewDelegate>
+
+@property (nonatomic, strong) UIScrollView *scrollView;
+
 
 @end

@@ -9,11 +9,16 @@
 #import <Foundation/Foundation.h>
 
 
+#pragma mark Debug variables
+
 #define kDebug                                              YES
 #define kDegugClearCache                                    YES
 #define kDebugLabels                                        NO
 
+#pragma mark Api variables
+
 #define kMSConfigBaseUrl                                    @"http://fuertemag.fuerteint.com/"
+#define kMSConfigMinPagesForRead                            10
 
 
 typedef enum {

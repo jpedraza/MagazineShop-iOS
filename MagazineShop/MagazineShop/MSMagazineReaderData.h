@@ -12,4 +12,7 @@
 
 @interface MSMagazineReaderData : NSObject <MSMagazineReaderViewControllerDataProtocolDatasource, MSMagazineReaderViewControllerDataProtocolDelegate>
 
+@property (nonatomic, strong) MSProduct *product;
+
+
 @end

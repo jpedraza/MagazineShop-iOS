@@ -158,12 +158,10 @@
 		158E840E1723657000D52A15 /* MSMagazineMediumCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 158E840D1723657000D52A15 /* MSMagazineMediumCell.m */; };
 		158E8412172375F900D52A15 /* MSMagazineSingeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 158E8411172375F900D52A15 /* MSMagazineSingeCell.m */; };
 		158E84161723761000D52A15 /* MSMagezineDenseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 158E84151723761000D52A15 /* MSMagezineDenseCell.m */; };
-		15DED002172D1238004CA548 /* MSMagazineReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 15DED001172D1238004CA548 /* MSMagazineReader.m */; };
 		15DED006172D133D004CA548 /* MSMagazineReaderData.m in Sources */ = {isa = PBXBuildFile; fileRef = 15DED005172D133D004CA548 /* MSMagazineReaderData.m */; };
 		15DED00A172D15D7004CA548 /* MSMagazineReaderBasicPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 15DED009172D15D7004CA548 /* MSMagazineReaderBasicPageView.m */; };
 		15DED00E172D16E4004CA548 /* MSMagazineReaderCurledPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15DED00D172D16E4004CA548 /* MSMagazineReaderCurledPageViewController.m */; };
-		15DED011172D1721004CA548 /* MSMagazineReaderPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15DED010172D1721004CA548 /* MSMagazineReaderPageViewController.m */; };
-		15DED014172D1756004CA548 /* MSMagazineReaderFlatPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15DED013172D1756004CA548 /* MSMagazineReaderFlatPageViewController.m */; };
+		15DED011172D1721004CA548 /* MSMagazinePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15DED010172D1721004CA548 /* MSMagazinePageViewController.m */; };
 		15DED01B172D5991004CA548 /* MSImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 15DED01A172D5991004CA548 /* MSImageView.m */; };
 		15DED01F172D6FE4004CA548 /* MSProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = 15DED01E172D6FE4004CA548 /* MSProduct.m */; };
 		15DED023172D7A8E004CA548 /* MSDownload.m in Sources */ = {isa = PBXBuildFile; fileRef = 15DED022172D7A8E004CA548 /* MSDownload.m */; };
@@ -368,18 +366,14 @@
 		158E8411172375F900D52A15 /* MSMagazineSingeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSMagazineSingeCell.m; sourceTree = "<group>"; };
 		158E84141723761000D52A15 /* MSMagezineDenseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSMagezineDenseCell.h; sourceTree = "<group>"; };
 		158E84151723761000D52A15 /* MSMagezineDenseCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSMagezineDenseCell.m; sourceTree = "<group>"; };
-		15DED000172D1238004CA548 /* MSMagazineReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSMagazineReader.h; sourceTree = "<group>"; };
-		15DED001172D1238004CA548 /* MSMagazineReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSMagazineReader.m; sourceTree = "<group>"; };
 		15DED004172D133D004CA548 /* MSMagazineReaderData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSMagazineReaderData.h; sourceTree = "<group>"; };
 		15DED005172D133D004CA548 /* MSMagazineReaderData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSMagazineReaderData.m; sourceTree = "<group>"; };
 		15DED008172D15D7004CA548 /* MSMagazineReaderBasicPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSMagazineReaderBasicPageView.h; sourceTree = "<group>"; };
 		15DED009172D15D7004CA548 /* MSMagazineReaderBasicPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSMagazineReaderBasicPageView.m; sourceTree = "<group>"; };
 		15DED00C172D16E4004CA548 /* MSMagazineReaderCurledPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSMagazineReaderCurledPageViewController.h; sourceTree = "<group>"; };
 		15DED00D172D16E4004CA548 /* MSMagazineReaderCurledPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSMagazineReaderCurledPageViewController.m; sourceTree = "<group>"; };
-		15DED00F172D1721004CA548 /* MSMagazineReaderPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSMagazineReaderPageViewController.h; sourceTree = "<group>"; };
-		15DED010172D1721004CA548 /* MSMagazineReaderPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSMagazineReaderPageViewController.m; sourceTree = "<group>"; };
-		15DED012172D1756004CA548 /* MSMagazineReaderFlatPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSMagazineReaderFlatPageViewController.h; sourceTree = "<group>"; };
-		15DED013172D1756004CA548 /* MSMagazineReaderFlatPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSMagazineReaderFlatPageViewController.m; sourceTree = "<group>"; };
+		15DED00F172D1721004CA548 /* MSMagazinePageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSMagazinePageViewController.h; sourceTree = "<group>"; };
+		15DED010172D1721004CA548 /* MSMagazinePageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSMagazinePageViewController.m; sourceTree = "<group>"; };
 		15DED015172D5464004CA548 /* MSMagazineReaderViewControllerDataProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSMagazineReaderViewControllerDataProtocol.h; sourceTree = "<group>"; };
 		15DED019172D5991004CA548 /* MSImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSImageView.h; sourceTree = "<group>"; };
 		15DED01A172D5991004CA548 /* MSImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSImageView.m; sourceTree = "<group>"; };
@@ -387,7 +381,7 @@
 		15DED01E172D6FE4004CA548 /* MSProduct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSProduct.m; sourceTree = "<group>"; };
 		15DED021172D7A8E004CA548 /* MSDownload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSDownload.h; sourceTree = "<group>"; };
 		15DED022172D7A8E004CA548 /* MSDownload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSDownload.m; sourceTree = "<group>"; };
-		15DED024172DA1DE004CA548 /* MSColorConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSColorConfig.h; sourceTree = "<group>"; };
+		15DED024172DA1DE004CA548 /* MSStylesConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSStylesConfig.h; sourceTree = "<group>"; };
 		15DED028172DA325004CA548 /* MSLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSLabel.h; sourceTree = "<group>"; };
 		15DED029172DA325004CA548 /* MSLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSLabel.m; sourceTree = "<group>"; };
 		15DED031172E66D5004CA548 /* MSPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSPageControl.h; sourceTree = "<group>"; };
@@ -544,8 +538,7 @@
 		1507109E17208D55008A64F3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				1515609D172F1C8F00DF4485 /* MSBorderOverlayView.h */,
-				1515609E172F1C8F00DF4485 /* MSBorderOverlayView.m */,
+				15F02D3F17304BD1008204C5 /* Border overlay */,
 				15DED030172E66B8004CA548 /* Lazy scroll view */,
 				15DED02F172E66AB004CA548 /* Page control */,
 				15DED027172DA314004CA548 /* Label */,
@@ -674,7 +667,7 @@
 			children = (
 				150710DA172090FD008A64F3 /* MSConfig.h */,
 				150710DB172090FD008A64F3 /* MSConfig.m */,
-				15DED024172DA1DE004CA548 /* MSColorConfig.h */,
+				15DED024172DA1DE004CA548 /* MSStylesConfig.h */,
 			);
 			name = Config;
 			sourceTree = "<group>";
@@ -1018,8 +1011,6 @@
 				15DED003172D131D004CA548 /* Data */,
 				15DECFFD172D11FA004CA548 /* Views */,
 				15DECFFC172D11F2004CA548 /* Controllers */,
-				15DED000172D1238004CA548 /* MSMagazineReader.h */,
-				15DED001172D1238004CA548 /* MSMagazineReader.m */,
 			);
 			name = "Magazine reader";
 			sourceTree = "<group>";
@@ -1032,21 +1023,13 @@
 			name = Pages;
 			sourceTree = "<group>";
 		};
-		15DECFFB172D11B6004CA548 /* Flat */ = {
-			isa = PBXGroup;
-			children = (
-				15DED012172D1756004CA548 /* MSMagazineReaderFlatPageViewController.h */,
-				15DED013172D1756004CA548 /* MSMagazineReaderFlatPageViewController.m */,
-			);
-			name = Flat;
-			sourceTree = "<group>";
-		};
 		15DECFFC172D11F2004CA548 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				15DED00B172D16B9004CA548 /* Page */,
 				15DED015172D5464004CA548 /* MSMagazineReaderViewControllerDataProtocol.h */,
-				15DECFFE172D120D004CA548 /* Curled */,
-				15DECFFB172D11B6004CA548 /* Flat */,
+				15DED00C172D16E4004CA548 /* MSMagazineReaderCurledPageViewController.h */,
+				15DED00D172D16E4004CA548 /* MSMagazineReaderCurledPageViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -1057,16 +1040,6 @@
 				15DECFF9172D0FD7004CA548 /* Pages */,
 			);
 			name = Views;
-			sourceTree = "<group>";
-		};
-		15DECFFE172D120D004CA548 /* Curled */ = {
-			isa = PBXGroup;
-			children = (
-				15DED00B172D16B9004CA548 /* Page */,
-				15DED00C172D16E4004CA548 /* MSMagazineReaderCurledPageViewController.h */,
-				15DED00D172D16E4004CA548 /* MSMagazineReaderCurledPageViewController.m */,
-			);
-			name = Curled;
 			sourceTree = "<group>";
 		};
 		15DED003172D131D004CA548 /* Data */ = {
@@ -1090,8 +1063,8 @@
 		15DED00B172D16B9004CA548 /* Page */ = {
 			isa = PBXGroup;
 			children = (
-				15DED00F172D1721004CA548 /* MSMagazineReaderPageViewController.h */,
-				15DED010172D1721004CA548 /* MSMagazineReaderPageViewController.m */,
+				15DED00F172D1721004CA548 /* MSMagazinePageViewController.h */,
+				15DED010172D1721004CA548 /* MSMagazinePageViewController.m */,
 			);
 			name = Page;
 			sourceTree = "<group>";
@@ -1160,6 +1133,15 @@
 				15F02D3D1730339A008204C5 /* MSDataHolder.m */,
 			);
 			name = "Data holder";
+			sourceTree = "<group>";
+		};
+		15F02D3F17304BD1008204C5 /* Border overlay */ = {
+			isa = PBXGroup;
+			children = (
+				1515609D172F1C8F00DF4485 /* MSBorderOverlayView.h */,
+				1515609E172F1C8F00DF4485 /* MSBorderOverlayView.m */,
+			);
+			name = "Border overlay";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1391,12 +1373,10 @@
 				158E840E1723657000D52A15 /* MSMagazineMediumCell.m in Sources */,
 				158E8412172375F900D52A15 /* MSMagazineSingeCell.m in Sources */,
 				158E84161723761000D52A15 /* MSMagezineDenseCell.m in Sources */,
-				15DED002172D1238004CA548 /* MSMagazineReader.m in Sources */,
 				15DED006172D133D004CA548 /* MSMagazineReaderData.m in Sources */,
 				15DED00A172D15D7004CA548 /* MSMagazineReaderBasicPageView.m in Sources */,
 				15DED00E172D16E4004CA548 /* MSMagazineReaderCurledPageViewController.m in Sources */,
-				15DED011172D1721004CA548 /* MSMagazineReaderPageViewController.m in Sources */,
-				15DED014172D1756004CA548 /* MSMagazineReaderFlatPageViewController.m in Sources */,
+				15DED011172D1721004CA548 /* MSMagazinePageViewController.m in Sources */,
 				15DED01B172D5991004CA548 /* MSImageView.m in Sources */,
 				15DED01F172D6FE4004CA548 /* MSProduct.m in Sources */,
 				15DED023172D7A8E004CA548 /* MSDownload.m in Sources */,

@@ -7,8 +7,13 @@
 //
 
 
-#pragma mark Cells
+#pragma mark Cell colors
 
 #define kColorCellTitleLabel                                    @"FFFFFF"
 #define kColorCellDateLabel                                     @"F2F2F2"
 #define kColorCellInfoLabel                                     @"F2F2F2"
+
+
+#pragma mark Cell styles
+
+#define kStyleCellBorderOverlayEnabled                          YES

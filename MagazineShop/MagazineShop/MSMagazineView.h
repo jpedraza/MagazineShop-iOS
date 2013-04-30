@@ -10,7 +10,6 @@
 #import "MSMagazineListMediumView.h"
 #import "MSMagazineListDenseView.h"
 #import "MSDownload.h"
-#import "MSProduct.h"
 #import "MSMagazineBasicCell.h"
 
 
@@ -18,8 +17,10 @@
 
 @protocol MSMagazineViewDelegate <NSObject>
 
+@required
 - (void)magazineViewDidStartLoadingData:(MSMagazineView *)view;
 - (void)magazineViewDidFinishLoadingData:(MSMagazineView *)view;
+- (void)magazineView:(MSMagazineView *)view didRequestReaderForProduct:(MSProduct *)product;
 
 @optional
 - (void)magazineView:(MSMagazineView *)view didUpdatePercentageValue:(CGFloat)percentage;

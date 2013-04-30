@@ -7,7 +7,8 @@
 //
 
 #import "MSHomeViewController.h"
-#import "MSMagazineReader.h"
+#import "MSMagazineReaderCurledPageViewController.h"
+#import "MSMagazineReaderData.h"
 
 
 @interface MSHomeViewController ()
@@ -16,8 +17,6 @@
 @property (nonatomic, strong) MSHomeBottomToolbarView *bottomToolbar;
 
 @property (nonatomic, strong) MSMagazineView *magazineView;
-
-@property (nonatomic, strong) MSMagazineReader *magazineReader;
 
 @end
 
@@ -160,6 +159,17 @@
     [super hideHUD];
     [_topToolbar showElements:YES];
     [_bottomToolbar showElements:YES];
+}
+
+- (void)magazineView:(MSMagazineView *)view didRequestReaderForProduct:(MSProduct *)product {
+    MSMagazineReaderCurledPageViewController *c = [[MSMagazineReaderCurledPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStylePageCurl navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
+    MSMagazineReaderData *data = [[MSMagazineReaderData alloc] init];
+    [data setProduct:product];
+    [c setMagazineDataSource:data];
+    [c setMagazineDelegate:data];
+    [self presentViewController:c animated:YES completion:^{
+        
+    }];
 }
 
 #pragma mark Subscription controller delegate methods

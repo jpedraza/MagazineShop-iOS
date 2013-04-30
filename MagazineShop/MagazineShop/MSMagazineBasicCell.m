@@ -138,9 +138,11 @@
     [_cellBackgroundView setAutoresizingWidthAndHeight];
     [self addSubview:_cellBackgroundView];
     
-    UIView *border = [[MSBorderOverlayView alloc] initWithFrame:_cellBackgroundView.bounds];
-    [border setAutoresizingWidthAndHeight];
-    [_cellBackgroundView addSubview:border];
+    if (kStyleCellBorderOverlayEnabled) {
+        UIView *border = [[MSBorderOverlayView alloc] initWithFrame:_cellBackgroundView.bounds];
+        [border setAutoresizingWidthAndHeight];
+        [_cellBackgroundView addSubview:border];
+    }
 }
 
 - (void)createAllElements {

@@ -1,20 +1,20 @@
 //
-//  MSMagazineReaderPageViewController.m
+//  MSMagazinePageViewController.m
 //  MagazineShop
 //
 //  Created by Ondrej Rafaj on 28/04/2013.
 //  Copyright (c) 2013 Fuerte Innovations. All rights reserved.
 //
 
-#import "MSMagazineReaderPageViewController.h"
+#import "MSMagazinePageViewController.h"
 
 
-@interface MSMagazineReaderPageViewController ()
+@interface MSMagazinePageViewController ()
 
 @end
 
 
-@implementation MSMagazineReaderPageViewController
+@implementation MSMagazinePageViewController
 
 
 - (void)viewDidLoad {

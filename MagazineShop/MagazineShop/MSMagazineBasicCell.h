@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "MSImageView.h"
-#import "MSProduct.h"
 
 
 @class MSMagazineBasicCell, MBRoundProgressView;

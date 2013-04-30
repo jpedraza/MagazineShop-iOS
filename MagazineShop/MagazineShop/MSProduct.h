@@ -47,6 +47,8 @@ typedef enum {
 @property (nonatomic, strong, readonly) NSString *base;
 @property (nonatomic, readonly) NSInteger pages;
 
+@property (nonatomic) NSInteger currentPage;
+
 @property (nonatomic, weak, readonly) id <MSProductDelegate> delegate;
 
 @property (nonatomic, weak) MSMagazineBasicCell *assignedCell;

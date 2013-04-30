@@ -25,12 +25,15 @@
     else {
         [self.imageView setSize:CGSizeMake(60, 80)];
         
-        [self.titleLabel setFrame:CGRectMake(80, 10, (self.width - 80), 16)];
-        [self.infoLabel fitToSuggestedHeight];
-        if (self.infoLabel.height > 70) [self.infoLabel setHeight:70];
+        [self.titleLabel setFrame:CGRectMake(18, (self.imageView.bottom + 6), (self.width - (2 * 18)), 16)];
         
-        [self.dateLabel setFrame:CGRectMake(80, (self.titleLabel.bottom + 2), self.titleLabel.width, 12)];
-        [self.infoLabel setFrame:CGRectMake(10, (self.imageView.bottom + 10), (self.width - 20), 50)];
+        [self.dateLabel setFrame:CGRectMake(18, (self.titleLabel.bottom + 2), self.titleLabel.width, 12)];
+        
+        [self.infoLabel setHidden:YES];
+        
+        [self.actionButton setFrame:CGRectMake(18, (self.height - 18 - 30), (self.actionButton.width - 10), 30)];
+        
+        [self.detailButton setHidden:YES];
     }
 }
 

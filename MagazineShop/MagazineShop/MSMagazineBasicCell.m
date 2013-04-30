@@ -82,6 +82,7 @@
     _infoLabel = [[UILabel alloc] initWithFrame:CGRectMake(_titleLabel.xOrigin, (_dateLabel.bottom + 12), _titleLabel.width, 999)];
     [_infoLabel setTextColor:[UIColor colorWithHexString:kColorCellInfoLabel]];
     [_infoLabel setFont:[UIFont systemFontOfSize:11]];
+    [_infoLabel setLineBreakMode:NSLineBreakByClipping];
     [self configureLabel:_infoLabel];
     [self addSubview:_infoLabel];
 }

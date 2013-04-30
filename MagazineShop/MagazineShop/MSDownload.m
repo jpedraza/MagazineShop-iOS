@@ -25,9 +25,21 @@
 
 #pragma mark Caching
 
-+ (NSString *)folderPath:(MSDownloadCacheLifetime)cacheLifetime {
++ (NSString *)folderPath:(MSDownloadCacheLifetime)cacheLifetime withSpecialCacheFolder:(NSString *)specialCacheFolder andFile:(NSString *)specialCacheFile {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    return [[paths lastObject] stringByAppendingPathComponent:[NSString stringWithFormat:@"download-cache-%d", cacheLifetime]];
+    NSString *path = [paths lastObject];
+    if (specialCacheFolder) {
+        specialCacheFolder = [self safeText:specialCacheFolder];
+        path = [path stringByAppendingPathComponent:specialCacheFolder];
+    }
+    if (specialCacheFile) {
+        return [path stringByAppendingPathComponent:specialCacheFile];
+    }
+    else return [path stringByAppendingPathComponent:[NSString stringWithFormat:@"download-cache-%d", cacheLifetime]];
+}
+
++ (NSString *)folderPath:(MSDownloadCacheLifetime)cacheLifetime {
+    return [self folderPath:cacheLifetime withSpecialCacheFolder:nil andFile:nil];
 }
 
 + (void)clearCache:(MSDownloadCacheLifetime)cacheLifetime {
@@ -45,7 +57,7 @@
     }
 }
 
-- (NSString *)safeText:(NSString *)text {
++ (NSString *)safeText:(NSString *)text {
 	NSString *newText = @"";
 	NSString *a;
 	for(int i = 0; i < [text length]; i++) {
@@ -58,7 +70,8 @@
 }
 
 - (NSString *)cacheFilePathConstruct {
-    NSString *folderPath = [MSDownload folderPath:_cacheLifetime];
+    if (_cacheFilePath) return _cacheFilePath;
+    NSString *folderPath = [MSDownload folderPath:_cacheLifetime withSpecialCacheFolder:_specialCacheFolder andFile:_specialCacheFile];
     BOOL isDir;
     BOOL isFile = [[NSFileManager defaultManager] fileExistsAtPath:folderPath isDirectory:&isDir];
     if (!isFile || !isDir) {
@@ -79,7 +92,7 @@
     self = [super init];
     if (self) {
         _connectionURL = urlPath;
-        _safeUrlString = [self safeText:_connectionURL];
+        _safeUrlString = [MSDownload safeText:_connectionURL];
         _postParameters = nil;
         _delegate = delegate;
         _cacheLifetime = lifetime;
@@ -91,7 +104,7 @@
     self = [super init];
     if (self) {
         _connectionURL = urlPath;
-        _safeUrlString = [self safeText:_connectionURL];
+        _safeUrlString = [MSDownload safeText:_connectionURL];
         _postParameters = postParameters;
         _delegate = delegate;
         _cacheLifetime = lifetime;
@@ -103,7 +116,7 @@
     self = [super init];
     if (self) {
         _connectionURL = urlPath;
-        _safeUrlString = [self safeText:_connectionURL];
+        _safeUrlString = [MSDownload safeText:_connectionURL];
         _postParameters = postParameters;
         _connectionDelegate = delegate;
     }
@@ -150,7 +163,7 @@
 
 - (void)main {
     @autoreleasepool {
-        _safeUrlString = [self safeText:_connectionURL];
+        _safeUrlString = [MSDownload safeText:_connectionURL];
         _cacheFilePath = [self cacheFilePathConstruct];
         
         if ([[NSFileManager defaultManager] fileExistsAtPath:_cacheFilePath] && _cacheLifetime != MSDownloadCacheLifetimeNone) {

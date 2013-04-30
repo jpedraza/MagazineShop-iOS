@@ -39,6 +39,9 @@ typedef enum {
 @property (nonatomic) BOOL executing;
 @property (nonatomic) BOOL finished;
 
+@property (nonatomic, strong) NSString *specialCacheFolder;
+@property (nonatomic, strong) NSString *specialCacheFile;
+
 @property (nonatomic, readonly) MSDownloadCacheLifetime cacheLifetime;
 @property (nonatomic, strong, readonly) NSURLConnection *connection;
 
@@ -56,7 +59,7 @@ typedef enum {
 - (void)cancel;
 
 + (void)clearCache:(MSDownloadCacheLifetime)cacheLifetime;
-
++ (NSString *)safeText:(NSString *)text;
 
 
 @end

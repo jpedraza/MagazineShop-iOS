@@ -21,8 +21,9 @@
         [self.imageView setSize:CGSizeMake(332, 485)];
         
         [self.titleLabel setFrame:CGRectMake((self.imageView.right + 30), 18, (self.width - (self.imageView.right + 50 + 18)), 20)];
+        [self.titleLabel fitToSuggestedHeight];
         
-        [self.dateLabel setXOrigin:self.titleLabel.xOrigin];
+        [self.dateLabel setOrigin:CGPointMake(self.titleLabel.xOrigin, (self.titleLabel.bottom + 3))];
         [self.dateLabel setWidth:self.titleLabel.width];
         
         [self.infoLabel setXOrigin:self.titleLabel.xOrigin];
@@ -43,7 +44,12 @@
 //        [self.imageView.layer setZPosition:200];
     }
     else {
+        [self.titleLabel fitToSuggestedHeight];
         
+        [self.dateLabel setOrigin:CGPointMake(self.titleLabel.xOrigin, (self.titleLabel.bottom + 3))];
+        
+        [self.infoLabel setOrigin:CGPointMake(self.titleLabel.xOrigin, (self.dateLabel.bottom + 10))];
+        if (self.infoLabel.height > 200) [self.infoLabel setHeight:200];
     }
 }
 

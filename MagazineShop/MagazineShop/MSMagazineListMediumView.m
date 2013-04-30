@@ -19,11 +19,16 @@
 - (UICollectionViewFlowLayout *)flowLayout {
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
     [flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
-    if ([super isTablet]) [flowLayout setItemSize:CGSizeMake(300, 300)];
-    else [flowLayout setItemSize:CGSizeMake(120, 200)];
-    [flowLayout setMinimumInteritemSpacing:20];
-    [flowLayout setMinimumLineSpacing:40];
-    
+    if ([super isTablet]) {
+        [flowLayout setItemSize:CGSizeMake(300, 300)];
+        [flowLayout setMinimumInteritemSpacing:20];
+        [flowLayout setMinimumLineSpacing:40];
+    }
+    else {
+        [flowLayout setItemSize:CGSizeMake(140, 200)];
+        [flowLayout setMinimumInteritemSpacing:0];
+        [flowLayout setMinimumLineSpacing:20];
+    }
     return flowLayout;
 }
 
@@ -55,7 +60,7 @@
         else return UIEdgeInsetsMake(50, 50, 50, 50);
     }
     else {
-        return UIEdgeInsetsMake(20, 20, 20, 20);
+        return UIEdgeInsetsMake(10, 10, 10, 10);
     }
 }
 

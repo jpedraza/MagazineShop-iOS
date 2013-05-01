@@ -6,12 +6,15 @@
 //  Copyright (c) 2013 DoTheMag.com. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "MSView.h"
 
 
-@interface MSMagazineReaderBasicPageView : UIView <UIScrollViewDelegate>
+@interface MSMagazineReaderBasicPageView : MSView <UIScrollViewDelegate>
 
 @property (nonatomic, strong) UIScrollView *scrollView;
+@property (nonatomic, strong) UIImageView *imageView;
+
+- (void)setPageImage:(UIImage *)image;
 
 
 @end

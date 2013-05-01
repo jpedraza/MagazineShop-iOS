@@ -30,9 +30,5 @@
     return [_products objectAtIndex:index];
 }
 
-- (void)dealloc {
-    
-}
-
 
 @end

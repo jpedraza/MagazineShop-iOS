@@ -17,3 +17,8 @@
 #pragma mark Cell styles
 
 #define kStyleCellBorderOverlayEnabled                          YES
+
+
+#pragma mark Reading environment
+
+#define kStyleReadingCurlDefault                                MSConfigMagazineDisplayModeCurlDoubleSidedInLandscape

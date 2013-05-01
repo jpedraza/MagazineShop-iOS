@@ -80,6 +80,7 @@
 
 - (BOOL)isPageWithIndex:(NSInteger)index availableInSize:(MSProductPageSize)size {
     NSString *path = [self pathForFileWithIndex:index andSize:size];
+    NSLog(@"Checking for file: %@", path);
     BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath:path];
     return exists;
 }

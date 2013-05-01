@@ -11,8 +11,8 @@
 
 #pragma mark Debug variables
 
-#define kDebug                                              YES
-#define kDegugClearCache                                    YES
+#define kDebug                                              NO
+#define kDegugClearCache                                    NO
 #define kDebugLabels                                        NO
 
 #pragma mark Api variables
@@ -27,8 +27,17 @@ typedef enum {
     MSConfigMainMagazineListViewTypeDense
 } MSConfigMainMagazineListViewType;
 
+typedef enum {
+    MSConfigMagazineDisplayModeCurlDoubleSidedInLandscape,
+    MSConfigMagazineDisplayModeCurlSingle,
+    MSConfigMagazineDisplayModeFlat
+} MSConfigMagazineDisplayMode;
+
 
 @interface MSConfig : NSObject
+
++ (void)setMagazineDisplayMode:(MSConfigMagazineDisplayMode)displayMode;
++ (MSConfigMagazineDisplayMode)magazineDisplayMode;
 
 
 

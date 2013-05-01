@@ -249,7 +249,6 @@
             CGFloat p = (([_receivedData length] * 100) / _totalDataSize);
             if (p > 100) p = 100;
             [_delegate download:self didUpdatePercentageProgressStatus:p];
-            NSLog(@"Percent download: %f", p);
         }
     }
 }
@@ -260,6 +259,7 @@
     }
     if ([_delegate respondsToSelector:@selector(download:didFinishLoadingWithData:)]) {
         if (_cacheLifetime != MSDownloadCacheLifetimeNone) {
+            NSLog(@"Saving to file: %@", _cacheFilePath);
             [_receivedData writeToFile:_cacheFilePath atomically:YES];
         }
         [_delegate download:self didFinishLoadingWithData:_receivedData];

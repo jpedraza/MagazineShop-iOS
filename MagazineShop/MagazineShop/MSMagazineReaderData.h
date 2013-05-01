@@ -10,9 +10,13 @@
 #import "MSMagazineReaderViewControllerDataProtocol.h"
 
 
-@interface MSMagazineReaderData : NSObject <MSMagazineReaderViewControllerDataProtocolDatasource, MSMagazineReaderViewControllerDataProtocolDelegate>
+@class MSMagazinePageViewController;
+
+@interface MSMagazineReaderData : NSObject <UIPageViewControllerDataSource, UIPageViewControllerDelegate>
 
 @property (nonatomic, strong) MSProduct *product;
+
+- (MSMagazinePageViewController *)pageViewControllerWithIndex:(NSInteger)index;
 
 
 @end

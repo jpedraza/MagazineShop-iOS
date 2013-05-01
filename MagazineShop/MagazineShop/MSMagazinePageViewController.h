@@ -13,6 +13,8 @@
 @interface MSMagazinePageViewController : MSViewController
 
 @property (nonatomic, strong) MSMagazineReaderBasicPageView *pageView;
+@property (nonatomic, strong) MSProduct *product;
+@property (nonatomic) NSInteger pageIndex;
 
 
 @end

@@ -8,11 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "MSMagazineReaderViewControllerDataProtocol.h"
+#import "MSMagazineReaderData.h"
 
 
-@interface MSMagazineReaderCurledPageViewController : UIPageViewController
+@interface MSMagazineReaderViewController : UIPageViewController
 
-@property (nonatomic, weak) id <MSMagazineReaderViewControllerDataProtocolDatasource> magazineDataSource;
+@property (nonatomic, readonly) BOOL isLandscape;
+@property (nonatomic, strong) MSMagazineReaderData *data;
 @property (nonatomic, weak) id <MSMagazineReaderViewControllerDataProtocolDelegate> magazineDelegate;
 
 

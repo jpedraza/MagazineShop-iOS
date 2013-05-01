@@ -1,15 +1,15 @@
 //
-//  MSHomeBottomToolbarView.m
+//  MSReadingBottomToolbar.m
 //  MagazineShop
 //
-//  Created by Ondrej Rafaj on 19/04/2013.
+//  Created by Ondrej Rafaj on 30/04/2013.
 //  Copyright (c) 2013 DoTheMag.com. All rights reserved.
 //
 
-#import "MSHomeBottomToolbarView.h"
+#import "MSReadingBottomToolbar.h"
 
 
-@implementation MSHomeBottomToolbarView
+@implementation MSReadingBottomToolbar
 
 
 #pragma mark Creating elements

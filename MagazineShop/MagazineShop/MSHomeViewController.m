@@ -7,7 +7,7 @@
 //
 
 #import "MSHomeViewController.h"
-#import "MSMagazineReaderCurledPageViewController.h"
+#import "MSMagazineReaderViewController.h"
 #import "MSMagazineReaderData.h"
 
 
@@ -115,7 +115,7 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [_magazineView loadProducts];
+    if ([[[MSDataHolder sharedObject] products] count] == 0) [_magazineView loadProducts];
 }
 
 #pragma mark In app purchase delegate methods
@@ -162,11 +162,22 @@
 }
 
 - (void)magazineView:(MSMagazineView *)view didRequestReaderForProduct:(MSProduct *)product {
-    MSMagazineReaderCurledPageViewController *c = [[MSMagazineReaderCurledPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStylePageCurl navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
+    UIPageViewControllerTransitionStyle ts;
+    NSDictionary *options = nil;
+    if ([MSConfig magazineDisplayMode] == MSConfigMagazineDisplayModeFlat) {
+        options = [NSDictionary dictionaryWithObject:[NSNumber numberWithFloat:50.0f] forKey:UIPageViewControllerOptionInterPageSpacingKey];
+        ts = UIPageViewControllerTransitionStyleScroll;
+    }
+    else {
+        ts = UIPageViewControllerTransitionStylePageCurl;
+    }
+    
+    MSMagazineReaderViewController *c = [[MSMagazineReaderViewController alloc] initWithTransitionStyle:ts navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:options];
     MSMagazineReaderData *data = [[MSMagazineReaderData alloc] init];
+    [c setTitle:product.name];
     [data setProduct:product];
-    [c setMagazineDataSource:data];
-    [c setMagazineDelegate:data];
+    [c setData:data];
+    [c setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
     [self presentViewController:c animated:YES completion:^{
         
     }];

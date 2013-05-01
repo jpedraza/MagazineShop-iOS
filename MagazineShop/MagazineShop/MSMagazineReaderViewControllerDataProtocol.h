@@ -11,7 +11,3 @@
 @protocol MSMagazineReaderViewControllerDataProtocolDelegate <NSObject>
 
 @end
-
-@protocol MSMagazineReaderViewControllerDataProtocolDatasource <NSObject>
-
-@end

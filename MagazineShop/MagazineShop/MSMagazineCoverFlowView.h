@@ -7,7 +7,9 @@
 //
 
 #import "MSMagazineListView.h"
+#import "iCarousel.h"
 
-@interface MSMagazineCoverFlowView : MSMagazineListView
+
+@interface MSMagazineCoverFlowView : MSMagazineListView <iCarouselDataSource, iCarouselDelegate>
 
 @end

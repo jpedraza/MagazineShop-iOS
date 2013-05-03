@@ -158,6 +158,8 @@
 		156AABF01734128100A7DB17 /* NS_star-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 156AABED1734128100A7DB17 /* NS_star-on.png */; };
 		156AABF61734136500A7DB17 /* FXImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 156AABF31734136500A7DB17 /* FXImageView.m */; };
 		156AABF71734136500A7DB17 /* UIImage+FX.m in Sources */ = {isa = PBXBuildFile; fileRef = 156AABF51734136500A7DB17 /* UIImage+FX.m */; };
+		156AABFB1734145000A7DB17 /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = 156AABFA1734145000A7DB17 /* iCarousel.m */; };
+		156AABFF1734160800A7DB17 /* MSCoverFlowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 156AABFE1734160800A7DB17 /* MSCoverFlowView.m */; };
 		158E83B61722FC7E00D52A15 /* MSAPIConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = 158E83B51722FC7E00D52A15 /* MSAPIConnector.m */; };
 		158E83DF1722FEBB00D52A15 /* libFlurry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 158E83BA1722FEBB00D52A15 /* libFlurry.a */; };
 		158E83F01722FEBB00D52A15 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 158E83D81722FEBB00D52A15 /* MBProgressHUD.m */; };
@@ -373,6 +375,10 @@
 		156AABF31734136500A7DB17 /* FXImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXImageView.m; sourceTree = "<group>"; };
 		156AABF41734136500A7DB17 /* UIImage+FX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+FX.h"; sourceTree = "<group>"; };
 		156AABF51734136500A7DB17 /* UIImage+FX.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+FX.m"; sourceTree = "<group>"; };
+		156AABF91734145000A7DB17 /* iCarousel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iCarousel.h; sourceTree = "<group>"; };
+		156AABFA1734145000A7DB17 /* iCarousel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iCarousel.m; sourceTree = "<group>"; };
+		156AABFD1734160800A7DB17 /* MSCoverFlowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSCoverFlowView.h; sourceTree = "<group>"; };
+		156AABFE1734160800A7DB17 /* MSCoverFlowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSCoverFlowView.m; sourceTree = "<group>"; };
 		158E83B41722FC7E00D52A15 /* MSAPIConnector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAPIConnector.h; sourceTree = "<group>"; };
 		158E83B51722FC7E00D52A15 /* MSAPIConnector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSAPIConnector.m; sourceTree = "<group>"; };
 		158E83B91722FEBB00D52A15 /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
@@ -973,6 +979,7 @@
 		156AABE21733DB2100A7DB17 /* Cover flow */ = {
 			isa = PBXGroup;
 			children = (
+				156AABFC1734155500A7DB17 /* Cover flow item */,
 				156AABE31733DBD200A7DB17 /* MSMagazineCoverFlowView.h */,
 				156AABE41733DBD200A7DB17 /* MSMagazineCoverFlowView.m */,
 			);
@@ -991,6 +998,25 @@
 			path = FXImageView/FXImageView;
 			sourceTree = "<group>";
 		};
+		156AABF81734145000A7DB17 /* iCarousel */ = {
+			isa = PBXGroup;
+			children = (
+				156AABF91734145000A7DB17 /* iCarousel.h */,
+				156AABFA1734145000A7DB17 /* iCarousel.m */,
+			);
+			name = iCarousel;
+			path = iCarousel/iCarousel;
+			sourceTree = "<group>";
+		};
+		156AABFC1734155500A7DB17 /* Cover flow item */ = {
+			isa = PBXGroup;
+			children = (
+				156AABFD1734160800A7DB17 /* MSCoverFlowView.h */,
+				156AABFE1734160800A7DB17 /* MSCoverFlowView.m */,
+			);
+			name = "Cover flow item";
+			sourceTree = "<group>";
+		};
 		158E83B31722FC4C00D52A15 /* API */ = {
 			isa = PBXGroup;
 			children = (
@@ -1003,6 +1029,7 @@
 		158E83B71722FEBB00D52A15 /* Thirdparty */ = {
 			isa = PBXGroup;
 			children = (
+				156AABF81734145000A7DB17 /* iCarousel */,
 				156AABF11734136500A7DB17 /* FXImageView */,
 				158E83B81722FEBB00D52A15 /* Flurry */,
 				158E83BB1722FEBB00D52A15 /* MBProgressHUD */,
@@ -1467,6 +1494,8 @@
 				156AABEA1734123F00A7DB17 /* MSRatingView.m in Sources */,
 				156AABF61734136500A7DB17 /* FXImageView.m in Sources */,
 				156AABF71734136500A7DB17 /* UIImage+FX.m in Sources */,
+				156AABFB1734145000A7DB17 /* iCarousel.m in Sources */,
+				156AABFF1734160800A7DB17 /* MSCoverFlowView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

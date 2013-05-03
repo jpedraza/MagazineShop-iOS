@@ -170,10 +170,11 @@
         [cell.actionButton setEnabled:NO];
     }
     else {
-        if ([product productAvailability] == MSProductAvailabilityNotPresent) {
+        MSProductAvailability a = [product productAvailability];
+        if (a == MSProductAvailabilityNotPresent) {
             [product downloadIssueWithDelegate:self];
         }
-        else if ([product productAvailability] == MSProductAvailabilityDownloaded) {
+        else if (a == MSProductAvailabilityDownloaded || a == MSProductAvailabilityPartiallyDownloaded) {
             if ([_delegate respondsToSelector:@selector(magazineView:didRequestReaderForProduct:)]) {
                 [_delegate magazineView:self didRequestReaderForProduct:product];
             }
@@ -194,29 +195,6 @@
 - (void)product:(MSProduct *)product didDownloadItem:(NSInteger)item of:(NSInteger)totalItems {
     NSLog(@"Downloaded item: %d of %d (%@)", item, totalItems, ([product isPageWithIndex:item availableInSize:MSProductPageSize1024] ? @"Ok" : @"Fail"));
     
-}
-
-#pragma mark StoreKit delegate methods
-
-- (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response {
-    _pricedProductCountFinished++;
-    for (SKProduct *p in response.products) {
-        [_products setObject:p forKey:p.productIdentifier];
-    }
-    if (_pricedProductCount == _pricedProductCountFinished) {
-        NSMutableArray *arr = [NSMutableArray array];
-        for (NSDictionary *info in _productsInfo) {
-            MSProduct *product = [[MSProduct alloc] init];
-            [product fillDataFromDictionary:info];
-            [product setProduct:[_products objectForKey:product.identifier]];
-            [arr addObject:product];
-        }
-        [[MSDataHolder sharedObject] setProducts:arr];
-        [self performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
-        if ([_delegate respondsToSelector:@selector(magazineViewDidFinishLoadingData:)]) {
-            [(NSObject *)_delegate performSelectorOnMainThread:@selector(magazineViewDidFinishLoadingData:) withObject:self waitUntilDone:NO];
-        }
-    }
 }
 
 #pragma mark Magazine list view datasource methods
@@ -261,6 +239,29 @@
 - (void)download:(MSDownload *)download didUpdatePercentageProgressStatus:(CGFloat)percentage {
     if ([_delegate respondsToSelector:@selector(magazineView:didUpdatePercentageValue:)]) {
         [_delegate magazineView:self didUpdatePercentageValue:percentage];
+    }
+}
+
+#pragma mark StoreKit delegate methods
+
+- (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response {
+    _pricedProductCountFinished++;
+    for (SKProduct *p in response.products) {
+        [_products setObject:p forKey:p.productIdentifier];
+    }
+    if (_pricedProductCount == _pricedProductCountFinished) {
+        NSMutableArray *arr = [NSMutableArray array];
+        for (NSDictionary *info in _productsInfo) {
+            MSProduct *product = [[MSProduct alloc] init];
+            [product fillDataFromDictionary:info];
+            [product setProduct:[_products objectForKey:product.identifier]];
+            [arr addObject:product];
+        }
+        [[MSDataHolder sharedObject] setProducts:arr];
+        [self performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+        if ([_delegate respondsToSelector:@selector(magazineViewDidFinishLoadingData:)]) {
+            [(NSObject *)_delegate performSelectorOnMainThread:@selector(magazineViewDidFinishLoadingData:) withObject:self waitUntilDone:NO];
+        }
     }
 }
 

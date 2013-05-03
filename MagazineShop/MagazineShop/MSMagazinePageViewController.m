@@ -22,6 +22,7 @@
 	
     _pageView = [[MSMagazineReaderBasicPageView alloc] initWithFrame:self.view.bounds];
     [_pageView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
+    [_pageView setPageIndex:_pageIndex];
     [self.view addSubview:_pageView];
     
     [_pageView setPageImage:[_product pageWithIndex:_pageIndex inSize:MSProductPageSize2048]];

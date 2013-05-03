@@ -231,10 +231,6 @@
             case MSProductAvailabilityDownloaded:
                 actionTitle = MSLangGet(@"Read");
                 break;
-                
-            case MSProductAvailabilityIsDownloading:
-                actionTitle = MSLangGet(@"Downloading");
-                break;
         }
     }
     [_actionButton setTitle:actionTitle forState:UIControlStateNormal];

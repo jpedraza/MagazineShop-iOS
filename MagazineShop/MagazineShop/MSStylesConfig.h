@@ -10,7 +10,7 @@
 #pragma mark Cell colors
 
 #define kColorCellTitleLabel                                    @"FFFFFF"
-#define kColorCellDateLabel                                     @"F2F2F2"
+#define kColorCellDateLabel                                     @"E0E0E0"
 #define kColorCellInfoLabel                                     @"F2F2F2"
 
 

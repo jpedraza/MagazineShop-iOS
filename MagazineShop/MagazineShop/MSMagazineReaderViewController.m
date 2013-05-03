@@ -16,6 +16,9 @@
 @property (nonatomic, strong) MSReadingTopToolbar *topToolbar;
 @property (nonatomic, strong) MSReadingBottomToolbar *bottomToolbar;
 
+@property (nonatomic) BOOL toolbarsAreAnimating;
+@property (nonatomic) BOOL toolbarsShowing;
+
 @end
 
 
@@ -62,7 +65,7 @@
     if (self.isLandscape) {
         [_topToolbar setWidth:[self screenWidth]];
         [_bottomToolbar setWidth:[self screenWidth]];
-        [_bottomToolbar setYOrigin:([self screenHeight] - 49)];
+        [self positionToolbars];
     }
 }
 
@@ -85,6 +88,51 @@
     [self createToolbars];
 }
 
+#pragma mark Toolbar handling
+
+- (void)showToolbarContent {
+    [_topToolbar showElements:YES];
+    [_bottomToolbar showElements:YES];
+}
+
+- (void)hideToolbars {
+    [_topToolbar setYOrigin:-_topToolbar.height];
+    [_bottomToolbar setYOrigin:[self screenHeight]];
+}
+
+- (void)hideToolbarsAnimated {
+    [UIView animateWithDuration:0.3 animations:^{
+        [self hideToolbars];
+    }];
+}
+
+- (void)showToolbars {
+    [_topToolbar setYOrigin:0];
+    [_bottomToolbar setYOrigin:([self screenHeight] - _bottomToolbar.height)];
+}
+
+- (BOOL)positionToolbars {
+    BOOL isOn = NO;
+    if (_topToolbar.yOrigin == 0) {
+        [self hideToolbars];
+        isOn = YES;
+    }
+    else {
+        [self showToolbars];
+    }
+    return isOn;
+}
+
+- (void)toggleToolbars {
+    if (_toolbarsAreAnimating) return;
+    _toolbarsAreAnimating = YES;
+    [UIView animateWithDuration:0.3 animations:^{
+        [self positionToolbars];
+    } completion:^(BOOL finished) {
+        _toolbarsAreAnimating = NO;
+    }];
+}
+
 #pragma mark Actions
 
 - (void)didClickCloseButton:(UIButton *)sender {
@@ -100,27 +148,28 @@
     _isLandscape = UIInterfaceOrientationIsLandscape(self.interfaceOrientation);
 }
 
-- (void)showToolbarContent {
-    [_topToolbar showElements:YES];
-    [_bottomToolbar showElements:YES];
-}
-
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    [self toggleToolbars];
     
     [NSTimer scheduledTimerWithTimeInterval:0.3 target:self selector:@selector(showToolbarContent) userInfo:nil repeats:NO];
+    [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(hideToolbarsAnimated) userInfo:nil repeats:NO];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     _isLandscape = UIInterfaceOrientationIsLandscape(self.interfaceOrientation);
-    [self createAllElements];
     
     [self setDataSource:_data];
     [self setDelegate:_data];
     
-    NSArray *viewControllers = @[[_data pageViewControllerWithIndex:0]];
+    NSArray *viewControllers = @[[_data pageViewControllerWithIndex:[_data.product currentPage]]];
     [self setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:NULL];
+    
+    [self createAllElements];
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toggleToolbars)];
+    [self.view addGestureRecognizer:tap];
 }
 
 - (NSUInteger)supportedInterfaceOrientations {

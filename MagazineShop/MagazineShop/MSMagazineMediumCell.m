@@ -17,11 +17,15 @@
 
 - (void)layoutElements {
     if ([super isTablet]) {
+        [self.titleLabel setWidth:126];
+        [self.titleLabel fitToSuggestedHeight];
+        
+        [self.dateLabel setFrame:CGRectMake(self.titleLabel.xOrigin, (self.titleLabel.bottom + 5), self.titleLabel.width, 12)];
+        
+        [self.infoLabel setYOrigin:(self.dateLabel.bottom + 15)];
         [self.infoLabel fitToSuggestedHeight];
         if (self.infoLabel.height > 70) [self.infoLabel setHeight:70];
-        
-        [self.dateLabel setFrame:CGRectMake(80, (self.titleLabel.bottom + 2), self.titleLabel.width, 12)];
-    }
+     }
     else {
         [self.imageView setSize:CGSizeMake(60, 80)];
         

@@ -40,6 +40,16 @@
     // Initialize tracing
     [MSTracking initTrackingSessions];
     
+    // First launch
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"isFirstLaunch"]) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isFirstLaunch"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        [MSConfig setMagazineDisplayMode:MSConfigMagazineDisplayModeCurlSingle];
+        [MSConfig setScrollInLandscapeMode:YES];
+        [MSConfig setReaderBackgroundColorIsBlack:YES];
+    }
+    
     // Handle caching
     if (kDegugClearCache) {
         [MSImageView clearCache:MSImageViewCacheLifetimeTerminate];
@@ -47,6 +57,7 @@
         if (kDebug) {
             [MSImageView clearCache:MSImageViewCacheLifetimeForever];
             [MSDownload clearCache:MSDownloadCacheLifetimeForever];
+            [MSDataHolder resetProductAvailability];
         }
     }
     

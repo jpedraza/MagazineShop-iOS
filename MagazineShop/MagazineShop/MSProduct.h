@@ -11,10 +11,14 @@
 
 typedef enum {
     MSProductAvailabilityNotPresent,
-    MSProductAvailabilityIsDownloading,
     MSProductAvailabilityPartiallyDownloaded,
     MSProductAvailabilityDownloaded
 } MSProductAvailability;
+
+typedef enum {
+    MSProductDownloadStatusIdle,
+    MSProductDownloadStatusIsDownloading
+} MSProductDownloadStatus;
 
 typedef enum {
     MSProductPageSize180,
@@ -24,7 +28,7 @@ typedef enum {
 } MSProductPageSize;
 
 
-@class MSProduct, MSMagazineBasicCell;
+@class MSProduct, MSMagazineBasicCell, MSMagazineReaderViewController;
 
 @protocol MSProductDelegate <NSObject>
 
@@ -52,6 +56,7 @@ typedef enum {
 @property (nonatomic, weak, readonly) id <MSProductDelegate> delegate;
 
 @property (nonatomic, weak) MSMagazineBasicCell *assignedCell;
+@property (nonatomic, weak) MSMagazineReaderViewController *assignedReader;
 
 - (void)fillDataFromDictionary:(NSDictionary *)data;
 

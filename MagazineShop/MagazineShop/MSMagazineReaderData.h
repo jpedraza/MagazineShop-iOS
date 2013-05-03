@@ -15,6 +15,7 @@
 @interface MSMagazineReaderData : NSObject <UIPageViewControllerDataSource, UIPageViewControllerDelegate>
 
 @property (nonatomic, strong) MSProduct *product;
+@property (nonatomic, readonly) NSInteger currentPage;
 
 - (MSMagazinePageViewController *)pageViewControllerWithIndex:(NSInteger)index;
 

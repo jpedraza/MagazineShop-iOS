@@ -175,7 +175,6 @@
     @autoreleasepool {
         _safeUrlString = [MSDownload safeText:_connectionURL];
         _cacheFilePath = [self cacheFilePathConstruct];
-        
         if ([[NSFileManager defaultManager] fileExistsAtPath:_cacheFilePath] && _cacheLifetime != MSDownloadCacheLifetimeNone) {
             NSData *data = [NSData dataWithContentsOfFile:_cacheFilePath];
             if ([_delegate respondsToSelector:@selector(download:didFinishLoadingWithData:)]) {
@@ -184,6 +183,7 @@
             [self done];
         }
         else {
+            //sleep(1);
             NSURL *url = [[NSURL alloc] initWithString:_connectionURL];
             NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
             [request setTimeoutInterval:8];
@@ -259,7 +259,6 @@
     }
     if ([_delegate respondsToSelector:@selector(download:didFinishLoadingWithData:)]) {
         if (_cacheLifetime != MSDownloadCacheLifetimeNone) {
-            NSLog(@"Saving to file: %@", _cacheFilePath);
             [_receivedData writeToFile:_cacheFilePath atomically:YES];
         }
         [_delegate download:self didFinishLoadingWithData:_receivedData];

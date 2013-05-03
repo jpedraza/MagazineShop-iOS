@@ -19,5 +19,9 @@
 
 - (MSProduct *)productAtIndex:(NSInteger)index;
 
++ (void)registerAvailability:(MSProductAvailability)availability forProduct:(MSProduct *)product;
++ (MSProductAvailability)availabilityForProduct:(MSProduct *)product;
++ (void)resetProductAvailability;
+
 
 @end

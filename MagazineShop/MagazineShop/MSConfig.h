@@ -11,8 +11,8 @@
 
 #pragma mark Debug variables
 
-#define kDebug                                              NO
-#define kDegugClearCache                                    NO
+#define kDebug                                              YES
+#define kDegugClearCache                                    YES
 #define kDebugLabels                                        NO
 
 #pragma mark Api variables
@@ -39,6 +39,11 @@ typedef enum {
 + (void)setMagazineDisplayMode:(MSConfigMagazineDisplayMode)displayMode;
 + (MSConfigMagazineDisplayMode)magazineDisplayMode;
 
++ (void)setScrollInLandscapeMode:(BOOL)scroll;
++ (BOOL)scrollInLandscapeMode;
+
++ (void)setReaderBackgroundColorIsBlack:(BOOL)isBlack;
++ (BOOL)readerBackgroundColorIsBlack;
 
 
 @end

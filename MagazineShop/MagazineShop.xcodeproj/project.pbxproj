@@ -147,6 +147,10 @@
 		1533BF9D17218D26001213DE /* MSMagazineListMediumView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1533BF9C17218D26001213DE /* MSMagazineListMediumView.m */; };
 		1533BFA017218D3F001213DE /* MSMagazineListSingleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1533BF9F17218D3F001213DE /* MSMagazineListSingleView.m */; };
 		1533BFA317218D52001213DE /* MSMagazineListDenseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1533BFA217218D52001213DE /* MSMagazineListDenseView.m */; };
+		156AABDD1732FF8700A7DB17 /* MS_ico_black.png in Resources */ = {isa = PBXBuildFile; fileRef = 156AABD91732FF8700A7DB17 /* MS_ico_black.png */; };
+		156AABDE1732FF8700A7DB17 /* MS_ico_black@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 156AABDA1732FF8700A7DB17 /* MS_ico_black@2x.png */; };
+		156AABDF1732FF8700A7DB17 /* MS_ico_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 156AABDB1732FF8700A7DB17 /* MS_ico_white.png */; };
+		156AABE01732FF8700A7DB17 /* MS_ico_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 156AABDC1732FF8700A7DB17 /* MS_ico_white@2x.png */; };
 		158E83B61722FC7E00D52A15 /* MSAPIConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = 158E83B51722FC7E00D52A15 /* MSAPIConnector.m */; };
 		158E83DF1722FEBB00D52A15 /* libFlurry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 158E83BA1722FEBB00D52A15 /* libFlurry.a */; };
 		158E83F01722FEBB00D52A15 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 158E83D81722FEBB00D52A15 /* MBProgressHUD.m */; };
@@ -347,6 +351,10 @@
 		1533BF9F17218D3F001213DE /* MSMagazineListSingleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSMagazineListSingleView.m; sourceTree = "<group>"; };
 		1533BFA117218D52001213DE /* MSMagazineListDenseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSMagazineListDenseView.h; sourceTree = "<group>"; };
 		1533BFA217218D52001213DE /* MSMagazineListDenseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSMagazineListDenseView.m; sourceTree = "<group>"; };
+		156AABD91732FF8700A7DB17 /* MS_ico_black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MS_ico_black.png; sourceTree = "<group>"; };
+		156AABDA1732FF8700A7DB17 /* MS_ico_black@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MS_ico_black@2x.png"; sourceTree = "<group>"; };
+		156AABDB1732FF8700A7DB17 /* MS_ico_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MS_ico_white.png; sourceTree = "<group>"; };
+		156AABDC1732FF8700A7DB17 /* MS_ico_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MS_ico_white@2x.png"; sourceTree = "<group>"; };
 		158E83B41722FC7E00D52A15 /* MSAPIConnector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAPIConnector.h; sourceTree = "<group>"; };
 		158E83B51722FC7E00D52A15 /* MSAPIConnector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSAPIConnector.m; sourceTree = "<group>"; };
 		158E83B91722FEBB00D52A15 /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
@@ -724,6 +732,10 @@
 		1507110B1720932A008A64F3 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				156AABD91732FF8700A7DB17 /* MS_ico_black.png */,
+				156AABDA1732FF8700A7DB17 /* MS_ico_black@2x.png */,
+				156AABDB1732FF8700A7DB17 /* MS_ico_white.png */,
+				156AABDC1732FF8700A7DB17 /* MS_ico_white@2x.png */,
 				1507111E1720A721008A64F3 /* MS_bcg_main.png */,
 			);
 			path = Images;
@@ -1316,6 +1328,10 @@
 				150711CE172163DF008A64F3 /* MS_icon_zoomout@2x.png in Resources */,
 				150711D11721664F008A64F3 /* MS_icon_onecolumn.png in Resources */,
 				150711D21721664F008A64F3 /* MS_icon_onecolumn@2x.png in Resources */,
+				156AABDD1732FF8700A7DB17 /* MS_ico_black.png in Resources */,
+				156AABDE1732FF8700A7DB17 /* MS_ico_black@2x.png in Resources */,
+				156AABDF1732FF8700A7DB17 /* MS_ico_white.png in Resources */,
+				156AABE01732FF8700A7DB17 /* MS_ico_white@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

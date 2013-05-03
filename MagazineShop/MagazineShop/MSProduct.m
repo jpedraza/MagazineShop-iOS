@@ -14,7 +14,8 @@
 @interface MSProduct ()
 
 @property (nonatomic, strong) NSMutableArray *downloadObjectsArray;
-@property (nonatomic) MSProductAvailability availability;
+//@property (nonatomic) MSProductAvailability availability;
+@property (nonatomic) MSProductDownloadStatus downloadStatus;
 @property (nonatomic) NSInteger pagesDownloaded;
 @property (nonatomic) NSInteger pagesProcessed;
 @property (nonatomic) NSInteger totalDownloads;
@@ -60,13 +61,7 @@
 }
 
 - (MSProductAvailability)productAvailability {
-    if ([_downloadObjectsArray count] > 0) {
-        return MSProductAvailabilityIsDownloading;
-    }
-    else {
-        if ([[NSUserDefaults standardUserDefaults] boolForKey:[NSString stringWithFormat:@"full-%@", self.identifier]]) return MSProductAvailabilityDownloaded;
-        else return MSProductAvailabilityNotPresent;
-    }
+    return [MSDataHolder availabilityForProduct:self];
 }
 
 - (void)setCurrentPage:(NSInteger)currentPage {
@@ -80,7 +75,6 @@
 
 - (BOOL)isPageWithIndex:(NSInteger)index availableInSize:(MSProductPageSize)size {
     NSString *path = [self pathForFileWithIndex:index andSize:size];
-    NSLog(@"Checking for file: %@", path);
     BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath:path];
     return exists;
 }
@@ -121,11 +115,12 @@
     _pagesDownloaded = 0;
     _pagesProcessed = 0;
     _totalDownloads = 0;
-    _availability = MSProductAvailabilityIsDownloading;
+    
+    _downloadStatus = MSProductDownloadStatusIsDownloading;
     
     for (int i = 0; i < _pages; i++) {
         [self downloadSize:MSProductPageSize180 withI:i];
-         if (![self isRetina] || ![self isTablet]) {
+        if (![self isRetina] || ![self isTablet]) {
             [self downloadSize:MSProductPageSize1024 withI:i];
         }
         else {
@@ -152,7 +147,7 @@
     if ([_delegate respondsToSelector:@selector(product:didDownloadItem:of:)]) {
         [_delegate product:self didDownloadItem:_pagesProcessed of:_totalDownloads];
     }
-    if (_availability == MSProductAvailabilityIsDownloading) {
+    if (_downloadStatus == MSProductDownloadStatusIsDownloading) {
         CGFloat progress = ((((float)_pagesProcessed * 100.0f) / (float)_totalDownloads) / 100.0f);
         if ([_assignedCell respondsToSelector:@selector(progressView)]) {
             [_assignedCell.progressView setProgress:progress];
@@ -160,10 +155,15 @@
         }
     }
     [_downloadObjectsArray removeObject:download];
-    if (_pagesDownloaded == kMSConfigMinPagesForRead) {
-        // TODO: Change state partially downloaded
+    if (_pagesDownloaded == (kMSConfigMinPagesForRead * 2)) {
+        [MSDataHolder registerAvailability:MSProductAvailabilityPartiallyDownloaded forProduct:self];
+        if ([_assignedCell respondsToSelector:@selector(progressView)]) {
+            [_assignedCell resetActionButtonValues];
+        }
     }
     if (_totalDownloads == _pagesDownloaded) {
+        [MSDataHolder registerAvailability:MSProductAvailabilityDownloaded forProduct:self];
+        _downloadStatus = MSProductDownloadStatusIdle;
         if ([_assignedCell respondsToSelector:@selector(progressView)]) {
             [_assignedCell showDownloadingIndicator:NO];
             [[NSUserDefaults standardUserDefaults] setBool:YES forKey:[NSString stringWithFormat:@"full-%@", self.identifier]];

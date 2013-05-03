@@ -11,6 +11,7 @@
 
 @interface MSMagazineView ()
 
+@property (nonatomic, strong) MSMagazineCoverFlowView *magazineCoverFlowView;
 @property (nonatomic, strong) MSMagazineListSingleView *magazineSingleView;
 @property (nonatomic, strong) MSMagazineListMediumView *magazineListView;
 @property (nonatomic, strong) MSMagazineListDenseView *magazineDenseView;
@@ -33,6 +34,16 @@
 
 
 #pragma mark Creating elements
+
+- (void)createCoverFlowView {
+    _magazineCoverFlowView = [[MSMagazineCoverFlowView alloc] initWithFrame:self.bounds];
+    [_magazineCoverFlowView setAlpha:0];
+    [_magazineCoverFlowView setAutoresizingWidthAndHeight];
+    [_magazineCoverFlowView setDataSource:self];
+    [_magazineCoverFlowView setDelegate:_magazineDelegate];
+    [self addSubview:_magazineCoverFlowView];
+    _currentMagazineView = _magazineCoverFlowView;
+}
 
 - (void)createMagazineSingleView {
     _magazineSingleView = [[MSMagazineListSingleView alloc] initWithFrame:self.bounds];
@@ -81,6 +92,9 @@
 }
 
 - (void)removeAllViews {
+    [_magazineCoverFlowView removeFromSuperview];
+    _magazineCoverFlowView = nil;
+    
     [_magazineSingleView removeFromSuperview];
     _magazineSingleView = nil;
 
@@ -98,6 +112,12 @@
     } completion:^(BOOL finished) {
         
     }];
+}
+
+- (void)showMagazineCoverFlowView {
+    [self removeAllViews];
+    [self createCoverFlowView];
+    [self animateNewMagazineViewOn];
 }
 
 - (void)showMagazineSingleView {
@@ -122,7 +142,8 @@
     SEL selector = nil;
     switch (_listViewType) {
         case MSConfigMainMagazineListViewTypeSigle:
-            selector = @selector(showMagazineSingleView);
+            if (kShopUseCoverflow) selector = @selector(showMagazineCoverFlowView);
+            else selector = @selector(showMagazineSingleView);
             break;
             
         case MSConfigMainMagazineListViewTypeList:

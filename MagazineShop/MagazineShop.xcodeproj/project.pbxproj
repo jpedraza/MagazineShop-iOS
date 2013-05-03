@@ -151,6 +151,7 @@
 		156AABDE1732FF8700A7DB17 /* MS_ico_black@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 156AABDA1732FF8700A7DB17 /* MS_ico_black@2x.png */; };
 		156AABDF1732FF8700A7DB17 /* MS_ico_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 156AABDB1732FF8700A7DB17 /* MS_ico_white.png */; };
 		156AABE01732FF8700A7DB17 /* MS_ico_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 156AABDC1732FF8700A7DB17 /* MS_ico_white@2x.png */; };
+		156AABE51733DBD200A7DB17 /* MSMagazineCoverFlowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 156AABE41733DBD200A7DB17 /* MSMagazineCoverFlowView.m */; };
 		158E83B61722FC7E00D52A15 /* MSAPIConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = 158E83B51722FC7E00D52A15 /* MSAPIConnector.m */; };
 		158E83DF1722FEBB00D52A15 /* libFlurry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 158E83BA1722FEBB00D52A15 /* libFlurry.a */; };
 		158E83F01722FEBB00D52A15 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 158E83D81722FEBB00D52A15 /* MBProgressHUD.m */; };
@@ -355,6 +356,8 @@
 		156AABDA1732FF8700A7DB17 /* MS_ico_black@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MS_ico_black@2x.png"; sourceTree = "<group>"; };
 		156AABDB1732FF8700A7DB17 /* MS_ico_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MS_ico_white.png; sourceTree = "<group>"; };
 		156AABDC1732FF8700A7DB17 /* MS_ico_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MS_ico_white@2x.png"; sourceTree = "<group>"; };
+		156AABE31733DBD200A7DB17 /* MSMagazineCoverFlowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSMagazineCoverFlowView.h; sourceTree = "<group>"; };
+		156AABE41733DBD200A7DB17 /* MSMagazineCoverFlowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSMagazineCoverFlowView.m; sourceTree = "<group>"; };
 		158E83B41722FC7E00D52A15 /* MSAPIConnector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAPIConnector.h; sourceTree = "<group>"; };
 		158E83B51722FC7E00D52A15 /* MSAPIConnector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSAPIConnector.m; sourceTree = "<group>"; };
 		158E83B91722FEBB00D52A15 /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
@@ -896,6 +899,7 @@
 		1533BF9017218902001213DE /* Magazine lists */ = {
 			isa = PBXGroup;
 			children = (
+				156AABE21733DB2100A7DB17 /* Cover flow */,
 				1533BF9117218916001213DE /* Single */,
 				1533BF931721892C001213DE /* List */,
 				1533BF921721891E001213DE /* Dense list */,
@@ -944,6 +948,15 @@
 				1533BF961721895A001213DE /* MSMagazineListView.m */,
 			);
 			name = Basic;
+			sourceTree = "<group>";
+		};
+		156AABE21733DB2100A7DB17 /* Cover flow */ = {
+			isa = PBXGroup;
+			children = (
+				156AABE31733DBD200A7DB17 /* MSMagazineCoverFlowView.h */,
+				156AABE41733DBD200A7DB17 /* MSMagazineCoverFlowView.m */,
+			);
+			name = "Cover flow";
 			sourceTree = "<group>";
 		};
 		158E83B31722FC4C00D52A15 /* API */ = {
@@ -1414,6 +1427,7 @@
 				15F02D3E1730339A008204C5 /* MSDataHolder.m in Sources */,
 				15F02D4217307720008204C5 /* MSReadingTopToolbar.m in Sources */,
 				15F02D4517307739008204C5 /* MSReadingBottomToolbar.m in Sources */,
+				156AABE51733DBD200A7DB17 /* MSMagazineCoverFlowView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

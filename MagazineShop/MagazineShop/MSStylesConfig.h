@@ -18,6 +18,9 @@
 
 #define kStyleCellBorderOverlayEnabled                          YES
 
+#pragma mark Shop environment
+
+#define kShopUseCoverflow                                       YES
 
 #pragma mark Reading environment
 

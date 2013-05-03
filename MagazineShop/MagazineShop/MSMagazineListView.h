@@ -38,6 +38,8 @@ typedef enum {
 @property (nonatomic, weak) id <MSMagazineListViewDataSource> dataSource;
 @property (nonatomic, weak) id <MSMagazineListViewDelegate> delegate;
 
+@property (nonatomic) BOOL disableCollectionView;
+
 - (UICollectionViewFlowLayout *)flowLayout;
 - (NSString *)cellIdentifier;
 - (void)registerCell;

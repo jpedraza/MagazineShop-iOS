@@ -11,6 +11,7 @@
 #import "MSMagazineListDenseView.h"
 #import "MSDownload.h"
 #import "MSMagazineBasicCell.h"
+#import "MSMagazineCoverFlowView.h"
 
 
 @class MSMagazineView;

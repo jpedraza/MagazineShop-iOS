@@ -40,7 +40,7 @@
 
 - (void)createAllElements {
     [super createAllElements];
-    [self createCollectionView];
+    if (!_disableCollectionView) [self createCollectionView];
 }
 
 #pragma mark Settings

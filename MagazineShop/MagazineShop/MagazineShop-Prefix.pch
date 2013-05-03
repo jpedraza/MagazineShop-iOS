@@ -22,4 +22,5 @@
     #import "MSTracking.h"
     #import "UIView+Layout.h"
     #import "UIColor+Tools.h"
+    #import "UIImage+FX.h"
 #endif

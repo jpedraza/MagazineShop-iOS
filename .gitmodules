@@ -1,3 +1,9 @@
 [submodule "MagazineShop/Thirdparty/MBProgressHUD"]
 	path = MagazineShop/Thirdparty/MBProgressHUD
 	url = git@github.com:jdg/MBProgressHUD.git
+[submodule "MagazineShop/Thirdparty/FXImageView"]
+	path = MagazineShop/Thirdparty/FXImageView
+	url = git@github.com:nicklockwood/FXImageView.git
+[submodule "MagazineShop/Thirdparty/iCarousel"]
+	path = MagazineShop/Thirdparty/iCarousel
+	url = git@github.com:nicklockwood/iCarousel.git

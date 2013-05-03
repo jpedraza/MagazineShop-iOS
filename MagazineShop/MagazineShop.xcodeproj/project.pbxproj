@@ -152,6 +152,12 @@
 		156AABDF1732FF8700A7DB17 /* MS_ico_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 156AABDB1732FF8700A7DB17 /* MS_ico_white.png */; };
 		156AABE01732FF8700A7DB17 /* MS_ico_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 156AABDC1732FF8700A7DB17 /* MS_ico_white@2x.png */; };
 		156AABE51733DBD200A7DB17 /* MSMagazineCoverFlowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 156AABE41733DBD200A7DB17 /* MSMagazineCoverFlowView.m */; };
+		156AABEA1734123F00A7DB17 /* MSRatingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 156AABE91734123F00A7DB17 /* MSRatingView.m */; };
+		156AABEE1734128100A7DB17 /* NS_star-off.png in Resources */ = {isa = PBXBuildFile; fileRef = 156AABEB1734128100A7DB17 /* NS_star-off.png */; };
+		156AABEF1734128100A7DB17 /* NS_star-half.png in Resources */ = {isa = PBXBuildFile; fileRef = 156AABEC1734128100A7DB17 /* NS_star-half.png */; };
+		156AABF01734128100A7DB17 /* NS_star-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 156AABED1734128100A7DB17 /* NS_star-on.png */; };
+		156AABF61734136500A7DB17 /* FXImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 156AABF31734136500A7DB17 /* FXImageView.m */; };
+		156AABF71734136500A7DB17 /* UIImage+FX.m in Sources */ = {isa = PBXBuildFile; fileRef = 156AABF51734136500A7DB17 /* UIImage+FX.m */; };
 		158E83B61722FC7E00D52A15 /* MSAPIConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = 158E83B51722FC7E00D52A15 /* MSAPIConnector.m */; };
 		158E83DF1722FEBB00D52A15 /* libFlurry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 158E83BA1722FEBB00D52A15 /* libFlurry.a */; };
 		158E83F01722FEBB00D52A15 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 158E83D81722FEBB00D52A15 /* MBProgressHUD.m */; };
@@ -358,6 +364,15 @@
 		156AABDC1732FF8700A7DB17 /* MS_ico_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MS_ico_white@2x.png"; sourceTree = "<group>"; };
 		156AABE31733DBD200A7DB17 /* MSMagazineCoverFlowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSMagazineCoverFlowView.h; sourceTree = "<group>"; };
 		156AABE41733DBD200A7DB17 /* MSMagazineCoverFlowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSMagazineCoverFlowView.m; sourceTree = "<group>"; };
+		156AABE81734123E00A7DB17 /* MSRatingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSRatingView.h; sourceTree = "<group>"; };
+		156AABE91734123F00A7DB17 /* MSRatingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSRatingView.m; sourceTree = "<group>"; };
+		156AABEB1734128100A7DB17 /* NS_star-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NS_star-off.png"; sourceTree = "<group>"; };
+		156AABEC1734128100A7DB17 /* NS_star-half.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NS_star-half.png"; sourceTree = "<group>"; };
+		156AABED1734128100A7DB17 /* NS_star-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NS_star-on.png"; sourceTree = "<group>"; };
+		156AABF21734136500A7DB17 /* FXImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXImageView.h; sourceTree = "<group>"; };
+		156AABF31734136500A7DB17 /* FXImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXImageView.m; sourceTree = "<group>"; };
+		156AABF41734136500A7DB17 /* UIImage+FX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+FX.h"; sourceTree = "<group>"; };
+		156AABF51734136500A7DB17 /* UIImage+FX.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+FX.m"; sourceTree = "<group>"; };
 		158E83B41722FC7E00D52A15 /* MSAPIConnector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAPIConnector.h; sourceTree = "<group>"; };
 		158E83B51722FC7E00D52A15 /* MSAPIConnector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSAPIConnector.m; sourceTree = "<group>"; };
 		158E83B91722FEBB00D52A15 /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
@@ -555,6 +570,8 @@
 		1507109E17208D55008A64F3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				156AABE81734123E00A7DB17 /* MSRatingView.h */,
+				156AABE91734123F00A7DB17 /* MSRatingView.m */,
 				15F02D3F17304BD1008204C5 /* Border overlay */,
 				15DED030172E66B8004CA548 /* Lazy scroll view */,
 				15DED02F172E66AB004CA548 /* Page control */,
@@ -735,6 +752,9 @@
 		1507110B1720932A008A64F3 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				156AABEB1734128100A7DB17 /* NS_star-off.png */,
+				156AABEC1734128100A7DB17 /* NS_star-half.png */,
+				156AABED1734128100A7DB17 /* NS_star-on.png */,
 				156AABD91732FF8700A7DB17 /* MS_ico_black.png */,
 				156AABDA1732FF8700A7DB17 /* MS_ico_black@2x.png */,
 				156AABDB1732FF8700A7DB17 /* MS_ico_white.png */,
@@ -959,6 +979,18 @@
 			name = "Cover flow";
 			sourceTree = "<group>";
 		};
+		156AABF11734136500A7DB17 /* FXImageView */ = {
+			isa = PBXGroup;
+			children = (
+				156AABF21734136500A7DB17 /* FXImageView.h */,
+				156AABF31734136500A7DB17 /* FXImageView.m */,
+				156AABF41734136500A7DB17 /* UIImage+FX.h */,
+				156AABF51734136500A7DB17 /* UIImage+FX.m */,
+			);
+			name = FXImageView;
+			path = FXImageView/FXImageView;
+			sourceTree = "<group>";
+		};
 		158E83B31722FC4C00D52A15 /* API */ = {
 			isa = PBXGroup;
 			children = (
@@ -971,6 +1003,7 @@
 		158E83B71722FEBB00D52A15 /* Thirdparty */ = {
 			isa = PBXGroup;
 			children = (
+				156AABF11734136500A7DB17 /* FXImageView */,
 				158E83B81722FEBB00D52A15 /* Flurry */,
 				158E83BB1722FEBB00D52A15 /* MBProgressHUD */,
 			);
@@ -1345,6 +1378,9 @@
 				156AABDE1732FF8700A7DB17 /* MS_ico_black@2x.png in Resources */,
 				156AABDF1732FF8700A7DB17 /* MS_ico_white.png in Resources */,
 				156AABE01732FF8700A7DB17 /* MS_ico_white@2x.png in Resources */,
+				156AABEE1734128100A7DB17 /* NS_star-off.png in Resources */,
+				156AABEF1734128100A7DB17 /* NS_star-half.png in Resources */,
+				156AABF01734128100A7DB17 /* NS_star-on.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1428,6 +1464,9 @@
 				15F02D4217307720008204C5 /* MSReadingTopToolbar.m in Sources */,
 				15F02D4517307739008204C5 /* MSReadingBottomToolbar.m in Sources */,
 				156AABE51733DBD200A7DB17 /* MSMagazineCoverFlowView.m in Sources */,
+				156AABEA1734123F00A7DB17 /* MSRatingView.m in Sources */,
+				156AABF61734136500A7DB17 /* FXImageView.m in Sources */,
+				156AABF71734136500A7DB17 /* UIImage+FX.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

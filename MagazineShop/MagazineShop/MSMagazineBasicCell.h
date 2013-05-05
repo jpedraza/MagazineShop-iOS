@@ -3,11 +3,10 @@
 //  MagazineShop
 //
 //  Created by Ondrej Rafaj on 21/04/2013.
-//  Copyright (c) 2013 DoTheMag.com. All rights reserved.
+//  Copyright (c) 2013 PublishTheMag.com. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-#import "MSImageView.h"
 #import "MSCellActionButton.h"
 
 
@@ -25,7 +24,7 @@
 @interface MSMagazineBasicCell : UICollectionViewCell
 
 @property (nonatomic, strong) UIView *cellBackgroundView;
-@property (nonatomic, strong) MSImageView *imageView;
+@property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UILabel *dateLabel;
 @property (nonatomic, strong) UILabel *infoLabel;
@@ -42,8 +41,6 @@
 - (BOOL)isTablet;
 - (BOOL)isBigPhone;
 - (BOOL)isRetina;
-
-- (void)resetActionButtonValues;
 
 - (void)showDownloadingIndicator:(BOOL)show;
 

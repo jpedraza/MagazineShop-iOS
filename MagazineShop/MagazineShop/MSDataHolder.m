@@ -3,7 +3,7 @@
 //  MagazineShop
 //
 //  Created by Ondrej Rafaj on 30/04/2013.
-//  Copyright (c) 2013 DoTheMag.com. All rights reserved.
+//  Copyright (c) 2013 PublishTheMag.com. All rights reserved.
 //
 
 #import "MSDataHolder.h"
@@ -40,22 +40,6 @@
         }
     }
     return nil;
-}
-
-+ (void)registerAvailability:(MSProductAvailability)availability forProduct:(MSProduct *)product {
-    NSMutableDictionary *d = [NSMutableDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:kMSDataHolderProductAvailabilityKey]];
-    if (!d) {
-        d = [NSMutableDictionary dictionary];
-    }
-    [d setObject:[NSNumber numberWithInt:availability] forKey:product.identifier];
-    [[NSUserDefaults standardUserDefaults] setObject:d forKey:kMSDataHolderProductAvailabilityKey];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
-+ (MSProductAvailability)availabilityForProduct:(MSProduct *)product {
-    NSDictionary *d = [[NSUserDefaults standardUserDefaults] objectForKey:kMSDataHolderProductAvailabilityKey];
-    if (![d objectForKey:product.identifier]) return MSProductAvailabilityNotPresent;
-    return [[d objectForKey:product.identifier] intValue];
 }
 
 + (void)resetProductAvailability {

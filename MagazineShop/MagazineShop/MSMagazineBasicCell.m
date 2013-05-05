@@ -3,7 +3,7 @@
 //  MagazineShop
 //
 //  Created by Ondrej Rafaj on 21/04/2013.
-//  Copyright (c) 2013 DoTheMag.com. All rights reserved.
+//  Copyright (c) 2013 PublishTheMag.com. All rights reserved.
 //
 
 #import "MSMagazineBasicCell.h"
@@ -48,7 +48,7 @@
 #pragma mark Creating elements
 
 - (void)createImageView {
-    _imageView = [[MSImageView alloc] initWithFrame:CGRectMake(18, 18, 130, 190)];
+    _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(18, 18, 130, 190)];
     [_imageView setUserInteractionEnabled:YES];
     [self addSubview:_imageView];
     
@@ -207,46 +207,6 @@
     }];
 }
 
-- (void)resetActionButtonValues {
-    NSString *actionTitle = [NSString stringWithFormat:@"%@ (%@)", MSLangGet(@"Buy"), _issueData.product.priceAsString];
-    if ([MSInAppPurchase isProductPurchased:_issueData]) {
-        MSProductAvailability a = [_issueData productAvailability];
-        BOOL enabled = NO;
-        switch (a) {
-            case MSProductAvailabilityNotPresent:
-                actionTitle = MSLangGet(@"Download");
-                enabled = YES;
-                break;
-                
-            case MSProductAvailabilityPartiallyDownloaded:
-                actionTitle = MSLangGet(@"Preview");
-                enabled = YES;
-                break;
-                
-            case MSProductAvailabilityDownloaded:
-                actionTitle = MSLangGet(@"Read");
-                enabled = YES;
-                break;
-                
-            case MSProductAvailabilityInQueue:
-                actionTitle = MSLangGet(@"In Queue ...");
-                enabled = NO;
-                break;
-                
-            case MSProductAvailabilityUpdating:
-                actionTitle = MSLangGet(@"Updating ...");
-                enabled = NO;
-                break;
-        }
-        [_actionButton setEnabled:enabled];
-    }
-    [_actionButton setTitle:actionTitle forState:UIControlStateNormal];
-    CGRect r = _actionButton.frame;
-    [_actionButton sizeToFit];
-    r.size.width = (_actionButton.width + 20);
-    [_actionButton setFrame:r];
-}
-
 - (void)setIssueData:(MSProduct *)issueData {
     _issueData = issueData;
     
@@ -259,10 +219,6 @@
     [_infoLabel setText:issueData.info withWidth:_infoLabel.width];
     CGFloat h = (self.height - _infoLabel.yOrigin - 24 - _actionButton.height);
     if (_infoLabel.height > h) _infoLabel.height = h;
-    
-    [_actionButton setEnabled:YES];
-    
-    [self resetActionButtonValues];
     
     [self layoutElements];
 }

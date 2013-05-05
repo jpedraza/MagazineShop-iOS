@@ -3,7 +3,7 @@
 //  MagazineShop
 //
 //  Created by Ondrej Rafaj on 28/04/2013.
-//  Copyright (c) 2013 DoTheMag.com. All rights reserved.
+//  Copyright (c) 2013 PublishTheMag.com. All rights reserved.
 //
 
 #import "MSMagazinePageViewController.h"
@@ -25,7 +25,7 @@
     [_pageView setPageIndex:_pageIndex];
     [self.view addSubview:_pageView];
     
-    [_pageView setPageImage:[_product pageWithIndex:_pageIndex inSize:MSProductPageSize2048]];
+    [_pageView setPageImage:[_product pageWithIndex:_pageIndex inSize:MSProductPageSizeSuperLarge]];
 }
 
 

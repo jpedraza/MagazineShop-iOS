@@ -3,7 +3,7 @@
 //  MagazineShop
 //
 //  Created by Ondrej Rafaj on 30/04/2013.
-//  Copyright (c) 2013 DoTheMag.com. All rights reserved.
+//  Copyright (c) 2013 PublishTheMag.com. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -20,9 +20,6 @@
 - (MSProduct *)productAtIndex:(NSInteger)index;
 - (MSProduct *)productForIdentifier:(NSString *)identifier;
 
-+ (void)registerAvailability:(MSProductAvailability)availability forProduct:(MSProduct *)product;
-+ (MSProductAvailability)availabilityForProduct:(MSProduct *)product;
-+ (void)resetProductAvailability;
 
 
 @end

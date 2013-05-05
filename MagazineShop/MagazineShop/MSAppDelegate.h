@@ -3,7 +3,7 @@
 //  MagazineShop
 //
 //  Created by Ondrej Rafaj on 18/04/2013.
-//  Copyright (c) 2013 DoTheMag.com. All rights reserved.
+//  Copyright (c) 2013 PublishTheMag.com. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -14,6 +14,9 @@
 #define kAppDelegate                                        (MSAppDelegate *)[[UIApplication sharedApplication] delegate]
 #define kDownloadOperation                                  [kAppDelegate downloadOperationQueue]
 #define kProcessingOperation                                [kAppDelegate processingOperationQueue]
+
+#define kManagedObject                                      [kAppDelegate managedObjectContext]
+#define kManagedObjectSave                                  [kAppDelegate saveContext]
 
 #define kReachability                                       [GCNetworkReachability reachabilityWithHostName:@"www.google.com"]
 
@@ -31,6 +34,12 @@
 @property (nonatomic, strong) NSOperationQueue *processingOperationQueue;
 
 @property (nonatomic, strong) GCNetworkReachability *reachability;
+
+@property (nonatomic, strong) NSManagedObjectModel *managedObjectModel;
+@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, strong) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+
+- (void)saveContext;
 
 
 @end

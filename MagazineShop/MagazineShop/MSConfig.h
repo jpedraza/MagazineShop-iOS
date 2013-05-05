@@ -3,7 +3,7 @@
 //  MagazineShop
 //
 //  Created by Ondrej Rafaj on 18/04/2013.
-//  Copyright (c) 2013 DoTheMag.com. All rights reserved.
+//  Copyright (c) 2013 PublishTheMag.com. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -19,6 +19,10 @@
 
 #define kMSConfigBaseUrl                                    @"http://fuertemag.fuerteint.com/"
 #define kMSConfigMinPagesForRead                            10
+
+#pragma mark Keychain
+
+#define kMSConfigKeychainServiceName                        @"com.publishthemag.exampleapp"
 
 
 typedef enum {
@@ -44,6 +48,19 @@ typedef enum {
 
 + (void)setReaderBackgroundColorIsBlack:(BOOL)isBlack;
 + (BOOL)readerBackgroundColorIsBlack;
+
++ (NSString *)appSqlFileName;
++ (NSString *)documentsDirectory;
++ (NSURL *)documentsDirectoryUrl;
+
++ (NSString *)getAppUUID;
+
++ (NSString *)formattedStringFromDate:(NSDate *)date;
+
++ (CGFloat)getKilobites:(CGFloat)bytes;
++ (CGFloat)getMegabites:(CGFloat)bytes;
++ (CGFloat)getKilobytes:(CGFloat)bytes;
++ (CGFloat)getMegabytes:(CGFloat)bytes;
 
 
 @end

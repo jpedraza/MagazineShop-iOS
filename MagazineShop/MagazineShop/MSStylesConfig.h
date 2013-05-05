@@ -3,7 +3,7 @@
 //  MagazineShop
 //
 //  Created by Ondrej Rafaj on 28/04/2013.
-//  Copyright (c) 2013 DoTheMag.com. All rights reserved.
+//  Copyright (c) 2013 PublishTheMag.com. All rights reserved.
 //
 
 
@@ -20,7 +20,7 @@
 
 #pragma mark Shop environment
 
-#define kShopUseCoverflow                                       YES
+#define kShopUseCoverflow                                       NO
 
 #pragma mark Reading environment
 

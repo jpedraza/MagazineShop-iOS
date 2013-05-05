@@ -3,7 +3,7 @@
 //  MagazineShop
 //
 //  Created by Ondrej Rafaj on 20/04/2013.
-//  Copyright (c) 2013 DoTheMag.com. All rights reserved.
+//  Copyright (c) 2013 PublishTheMag.com. All rights reserved.
 //
 
 #import "MSMagazineView.h"
@@ -210,14 +210,19 @@
     }
 }
 
+- (void)startDownloadingProductWithIdentifier:(NSString *)identifier {
+    MSProduct *product = [[MSDataHolder sharedObject] productForIdentifier:identifier];
+    [product downloadIssueWithDelegate:self];
+}
+
 #pragma mark Product cell delegate methods
 
 - (void)magazineBasicCell:(MSMagazineBasicCell *)cell didRequestActionFor:(MSProduct *)product {
     if (![MSInAppPurchase isProductPurchased:product]) {
         if ([kReachability isReachable]) {
             [kMSInAppPurchase buyProduct:product.product];
-            [cell.actionButton setTitle:MSLangGet(@"Buying") forState:UIControlStateNormal];
-            [cell.actionButton setEnabled:NO];
+//            [cell.actionButton setTitle:MSLangGet(@"Buying") forState:UIControlStateNormal];
+//            [cell.actionButton setEnabled:NO];
         }
         else {
             NSString *message = MSLangGet(@"Your internet connection appears to be offline.");
@@ -226,16 +231,7 @@
         }
     }
     else {
-        MSProductAvailability a = [product productAvailability];
-        if (a == MSProductAvailabilityNotPresent) {
-            [MSDataHolder registerAvailability:MSProductAvailabilityInQueue forProduct:product];
-            [product downloadIssueWithDelegate:self];
-        }
-        else if (a == MSProductAvailabilityDownloaded || a == MSProductAvailabilityPartiallyDownloaded) {
-            if ([_delegate respondsToSelector:@selector(magazineView:didRequestReaderForProduct:)]) {
-                [_delegate magazineView:self didRequestReaderForProduct:product];
-            }
-        }
+        
     }
 }
 
@@ -250,7 +246,7 @@
 #pragma mark Issue download delegate methods
 
 - (void)product:(MSProduct *)product didDownloadItem:(NSInteger)item of:(NSInteger)totalItems {
-    NSLog(@"Downloaded item: %d of %d (%@)", item, totalItems, ([product isPageWithIndex:item availableInSize:MSProductPageSize1024] ? @"Ok" : @"Fail"));
+    NSLog(@"Downloaded item: %d of %d (%@)", item, totalItems, ([product isPageWithIndex:item availableInSize:MSProductPageSizeLarge] ? @"Ok" : @"Fail"));
 }
 
 #pragma mark Magazine list view datasource methods
@@ -285,7 +281,6 @@
                 if ([[s objectForKey:@"price"] floatValue] > 0) {
                     _pricedProductCount++;
                     if (![_products objectForKey:product.identifier]) {
-                        [MSDataHolder registerAvailability:MSProductAvailabilityUpdating forProduct:product];
                         SKProductsRequest *request = [[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithObject:[s objectForKey:@"identifier"]]];
                         [request setDelegate:self];
                         [_productRequests setObject:request forKey:product.identifier];
@@ -319,6 +314,7 @@
         [_products setObject:p forKey:p.productIdentifier];
         MSProduct *product = [[MSDataHolder sharedObject] productForIdentifier:p.productIdentifier];
         if (product) {
+            //[MSDataHolder registerAvailability:MSProductAvailabilityNotPresent forProduct:product];
             [product setProduct:[_products objectForKey:p.productIdentifier]];
             [self performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
         }
@@ -327,7 +323,7 @@
         }
     }
     if (_pricedProductCount == _pricedProductCountFinished) {
-        _didLoadPrices = YES;
+        
     }
 }
 

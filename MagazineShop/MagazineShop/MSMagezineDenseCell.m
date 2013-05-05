@@ -3,7 +3,7 @@
 //  MagazineShop
 //
 //  Created by Ondrej Rafaj on 21/04/2013.
-//  Copyright (c) 2013 DoTheMag.com. All rights reserved.
+//  Copyright (c) 2013 PublishTheMag.com. All rights reserved.
 //
 
 #import "MSMagezineDenseCell.h"
@@ -41,7 +41,6 @@
 
 - (void)setIssueData:(MSProduct *)issueData {
     [super setIssueData:issueData];
-    [self.imageView setImageUrlString:self.issueData.thumbnail withDefaultImage:[UIImage imageNamed:@"IconNS"] andCacheLifetime:MSImageViewCacheLifetimeForever];
 }
 
 

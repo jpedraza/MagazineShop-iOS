@@ -3,7 +3,7 @@
 //  MagazineShop
 //
 //  Created by Ondrej Rafaj on 21/12/2009.
-//  Copyright 2009 DoTheMag.com. All rights reserved.
+//  Copyright 2009 PublishTheMag.com. All rights reserved.
 //
 
 #import <QuartzCore/QuartzCore.h>

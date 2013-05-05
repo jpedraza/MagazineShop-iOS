@@ -3,7 +3,7 @@
 //  MagazineShop
 //
 //  Created by Ondrej Rafaj on 18/04/2013.
-//  Copyright (c) 2013 DoTheMag.com. All rights reserved.
+//  Copyright (c) 2013 PublishTheMag.com. All rights reserved.
 //
 
 #import "MSAppDelegate.h"
@@ -30,6 +30,49 @@
     _processingOperationQueue = [[NSOperationQueue alloc] init];
     [_processingOperationQueue setMaxConcurrentOperationCount:1];
     [_processingOperationQueue cancelAllOperations];
+}
+
+#pragma mark Core data methods
+
+- (NSManagedObjectContext *)managedObjectContext {
+    if (_managedObjectContext != nil) {
+        return _managedObjectContext;
+    }
+    NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
+    if (coordinator != nil) {
+        _managedObjectContext = [[NSManagedObjectContext alloc] init];
+        [_managedObjectContext setPersistentStoreCoordinator:coordinator];
+    }
+    return _managedObjectContext;
+}
+
+- (NSManagedObjectModel *)managedObjectModel {
+    if (_managedObjectModel != nil) {
+        return _managedObjectModel;
+    }
+    _managedObjectModel = [NSManagedObjectModel mergedModelFromBundles:nil];
+    return _managedObjectModel;
+}
+
+- (NSPersistentStoreCoordinator *)persistentStoreCoordinator {
+    if (_persistentStoreCoordinator != nil) {
+        return _persistentStoreCoordinator;
+    }
+    NSURL *storeUrl = [NSURL fileURLWithPath:[[MSConfig documentsDirectory] stringByAppendingPathComponent:[MSConfig appSqlFileName]]];
+    NSError *error = nil;
+    _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
+    if(![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeUrl options:nil error:&error]) {
+        NSLog(@"Core data error: %@", [error localizedDescription]);
+    }
+    return _persistentStoreCoordinator;
+}
+
+- (void)saveContext {
+    NSError *error;
+    [kManagedObject save:&error];
+    if (error) {
+        NSLog(@"Error updating data: %@", [error localizedDescription]);
+    }
 }
 
 #pragma mark App delegate methods
@@ -60,7 +103,6 @@
         if (kDebug) {
             [MSImageView clearCache:MSImageViewCacheLifetimeForever];
             [MSDownload clearCache:MSDownloadCacheLifetimeForever];
-            [MSDataHolder resetProductAvailability];
         }
     }
     

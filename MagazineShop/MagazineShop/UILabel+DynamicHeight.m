@@ -3,7 +3,7 @@
 //  MagazineShop
 //
 //  Created by Ondrej Rafaj on 22/10/2009.
-//  Copyright 2009 DoTheMag.com. All rights reserved.
+//  Copyright 2009 PublishTheMag.com. All rights reserved.
 //
 
 #import "UILabel+DynamicHeight.h"

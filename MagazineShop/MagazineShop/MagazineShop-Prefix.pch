@@ -13,6 +13,7 @@
     #import <Foundation/Foundation.h>
     #import <QuartzCore/QuartzCore.h>
     #import <StoreKit/StoreKit.h>
+    #import <CoreData/CoreData.h>
     #import "MSAppDelegate.h"
     #import "MSConfig.h"
     #import "MSStylesConfig.h"

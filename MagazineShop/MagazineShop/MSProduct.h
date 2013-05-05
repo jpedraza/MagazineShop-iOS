@@ -3,30 +3,30 @@
 //  MagazineShop
 //
 //  Created by Ondrej Rafaj on 28/04/2013.
-//  Copyright (c) 2013 DoTheMag.com. All rights reserved.
+//  Copyright (c) 2013 PublishTheMag.com. All rights reserved.
 //
 
 #import "MSDownload.h"
 
 
-typedef enum {
-    MSProductAvailabilityNotPresent,
-    MSProductAvailabilityPartiallyDownloaded,
-    MSProductAvailabilityDownloaded,
-    MSProductAvailabilityInQueue,
-    MSProductAvailabilityUpdating
-} MSProductAvailability;
-
+//typedef enum {
+//    MSProductAvailabilityNotPresent,
+//    MSProductAvailabilityPartiallyDownloaded,
+//    MSProductAvailabilityDownloaded,
+////    MSProductAvailabilityInQueue,
+////    MSProductAvailabilityUpdating
+//} MSProductAvailability;
+//
 typedef enum {
     MSProductDownloadStatusIdle,
     MSProductDownloadStatusIsDownloading
 } MSProductDownloadStatus;
 
 typedef enum {
-    MSProductPageSize180,
-    MSProductPageSize400,
-    MSProductPageSize1024,
-    MSProductPageSize2048
+    MSProductPageSizeSmall,
+    MSProductPageSizeMedium,
+    MSProductPageSizeLarge,
+    MSProductPageSizeSuperLarge
 } MSProductPageSize;
 
 
@@ -52,6 +52,8 @@ typedef enum {
 @property (nonatomic, strong, readonly) NSDate *date;
 @property (nonatomic, strong, readonly) NSString *base;
 @property (nonatomic, readonly) NSInteger pages;
+@property (nonatomic, readonly) BOOL isFree;
+@property (nonatomic, readonly) MSProductDownloadStatus downloadStatus;
 
 @property (nonatomic) NSInteger currentPage;
 
@@ -62,12 +64,12 @@ typedef enum {
 
 - (void)fillDataFromDictionary:(NSDictionary *)data;
 
-- (MSProductAvailability)productAvailability;
-
 - (void)downloadIssueWithDelegate:(id <MSProductDelegate>)delegate;
 - (BOOL)isPageWithIndex:(NSInteger)index availableInSize:(MSProductPageSize)size;
 - (UIImage *)pageWithIndex:(NSInteger)index inSize:(MSProductPageSize)size;
 - (NSString *)textualRepresentationOfSize:(MSProductPageSize)size;
+
+- (void)downloadCoverImage;
 
 
 @end

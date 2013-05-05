@@ -3,7 +3,7 @@
 //  MagazineShop
 //
 //  Created by Ondrej Rafaj on 20/04/2013.
-//  Copyright (c) 2013 DoTheMag.com. All rights reserved.
+//  Copyright (c) 2013 PublishTheMag.com. All rights reserved.
 //
 
 #import "MSInAppPurchase.h"
@@ -94,8 +94,13 @@
 }
 
 + (BOOL)isProductPurchased:(MSProduct *)product {
-    if (!product.product) return YES;
-    return [[NSUserDefaults standardUserDefaults] boolForKey:[NSString stringWithFormat:@"iap-%@", product.identifier]];
+    if (product.isFree) {
+        return YES;
+    }
+    else {
+        BOOL is = [[NSUserDefaults standardUserDefaults] boolForKey:[NSString stringWithFormat:@"iap-%@", product.identifier]];
+        return is;
+    }
 }
 
 

@@ -3,7 +3,7 @@
 //  MagazineShop
 //
 //  Created by Ondrej Rafaj on 20/04/2013.
-//  Copyright (c) 2013 DoTheMag.com. All rights reserved.
+//  Copyright (c) 2013 PublishTheMag.com. All rights reserved.
 //
 
 #import "MSMagazineListSingleView.h"
@@ -38,6 +38,7 @@
 - (void)reloadData;
 - (void)setMagazineDelegate:(id <MSMagazineListViewDelegate>)delegate;
 - (void)showNewMagazineView;
+- (void)startDownloadingProductWithIdentifier:(NSString *)identifier;
 
 
 @end

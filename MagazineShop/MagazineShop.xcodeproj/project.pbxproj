@@ -173,6 +173,12 @@
 		158E840E1723657000D52A15 /* MSMagazineMediumCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 158E840D1723657000D52A15 /* MSMagazineMediumCell.m */; };
 		158E8412172375F900D52A15 /* MSMagazineSingeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 158E8411172375F900D52A15 /* MSMagazineSingeCell.m */; };
 		158E84161723761000D52A15 /* MSMagezineDenseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 158E84151723761000D52A15 /* MSMagezineDenseCell.m */; };
+		1592D7BA173706880075EF77 /* MSKeychainObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 1592D7B9173706880075EF77 /* MSKeychainObject.m */; };
+		1592D7BF1737089D0075EF77 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1592D7BD1737089D0075EF77 /* DataModel.xcdatamodeld */; };
+		1592D7C217370DC30075EF77 /* MSMagazinePages.m in Sources */ = {isa = PBXBuildFile; fileRef = 1592D7C117370DC30075EF77 /* MSMagazinePages.m */; };
+		1592D7C317370DC30075EF77 /* MSMagazinePages.m in Sources */ = {isa = PBXBuildFile; fileRef = 1592D7C117370DC30075EF77 /* MSMagazinePages.m */; };
+		1592D7C717370E260075EF77 /* MSMagazines.m in Sources */ = {isa = PBXBuildFile; fileRef = 1592D7C617370E260075EF77 /* MSMagazines.m */; };
+		1592D7C817370E260075EF77 /* MSMagazines.m in Sources */ = {isa = PBXBuildFile; fileRef = 1592D7C617370E260075EF77 /* MSMagazines.m */; };
 		15DED006172D133D004CA548 /* MSMagazineReaderData.m in Sources */ = {isa = PBXBuildFile; fileRef = 15DED005172D133D004CA548 /* MSMagazineReaderData.m */; };
 		15DED00A172D15D7004CA548 /* MSMagazineReaderBasicPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 15DED009172D15D7004CA548 /* MSMagazineReaderBasicPageView.m */; };
 		15DED00E172D16E4004CA548 /* MSMagazineReaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15DED00D172D16E4004CA548 /* MSMagazineReaderViewController.m */; };
@@ -406,6 +412,13 @@
 		158E8411172375F900D52A15 /* MSMagazineSingeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSMagazineSingeCell.m; sourceTree = "<group>"; };
 		158E84141723761000D52A15 /* MSMagezineDenseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSMagezineDenseCell.h; sourceTree = "<group>"; };
 		158E84151723761000D52A15 /* MSMagezineDenseCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSMagezineDenseCell.m; sourceTree = "<group>"; };
+		1592D7B8173706880075EF77 /* MSKeychainObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSKeychainObject.h; sourceTree = "<group>"; };
+		1592D7B9173706880075EF77 /* MSKeychainObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSKeychainObject.m; sourceTree = "<group>"; };
+		1592D7BE1737089D0075EF77 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
+		1592D7C017370DC30075EF77 /* MSMagazinePages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSMagazinePages.h; sourceTree = "<group>"; };
+		1592D7C117370DC30075EF77 /* MSMagazinePages.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSMagazinePages.m; sourceTree = "<group>"; };
+		1592D7C517370E260075EF77 /* MSMagazines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSMagazines.h; sourceTree = "<group>"; };
+		1592D7C617370E260075EF77 /* MSMagazines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSMagazines.m; sourceTree = "<group>"; };
 		15DED004172D133D004CA548 /* MSMagazineReaderData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSMagazineReaderData.h; sourceTree = "<group>"; };
 		15DED005172D133D004CA548 /* MSMagazineReaderData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSMagazineReaderData.m; sourceTree = "<group>"; };
 		15DED008172D15D7004CA548 /* MSMagazineReaderBasicPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSMagazineReaderBasicPageView.h; sourceTree = "<group>"; };
@@ -539,6 +552,7 @@
 		1507106617208D3B008A64F3 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				1592D7BC173708810075EF77 /* CoreData */,
 				1507106817208D3B008A64F3 /* InfoPlist.strings */,
 				1507106B17208D3B008A64F3 /* main.m */,
 				1507106D17208D3B008A64F3 /* MagazineShop-Prefix.pch */,
@@ -609,6 +623,8 @@
 		150710A017208D62008A64F3 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				1592D7C417370E050075EF77 /* Core data */,
+				1592D7BB1737068C0075EF77 /* Keychain */,
 				15F02D3B17303383008204C5 /* Data holder */,
 				15DED01C172D6FC7004CA548 /* Products */,
 				158E840017233C4200D52A15 /* In App Purchase */,
@@ -1126,6 +1142,34 @@
 			name = Cells;
 			sourceTree = "<group>";
 		};
+		1592D7BB1737068C0075EF77 /* Keychain */ = {
+			isa = PBXGroup;
+			children = (
+				1592D7B8173706880075EF77 /* MSKeychainObject.h */,
+				1592D7B9173706880075EF77 /* MSKeychainObject.m */,
+			);
+			name = Keychain;
+			sourceTree = "<group>";
+		};
+		1592D7BC173708810075EF77 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				1592D7BD1737089D0075EF77 /* DataModel.xcdatamodeld */,
+			);
+			name = CoreData;
+			sourceTree = "<group>";
+		};
+		1592D7C417370E050075EF77 /* Core data */ = {
+			isa = PBXGroup;
+			children = (
+				1592D7C517370E260075EF77 /* MSMagazines.h */,
+				1592D7C617370E260075EF77 /* MSMagazines.m */,
+				1592D7C017370DC30075EF77 /* MSMagazinePages.h */,
+				1592D7C117370DC30075EF77 /* MSMagazinePages.m */,
+			);
+			name = "Core data";
+			sourceTree = "<group>";
+		};
 		15DECFF8172D0FCE004CA548 /* Magazine reader */ = {
 			isa = PBXGroup;
 			children = (
@@ -1312,7 +1356,7 @@
 			attributes = {
 				CLASSPREFIX = MS;
 				LastUpgradeCheck = 0460;
-				ORGANIZATIONNAME = DoTheMag.com;
+				ORGANIZATIONNAME = PublishTheMag.com;
 			};
 			buildConfigurationList = 1507105717208D3B008A64F3 /* Build configuration list for PBXProject "MagazineShop" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1524,6 +1568,10 @@
 				156AABFF1734160800A7DB17 /* MSCoverFlowView.m in Sources */,
 				156AAC0417365E5D00A7DB17 /* GCNetworkReachability.m in Sources */,
 				156AAC091736AA9D00A7DB17 /* MSCellActionButton.m in Sources */,
+				1592D7BA173706880075EF77 /* MSKeychainObject.m in Sources */,
+				1592D7BF1737089D0075EF77 /* DataModel.xcdatamodeld in Sources */,
+				1592D7C217370DC30075EF77 /* MSMagazinePages.m in Sources */,
+				1592D7C717370E260075EF77 /* MSMagazines.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1539,6 +1587,8 @@
 				150710C617208EC0008A64F3 /* UIView+Layout.m in Sources */,
 				150710CB17208EEE008A64F3 /* MSView.m in Sources */,
 				158E840417233C5E00D52A15 /* MSInAppPurchase.m in Sources */,
+				1592D7C317370DC30075EF77 /* MSMagazinePages.m in Sources */,
+				1592D7C817370E260075EF77 /* MSMagazines.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1793,6 +1843,19 @@
 			defaultConfigurationName = Enterprise;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		1592D7BD1737089D0075EF77 /* DataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				1592D7BE1737089D0075EF77 /* DataModel.xcdatamodel */,
+			);
+			currentVersion = 1592D7BE1737089D0075EF77 /* DataModel.xcdatamodel */;
+			path = DataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 1507105417208D3B008A64F3 /* Project object */;
 }

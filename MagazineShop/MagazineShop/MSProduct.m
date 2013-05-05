@@ -3,7 +3,7 @@
 //  MagazineShop
 //
 //  Created by Ondrej Rafaj on 28/04/2013.
-//  Copyright (c) 2013 DoTheMag.com. All rights reserved.
+//  Copyright (c) 2013 PublishTheMag.com. All rights reserved.
 //
 
 #import "MSProduct.h"
@@ -15,10 +15,14 @@
 
 @property (nonatomic, strong) NSMutableArray *downloadObjectsArray;
 //@property (nonatomic) MSProductAvailability availability;
-@property (nonatomic) MSProductDownloadStatus downloadStatus;
 @property (nonatomic) NSInteger pagesDownloaded;
 @property (nonatomic) NSInteger pagesProcessed;
 @property (nonatomic) NSInteger totalDownloads;
+
+@property (nonatomic, strong) MSDownload *thumbnailDownload;
+@property (nonatomic, strong) MSDownload *coverDownload;
+@property (nonatomic, strong) UIImage *thumbnailImage;
+@property (nonatomic, strong) UIImage *coverImage;
 
 @end
 
@@ -38,30 +42,33 @@
     _date = [NSDate dateWithTimeIntervalSince1970:[[data objectForKey:@"date"] integerValue]];
     _base = [data objectForKey:@"base"];
     _pages = [[data objectForKey:@"pages"] integerValue];
+    _isFree = ([[data objectForKey:@"price"] floatValue] > 0) ? NO : YES;
+}
+
+#pragma mark Info
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"Product %@ (%@)", _identifier, _originalInfoDictionary];
 }
 
 #pragma mark Issue management
 
 - (NSString *)textualRepresentationOfSize:(MSProductPageSize)size {
     switch (size) {
-        case MSProductPageSize180:
+        case MSProductPageSizeSmall:
             return @"180";
             break;
-        case MSProductPageSize400:
+        case MSProductPageSizeMedium:
             return @"400";
             break;
-        case MSProductPageSize1024:
+        case MSProductPageSizeLarge:
             return @"1024";
             break;
-        case MSProductPageSize2048:
+        case MSProductPageSizeSuperLarge:
             return @"2048";
             break;
     }
     return @"1024";
-}
-
-- (MSProductAvailability)productAvailability {
-    return [MSDataHolder availabilityForProduct:self];
 }
 
 - (void)setCurrentPage:(NSInteger)currentPage {
@@ -109,7 +116,6 @@
 }
 
 - (void)downloadIssueWithDelegate:(id<MSProductDelegate>)delegate {
-    if ([self productAvailability] == MSProductAvailabilityDownloaded) return;
     _delegate = delegate;
     _downloadObjectsArray = [NSMutableArray array];
     _pagesDownloaded = 0;
@@ -119,12 +125,12 @@
     _downloadStatus = MSProductDownloadStatusIsDownloading;
     
     for (int i = 0; i < _pages; i++) {
-        [self downloadSize:MSProductPageSize180 withI:i];
+        [self downloadSize:MSProductPageSizeSmall withI:i];
         if (![self isRetina] || ![self isTablet]) {
-            [self downloadSize:MSProductPageSize1024 withI:i];
+            [self downloadSize:MSProductPageSizeLarge withI:i];
         }
         else {
-            [self downloadSize:MSProductPageSize2048 withI:i];
+            [self downloadSize:MSProductPageSizeSuperLarge withI:i];
         }
     }
 }
@@ -139,45 +145,65 @@
     _assignedCell = assignedCell;
 }
 
+- (void)downloadCoverImage {
+    _thumbnailDownload = [[MSDownload alloc] initWithURL:_cover withDelegate:self andCacheLifetime:MSDownloadCacheLifetimeForever];
+    [_thumbnailDownload setQueuePriority:NSOperationQueuePriorityVeryHigh];
+    [kDownloadOperation addOperation:_thumbnailDownload];
+    
+    _coverDownload = [[MSDownload alloc] initWithURL:_cover withDelegate:self andCacheLifetime:MSDownloadCacheLifetimeForever];
+    [_thumbnailDownload setQueuePriority:NSOperationQueuePriorityHigh];
+    [kDownloadOperation addOperation:_coverDownload];
+}
+
 #pragma mark Download delegate methods
 
 - (void)download:(MSDownload *)download didFinishLoadingWithData:(NSData *)data {
-    _pagesDownloaded++;
-    _pagesProcessed++;
-    if ([_delegate respondsToSelector:@selector(product:didDownloadItem:of:)]) {
-        [_delegate product:self didDownloadItem:_pagesProcessed of:_totalDownloads];
+    if (download == _thumbnailDownload) {
+        
     }
-    if (_downloadStatus == MSProductDownloadStatusIsDownloading) {
-        CGFloat progress = ((((float)_pagesProcessed * 100.0f) / (float)_totalDownloads) / 100.0f);
-        if ([_assignedCell respondsToSelector:@selector(progressView)]) {
-            [_assignedCell.progressView setProgress:progress];
-            [_assignedCell showDownloadingIndicator:YES];
+    else if (download == _coverDownload) {
+        
+    }
+    else {
+        _pagesDownloaded++;
+        _pagesProcessed++;
+        if ([_delegate respondsToSelector:@selector(product:didDownloadItem:of:)]) {
+            [_delegate product:self didDownloadItem:_pagesProcessed of:_totalDownloads];
         }
-    }
-    [_downloadObjectsArray removeObject:download];
-    if (_pagesDownloaded == (kMSConfigMinPagesForRead * 2)) {
-        [MSDataHolder registerAvailability:MSProductAvailabilityPartiallyDownloaded forProduct:self];
-        if ([_assignedCell respondsToSelector:@selector(progressView)]) {
-            [_assignedCell resetActionButtonValues];
+        if (_downloadStatus == MSProductDownloadStatusIsDownloading) {
+            CGFloat progress = ((((float)_pagesProcessed * 100.0f) / (float)_totalDownloads) / 100.0f);
+            if ([_assignedCell respondsToSelector:@selector(progressView)]) {
+                [_assignedCell.progressView setProgress:progress];
+                [_assignedCell showDownloadingIndicator:YES];
+            }
         }
-    }
-    if (_totalDownloads == _pagesDownloaded) {
-        [MSDataHolder registerAvailability:MSProductAvailabilityDownloaded forProduct:self];
-        _downloadStatus = MSProductDownloadStatusIdle;
-        if ([_assignedCell respondsToSelector:@selector(progressView)]) {
-            [_assignedCell showDownloadingIndicator:NO];
-            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:[NSString stringWithFormat:@"full-%@", self.identifier]];
-            [[NSUserDefaults standardUserDefaults] synchronize];
+        [_downloadObjectsArray removeObject:download];
+        if (_pagesDownloaded == (kMSConfigMinPagesForRead * 2)) {
             
-            [_assignedCell resetActionButtonValues];
+        }
+        if (_totalDownloads == _pagesDownloaded) {
+            _downloadStatus = MSProductDownloadStatusIdle;
+            if ([_assignedCell respondsToSelector:@selector(progressView)]) {
+                [_assignedCell showDownloadingIndicator:NO];
+                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:[NSString stringWithFormat:@"full-%@", self.identifier]];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+            }
         }
     }
 }
 
 - (void)download:(MSDownload *)download didFinishLoadingWithError:(NSError *)error {
-    NSLog(@"Failed loading: %@ with error: %@", download.connectionURL, [error localizedDescription]);
-    [_downloadObjectsArray removeObject:download];
-    _pagesProcessed++;
+    if (download == _thumbnailDownload) {
+        
+    }
+    else if (download == _coverDownload) {
+        
+    }
+    else {
+        NSLog(@"Failed loading: %@ with error: %@", download.connectionURL, [error localizedDescription]);
+        [_downloadObjectsArray removeObject:download];
+        _pagesProcessed++;
+    }
 }
 
 

@@ -3,7 +3,7 @@
 //  MagazineShop
 //
 //  Created by Ondrej Rafaj on 18/04/2013.
-//  Copyright (c) 2013 DoTheMag.com. All rights reserved.
+//  Copyright (c) 2013 PublishTheMag.com. All rights reserved.
 //
 
 #import "MSHomeViewController.h"
@@ -122,7 +122,8 @@
 
 - (void)inAppPurchase:(MSInAppPurchase *)purchase didFinishPurchase:(SKPayment *)payment {
     NSLog(@"Finished purchase: %@", payment.productIdentifier);
-    [MSDataHolder registerAvailability:MSProductAvailabilityNotPresent forProduct:[[MSDataHolder sharedObject] productForIdentifier:payment.productIdentifier]];
+    //[MSDataHolder registerAvailability:MSProductAvailabilityNotPresent forProduct:[[MSDataHolder sharedObject] productForIdentifier:payment.productIdentifier]];
+    [_magazineView startDownloadingProductWithIdentifier:payment.productIdentifier];
     [_magazineView reloadData];
 }
 

@@ -33,6 +33,15 @@
     return [_products objectAtIndex:index];
 }
 
+- (MSProduct *)productForIdentifier:(NSString *)identifier {
+    for (MSProduct *product in _products) {
+        if ([product.identifier isEqualToString:identifier]) {
+            return product;
+        }
+    }
+    return nil;
+}
+
 + (void)registerAvailability:(MSProductAvailability)availability forProduct:(MSProduct *)product {
     NSMutableDictionary *d = [NSMutableDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:kMSDataHolderProductAvailabilityKey]];
     if (!d) {

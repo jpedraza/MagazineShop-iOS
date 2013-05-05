@@ -122,6 +122,7 @@
 
 - (void)inAppPurchase:(MSInAppPurchase *)purchase didFinishPurchase:(SKPayment *)payment {
     NSLog(@"Finished purchase: %@", payment.productIdentifier);
+    [MSDataHolder registerAvailability:MSProductAvailabilityNotPresent forProduct:[[MSDataHolder sharedObject] productForIdentifier:payment.productIdentifier]];
     [_magazineView reloadData];
 }
 

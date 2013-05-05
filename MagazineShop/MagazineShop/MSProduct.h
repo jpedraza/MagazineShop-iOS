@@ -12,7 +12,9 @@
 typedef enum {
     MSProductAvailabilityNotPresent,
     MSProductAvailabilityPartiallyDownloaded,
-    MSProductAvailabilityDownloaded
+    MSProductAvailabilityDownloaded,
+    MSProductAvailabilityInQueue,
+    MSProductAvailabilityUpdating
 } MSProductAvailability;
 
 typedef enum {

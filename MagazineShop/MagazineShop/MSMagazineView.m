@@ -22,10 +22,15 @@
 @property (nonatomic, strong) NSArray *productsInfo;
 @property (nonatomic) NSInteger pricedProductCount;
 @property (nonatomic) NSInteger pricedProductCountFinished;
+@property (nonatomic, strong) NSMutableDictionary *productRequests;
+@property (nonatomic, strong) NSMutableArray *failedProductRequests;
 
 @property (nonatomic, strong) id <MSMagazineListViewDelegate> magazineDelegate;
 
 @property (nonatomic) BOOL firstStart;
+@property (nonatomic) BOOL didLoadPrices;
+
+@property (nonatomic, strong) GCNetworkReachability *reachability;
 
 @end
 
@@ -82,6 +87,17 @@
     
     [super createAllElements];
     [self createMagazineListView];
+}
+
+#pragma mark Initialization
+
+- (void)configureView {
+    _reachability = kReachability;
+    [_reachability startMonitoringNetworkReachabilityWithHandler:^(GCNetworkReachabilityStatus status) {
+        if (status != GCNetworkReachabilityStatusNotReachable) {
+            [self loadFailedProducts];
+        }
+    }];
 }
 
 #pragma mark Settings
@@ -178,21 +194,41 @@
         [_delegate magazineViewDidStartLoadingData:self];
     }
     NSString *url = [kMSConfigBaseUrl stringByAppendingPathComponent:@"api/issues.json"];
-    MSDownload *download = [[MSDownload alloc] initWithURL:url withDelegate:self andCacheLifetime:MSDownloadCacheLifetimeSession];
+    MSDownload *download = [[MSDownload alloc] initWithURL:url withDelegate:self andCacheLifetime:MSDownloadCacheLifetimeForever];
     [kDownloadOperation addOperation:download];
+}
+
+- (void)loadFailedProducts {
+    @synchronized(self) {
+        NSArray *failed = [NSArray arrayWithArray:_failedProductRequests];
+        for (NSString *identifier in failed) {
+            SKProductsRequest *request = [[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithObject:identifier]];
+            [request setDelegate:self];
+            [_failedProductRequests removeObject:identifier];
+            [request start];
+        }
+    }
 }
 
 #pragma mark Product cell delegate methods
 
 - (void)magazineBasicCell:(MSMagazineBasicCell *)cell didRequestActionFor:(MSProduct *)product {
     if (![MSInAppPurchase isProductPurchased:product]) {
-        [kMSInAppPurchase buyProduct:product.product];
-        [cell.actionButton setTitle:MSLangGet(@"Buying") forState:UIControlStateNormal];
-        [cell.actionButton setEnabled:NO];
+        if ([kReachability isReachable]) {
+            [kMSInAppPurchase buyProduct:product.product];
+            [cell.actionButton setTitle:MSLangGet(@"Buying") forState:UIControlStateNormal];
+            [cell.actionButton setEnabled:NO];
+        }
+        else {
+            NSString *message = MSLangGet(@"Your internet connection appears to be offline.");
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:MSLangGet(@"Connection error") message:message delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+        }
     }
     else {
         MSProductAvailability a = [product productAvailability];
         if (a == MSProductAvailabilityNotPresent) {
+            [MSDataHolder registerAvailability:MSProductAvailabilityInQueue forProduct:product];
             [product downloadIssueWithDelegate:self];
         }
         else if (a == MSProductAvailabilityDownloaded || a == MSProductAvailabilityPartiallyDownloaded) {
@@ -215,7 +251,6 @@
 
 - (void)product:(MSProduct *)product didDownloadItem:(NSInteger)item of:(NSInteger)totalItems {
     NSLog(@"Downloaded item: %d of %d (%@)", item, totalItems, ([product isPageWithIndex:item availableInSize:MSProductPageSize1024] ? @"Ok" : @"Fail"));
-    
 }
 
 #pragma mark Magazine list view datasource methods
@@ -239,15 +274,28 @@
             _products = [NSMutableDictionary dictionary];
             _pricedProductCount = 0;
             _pricedProductCountFinished = 0;
+            _didLoadPrices = NO;
+            [[MSDataHolder sharedObject] setProducts:[NSMutableArray array]];
+            [self setFailedProductRequests:[NSMutableArray array]];
+            [self setProductRequests:[NSMutableDictionary dictionary]];
             for (NSDictionary *s in _productsInfo) {
+                MSProduct *product = [[MSProduct alloc] init];
+                [product fillDataFromDictionary:s];
+                [[MSDataHolder sharedObject].products addObject:product];
                 if ([[s objectForKey:@"price"] floatValue] > 0) {
                     _pricedProductCount++;
-                    if (![_products objectForKey:[s objectForKey:@"identifier"]]) {
+                    if (![_products objectForKey:product.identifier]) {
+                        [MSDataHolder registerAvailability:MSProductAvailabilityUpdating forProduct:product];
                         SKProductsRequest *request = [[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithObject:[s objectForKey:@"identifier"]]];
                         [request setDelegate:self];
+                        [_productRequests setObject:request forKey:product.identifier];
                         [request start];
                     }
                 }
+            }
+            [self performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+            if ([_delegate respondsToSelector:@selector(magazineViewDidFinishLoadingData:)]) {
+                [(NSObject *)_delegate performSelectorOnMainThread:@selector(magazineViewDidFinishLoadingData:) withObject:self waitUntilDone:NO];
             }
         }
     }
@@ -269,20 +317,25 @@
     _pricedProductCountFinished++;
     for (SKProduct *p in response.products) {
         [_products setObject:p forKey:p.productIdentifier];
+        MSProduct *product = [[MSDataHolder sharedObject] productForIdentifier:p.productIdentifier];
+        if (product) {
+            [product setProduct:[_products objectForKey:p.productIdentifier]];
+            [self performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+        }
+        else {
+            NSLog(@"Warning: Product with identifier %@ hasn't been created!", product.identifier);
+        }
     }
     if (_pricedProductCount == _pricedProductCountFinished) {
-        NSMutableArray *arr = [NSMutableArray array];
-        for (NSDictionary *info in _productsInfo) {
-            MSProduct *product = [[MSProduct alloc] init];
-            [product fillDataFromDictionary:info];
-            [product setProduct:[_products objectForKey:product.identifier]];
-            [arr addObject:product];
-        }
-        [[MSDataHolder sharedObject] setProducts:arr];
-        [self performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
-        if ([_delegate respondsToSelector:@selector(magazineViewDidFinishLoadingData:)]) {
-            [(NSObject *)_delegate performSelectorOnMainThread:@selector(magazineViewDidFinishLoadingData:) withObject:self waitUntilDone:NO];
-        }
+        _didLoadPrices = YES;
+    }
+}
+
+- (void)request:(SKRequest *)request didFailWithError:(NSError *)error {
+    NSArray *arr = [_productRequests allKeysForObject:request];
+    NSString *identifier = [arr lastObject];
+    if (identifier) {
+        [_failedProductRequests addObject:identifier];
     }
 }
 

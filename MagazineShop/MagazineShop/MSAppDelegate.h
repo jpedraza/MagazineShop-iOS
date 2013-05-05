@@ -8,11 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "MSInAppPurchase.h"
+#import "GCNetworkReachability.h"
 
 
 #define kAppDelegate                                        (MSAppDelegate *)[[UIApplication sharedApplication] delegate]
 #define kDownloadOperation                                  [kAppDelegate downloadOperationQueue]
 #define kProcessingOperation                                [kAppDelegate processingOperationQueue]
+
+#define kReachability                                       [GCNetworkReachability reachabilityWithHostName:@"www.google.com"]
 
 
 @class MSHomeViewController;
@@ -26,6 +29,8 @@
 
 @property (nonatomic, strong) NSOperationQueue *downloadOperationQueue;
 @property (nonatomic, strong) NSOperationQueue *processingOperationQueue;
+
+@property (nonatomic, strong) GCNetworkReachability *reachability;
 
 
 @end

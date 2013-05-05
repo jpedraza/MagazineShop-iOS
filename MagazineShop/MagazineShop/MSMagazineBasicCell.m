@@ -116,20 +116,12 @@
 }
 
 - (void)createButtons {
-    _actionButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    _actionButton = [MSCellActionButton buttonWithType:UIButtonTypeCustom];
     [_actionButton addTarget:self action:@selector(didClickActionsButton:) forControlEvents:UIControlEventTouchUpInside];
     [self configureButton:_actionButton];
     [_actionButton setFrame:CGRectMake(18, (self.height - 52), 90, 34)];
     [_actionButton setAutoresizingBottomLeft];
     [self addSubview:_actionButton];
-    
-    _detailButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_detailButton addTarget:self action:@selector(didClickDetailButton:) forControlEvents:UIControlEventTouchUpInside];
-    [self configureButton:_detailButton];
-    [_detailButton setTitle:MSLangGet(@"Detail") forState:UIControlStateNormal];
-    [_detailButton setFrame:CGRectMake((_actionButton.right + 2), _actionButton.yOrigin, 60, 34)];
-    [_detailButton setAutoresizingBottomLeft];
-    [self addSubview:_detailButton];
 }
 
 - (void)createBackgroundView {
@@ -219,27 +211,40 @@
     NSString *actionTitle = [NSString stringWithFormat:@"%@ (%@)", MSLangGet(@"Buy"), _issueData.product.priceAsString];
     if ([MSInAppPurchase isProductPurchased:_issueData]) {
         MSProductAvailability a = [_issueData productAvailability];
+        BOOL enabled = NO;
         switch (a) {
             case MSProductAvailabilityNotPresent:
                 actionTitle = MSLangGet(@"Download");
+                enabled = YES;
                 break;
                 
             case MSProductAvailabilityPartiallyDownloaded:
                 actionTitle = MSLangGet(@"Preview");
+                enabled = YES;
                 break;
                 
             case MSProductAvailabilityDownloaded:
                 actionTitle = MSLangGet(@"Read");
+                enabled = YES;
+                break;
+                
+            case MSProductAvailabilityInQueue:
+                actionTitle = MSLangGet(@"In Queue ...");
+                enabled = NO;
+                break;
+                
+            case MSProductAvailabilityUpdating:
+                actionTitle = MSLangGet(@"Updating ...");
+                enabled = NO;
                 break;
         }
+        [_actionButton setEnabled:enabled];
     }
     [_actionButton setTitle:actionTitle forState:UIControlStateNormal];
     CGRect r = _actionButton.frame;
     [_actionButton sizeToFit];
     r.size.width = (_actionButton.width + 20);
     [_actionButton setFrame:r];
-    
-    [_detailButton setXOrigin:(_actionButton.right + 4)];
 }
 
 - (void)setIssueData:(MSProduct *)issueData {
@@ -255,7 +260,6 @@
     CGFloat h = (self.height - _infoLabel.yOrigin - 24 - _actionButton.height);
     if (_infoLabel.height > h) _infoLabel.height = h;
     
-    // TODO: Make sure this doesn't go after rotation if it's supposed to be disabled
     [_actionButton setEnabled:YES];
     
     [self resetActionButtonValues];

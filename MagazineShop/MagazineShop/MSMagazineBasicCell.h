@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "MSImageView.h"
+#import "MSCellActionButton.h"
 
 
 @class MSMagazineBasicCell, MBRoundProgressView;
@@ -28,8 +29,7 @@
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UILabel *dateLabel;
 @property (nonatomic, strong) UILabel *infoLabel;
-@property (nonatomic, strong) UIButton *actionButton;
-@property (nonatomic, strong) UIButton *detailButton;
+@property (nonatomic, strong) MSCellActionButton *actionButton;
 @property (nonatomic, strong) MBRoundProgressView *progressView;
 
 @property (nonatomic, strong) MSProduct *issueData;

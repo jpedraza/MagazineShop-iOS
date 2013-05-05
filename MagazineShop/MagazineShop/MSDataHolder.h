@@ -18,6 +18,7 @@
 + (MSDataHolder *)sharedObject;
 
 - (MSProduct *)productAtIndex:(NSInteger)index;
+- (MSProduct *)productForIdentifier:(NSString *)identifier;
 
 + (void)registerAvailability:(MSProductAvailability)availability forProduct:(MSProduct *)product;
 + (MSProductAvailability)availabilityForProduct:(MSProduct *)product;

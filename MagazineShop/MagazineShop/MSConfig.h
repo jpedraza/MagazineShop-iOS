@@ -11,8 +11,8 @@
 
 #pragma mark Debug variables
 
-#define kDebug                                              YES
-#define kDegugClearCache                                    YES
+#define kDebug                                              NO
+#define kDegugClearCache                                    NO
 #define kDebugLabels                                        NO
 
 #pragma mark Api variables

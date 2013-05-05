@@ -161,6 +161,7 @@
 		156AABFB1734145000A7DB17 /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = 156AABFA1734145000A7DB17 /* iCarousel.m */; };
 		156AABFF1734160800A7DB17 /* MSCoverFlowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 156AABFE1734160800A7DB17 /* MSCoverFlowView.m */; };
 		156AAC0417365E5D00A7DB17 /* GCNetworkReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 156AAC0217365E5D00A7DB17 /* GCNetworkReachability.m */; };
+		156AAC091736AA9D00A7DB17 /* MSCellActionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 156AAC081736AA9D00A7DB17 /* MSCellActionButton.m */; };
 		158E83B61722FC7E00D52A15 /* MSAPIConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = 158E83B51722FC7E00D52A15 /* MSAPIConnector.m */; };
 		158E83DF1722FEBB00D52A15 /* libFlurry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 158E83BA1722FEBB00D52A15 /* libFlurry.a */; };
 		158E83F01722FEBB00D52A15 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 158E83D81722FEBB00D52A15 /* MBProgressHUD.m */; };
@@ -382,6 +383,8 @@
 		156AABFE1734160800A7DB17 /* MSCoverFlowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSCoverFlowView.m; sourceTree = "<group>"; };
 		156AAC0117365E5D00A7DB17 /* GCNetworkReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCNetworkReachability.h; sourceTree = "<group>"; };
 		156AAC0217365E5D00A7DB17 /* GCNetworkReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCNetworkReachability.m; sourceTree = "<group>"; };
+		156AAC071736AA9D00A7DB17 /* MSCellActionButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSCellActionButton.h; sourceTree = "<group>"; };
+		156AAC081736AA9D00A7DB17 /* MSCellActionButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSCellActionButton.m; sourceTree = "<group>"; };
 		158E83B41722FC7E00D52A15 /* MSAPIConnector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAPIConnector.h; sourceTree = "<group>"; };
 		158E83B51722FC7E00D52A15 /* MSAPIConnector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSAPIConnector.m; sourceTree = "<group>"; };
 		158E83B91722FEBB00D52A15 /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
@@ -1029,6 +1032,15 @@
 			path = GCNetworkReachability;
 			sourceTree = "<group>";
 		};
+		156AAC061736AA7800A7DB17 /* Cell button */ = {
+			isa = PBXGroup;
+			children = (
+				156AAC071736AA9D00A7DB17 /* MSCellActionButton.h */,
+				156AAC081736AA9D00A7DB17 /* MSCellActionButton.m */,
+			);
+			name = "Cell button";
+			sourceTree = "<group>";
+		};
 		158E83B31722FC4C00D52A15 /* API */ = {
 			isa = PBXGroup;
 			children = (
@@ -1080,6 +1092,7 @@
 		158E8407172364CD00D52A15 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				156AAC061736AA7800A7DB17 /* Cell button */,
 				158E8408172364ED00D52A15 /* MSMagazineBasicCell.h */,
 				158E8409172364ED00D52A15 /* MSMagazineBasicCell.m */,
 			);
@@ -1510,6 +1523,7 @@
 				156AABFB1734145000A7DB17 /* iCarousel.m in Sources */,
 				156AABFF1734160800A7DB17 /* MSCoverFlowView.m in Sources */,
 				156AAC0417365E5D00A7DB17 /* GCNetworkReachability.m in Sources */,
+				156AAC091736AA9D00A7DB17 /* MSCellActionButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,3 +7,6 @@
 [submodule "MagazineShop/Thirdparty/iCarousel"]
 	path = MagazineShop/Thirdparty/iCarousel
 	url = git@github.com:nicklockwood/iCarousel.git
+[submodule "MagazineShop/Thirdparty/GCNetworkReachability"]
+	path = MagazineShop/Thirdparty/GCNetworkReachability
+	url = git@github.com:GlennChiu/GCNetworkReachability.git

@@ -160,6 +160,7 @@
 		156AABF71734136500A7DB17 /* UIImage+FX.m in Sources */ = {isa = PBXBuildFile; fileRef = 156AABF51734136500A7DB17 /* UIImage+FX.m */; };
 		156AABFB1734145000A7DB17 /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = 156AABFA1734145000A7DB17 /* iCarousel.m */; };
 		156AABFF1734160800A7DB17 /* MSCoverFlowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 156AABFE1734160800A7DB17 /* MSCoverFlowView.m */; };
+		156AAC0417365E5D00A7DB17 /* GCNetworkReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 156AAC0217365E5D00A7DB17 /* GCNetworkReachability.m */; };
 		158E83B61722FC7E00D52A15 /* MSAPIConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = 158E83B51722FC7E00D52A15 /* MSAPIConnector.m */; };
 		158E83DF1722FEBB00D52A15 /* libFlurry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 158E83BA1722FEBB00D52A15 /* libFlurry.a */; };
 		158E83F01722FEBB00D52A15 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 158E83D81722FEBB00D52A15 /* MBProgressHUD.m */; };
@@ -379,6 +380,8 @@
 		156AABFA1734145000A7DB17 /* iCarousel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iCarousel.m; sourceTree = "<group>"; };
 		156AABFD1734160800A7DB17 /* MSCoverFlowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSCoverFlowView.h; sourceTree = "<group>"; };
 		156AABFE1734160800A7DB17 /* MSCoverFlowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSCoverFlowView.m; sourceTree = "<group>"; };
+		156AAC0117365E5D00A7DB17 /* GCNetworkReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCNetworkReachability.h; sourceTree = "<group>"; };
+		156AAC0217365E5D00A7DB17 /* GCNetworkReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCNetworkReachability.m; sourceTree = "<group>"; };
 		158E83B41722FC7E00D52A15 /* MSAPIConnector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAPIConnector.h; sourceTree = "<group>"; };
 		158E83B51722FC7E00D52A15 /* MSAPIConnector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSAPIConnector.m; sourceTree = "<group>"; };
 		158E83B91722FEBB00D52A15 /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
@@ -1017,6 +1020,15 @@
 			name = "Cover flow item";
 			sourceTree = "<group>";
 		};
+		156AAC0017365E5D00A7DB17 /* GCNetworkReachability */ = {
+			isa = PBXGroup;
+			children = (
+				156AAC0117365E5D00A7DB17 /* GCNetworkReachability.h */,
+				156AAC0217365E5D00A7DB17 /* GCNetworkReachability.m */,
+			);
+			path = GCNetworkReachability;
+			sourceTree = "<group>";
+		};
 		158E83B31722FC4C00D52A15 /* API */ = {
 			isa = PBXGroup;
 			children = (
@@ -1029,6 +1041,7 @@
 		158E83B71722FEBB00D52A15 /* Thirdparty */ = {
 			isa = PBXGroup;
 			children = (
+				156AAC0017365E5D00A7DB17 /* GCNetworkReachability */,
 				156AABF81734145000A7DB17 /* iCarousel */,
 				156AABF11734136500A7DB17 /* FXImageView */,
 				158E83B81722FEBB00D52A15 /* Flurry */,
@@ -1496,6 +1509,7 @@
 				156AABF71734136500A7DB17 /* UIImage+FX.m in Sources */,
 				156AABFB1734145000A7DB17 /* iCarousel.m in Sources */,
 				156AABFF1734160800A7DB17 /* MSCoverFlowView.m in Sources */,
+				156AAC0417365E5D00A7DB17 /* GCNetworkReachability.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

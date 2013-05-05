@@ -80,7 +80,7 @@
 - (void)createAllElements {
     [super createAllElements];
     
-    _yPos = ([super isTablet] ? 20 : ([super isBigPhone] ? 460 : 400));
+    _yPos = ([super isTablet] ? 20 : ([super isBigPhone] ? 360 : 300));
     
     if (![super isTablet]) [self.view setBackgroundColor:[UIColor scrollViewTexturedBackgroundColor]];
     

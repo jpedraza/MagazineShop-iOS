@@ -222,11 +222,11 @@
 #pragma mark Product cell delegate methods
 
 - (void)magazineBasicCell:(MSMagazineBasicCell *)cell didRequestActionFor:(MSProduct *)product {
-    if (![MSInAppPurchase isProductPurchased:product]) {
+    if (product.purchaseStatus == MSProductPurchaseStatusNotPurchased) {
         if ([kReachability isReachable]) {
+            [product setPurchaseStatus:MSProductPurchaseStatusPurchasing];
             [kMSInAppPurchase buyProduct:product.product];
-//            [cell.actionButton setTitle:MSLangGet(@"Buying") forState:UIControlStateNormal];
-//            [cell.actionButton setEnabled:NO];
+            [_currentMagazineView reloadData];
         }
         else {
             NSString *message = MSLangGet(@"Your internet connection appears to be offline.");
@@ -235,7 +235,17 @@
         }
     }
     else {
-        
+        if (product.availabilityStatus == MSProductAvailabilityNotPresent) {
+            [self startDownloadingProductWithIdentifier:product.identifier];
+        }
+        else if (product.availabilityStatus == MSProductAvailabilityPartiallyDownloaded || product.availabilityStatus == MSProductAvailabilityDownloaded) {
+            if (product.downloadStatus != MSProductDownloadStatusIsDownloading) {
+                [self startDownloadingProductWithIdentifier:product.identifier];
+            }
+            if ([_delegate respondsToSelector:@selector(magazineView:didRequestReaderForProduct:)]) {
+                [_delegate magazineView:self didRequestReaderForProduct:product];
+            }
+        }
     }
 }
 
@@ -254,6 +264,9 @@
 #pragma mark Issue download delegate methods
 
 - (void)product:(MSProduct *)product didDownloadItem:(NSInteger)item of:(NSInteger)totalItems {
+    if (item == totalItems) {
+        [_currentMagazineView reloadData];
+    }
     NSLog(@"Downloaded item: %d of %d (%@)", item, totalItems, ([product isPageWithIndex:item availableInSize:MSProductPageSizeLarge] ? @"Ok" : @"Fail"));
 }
 
@@ -287,7 +300,18 @@
                 [product fillDataFromDictionary:s];
                 MSMagazines *magazine = [MSDataHolder registerMagazineWithInfo:s];
                 [product setMagazine:magazine];
+                if (product.isFree) {
+                    [product setPurchaseStatus:MSProductPurchaseStatusPurchased];
+                }
+                else {
+                    if (product.purchaseStatus != MSProductPurchaseStatusPurchased) {
+                        [product setPurchaseStatus:MSProductPurchaseStatusNotPurchased];
+                    }
+                }
                 [[MSDataHolder sharedObject].products addObject:product];
+                if (product.downloadStatus == MSProductDownloadStatusIsDownloading || product.availabilityStatus == MSProductAvailabilityPartiallyDownloaded) {
+                    [self startDownloadingProductWithIdentifier:product.identifier];
+                }
                 if ([[s objectForKey:@"price"] floatValue] > 0) {
                     _pricedProductCount++;
                     if (![_products objectForKey:product.identifier]) {
@@ -324,7 +348,6 @@
         [_products setObject:p forKey:p.productIdentifier];
         MSProduct *product = [[MSDataHolder sharedObject] productForIdentifier:p.productIdentifier];
         if (product) {
-            //[MSDataHolder registerAvailability:MSProductAvailabilityNotPresent forProduct:product];
             [product setProduct:[_products objectForKey:p.productIdentifier]];
             [self performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
         }

@@ -21,7 +21,7 @@
 #pragma mark Purchasing
 
 - (void)buyProduct:(SKProduct *)product {
-    if ([SKPaymentQueue canMakePayments]) {
+    if ([SKPaymentQueue canMakePayments] && product) {
         SKPayment *payment = [SKPayment paymentWithProduct:product];
         [[SKPaymentQueue defaultQueue] addPayment:payment];
     }

@@ -207,6 +207,39 @@
     }];
 }
 
+- (void)resetButtonStatus {
+    NSString *buttonTitle;
+    BOOL enabled = NO;
+    if (_issueData.purchaseStatus == MSProductPurchaseStatusNotPurchased) {
+        if (_issueData.product) {
+            buttonTitle = [NSString stringWithFormat:@"%@ (%@)", MSLangGet(@"Buy"), [_issueData.product priceAsString]];
+            enabled = YES;
+        }
+        else {
+            buttonTitle = MSLangGet(@"Updating");
+            enabled = NO;
+        }
+    }
+    else if (_issueData.purchaseStatus == MSProductPurchaseStatusPurchasing) {
+        buttonTitle = MSLangGet(@"Buying");
+        enabled = NO;
+    }
+    else if (_issueData.purchaseStatus == MSProductPurchaseStatusPurchased) {
+        enabled = YES;
+        if (_issueData.availabilityStatus == MSProductAvailabilityNotPresent) {
+            buttonTitle = MSLangGet(@"Download");
+        }
+        else if (_issueData.availabilityStatus == MSProductAvailabilityPartiallyDownloaded) {
+            buttonTitle = MSLangGet(@"Preview");
+        }
+        else if (_issueData.availabilityStatus == MSProductAvailabilityDownloaded) {
+            buttonTitle = MSLangGet(@"Read");
+        }
+    }
+    [_actionButton setTitle:buttonTitle forState:UIControlStateNormal];
+    [_actionButton setEnabled:enabled];
+}
+
 - (void)setIssueData:(MSProduct *)issueData {
     _issueData = issueData;
     
@@ -219,6 +252,17 @@
     [_infoLabel setText:issueData.info withWidth:_infoLabel.width];
     CGFloat h = (self.height - _infoLabel.yOrigin - 24 - _actionButton.height);
     if (_infoLabel.height > h) _infoLabel.height = h;
+    
+    [self resetButtonStatus];
+    
+    if (_issueData.downloadStatus == MSProductDownloadStatusIsDownloading) {
+        [_progressView setAlpha:1];
+        [_progressView setHidden:NO];
+    }
+    else {
+        [_progressView setAlpha:0];
+        [_progressView setHidden:YES];
+    }
         
     [self layoutElements];
 }

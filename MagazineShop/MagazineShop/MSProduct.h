@@ -9,14 +9,18 @@
 #import "MSDownload.h"
 
 
-//typedef enum {
-//    MSProductAvailabilityNotPresent,
-//    MSProductAvailabilityPartiallyDownloaded,
-//    MSProductAvailabilityDownloaded,
-////    MSProductAvailabilityInQueue,
-////    MSProductAvailabilityUpdating
-//} MSProductAvailability;
-//
+typedef enum {
+    MSProductAvailabilityNotPresent,
+    MSProductAvailabilityPartiallyDownloaded,
+    MSProductAvailabilityDownloaded
+} MSProductAvailability;
+
+typedef enum {
+    MSProductPurchaseStatusNotPurchased,
+    MSProductPurchaseStatusPurchasing,
+    MSProductPurchaseStatusPurchased
+} MSProductPurchaseStatus;
+
 typedef enum {
     MSProductDownloadStatusIdle,
     MSProductDownloadStatusIsDownloading
@@ -55,7 +59,9 @@ typedef enum {
 @property (nonatomic, strong, readonly) NSString *base;
 @property (nonatomic, readonly) NSInteger pages;
 @property (nonatomic, readonly) BOOL isFree;
-@property (nonatomic, readonly) MSProductDownloadStatus downloadStatus;
+@property (nonatomic) MSProductAvailability availabilityStatus;
+@property (nonatomic) MSProductPurchaseStatus purchaseStatus;
+@property (nonatomic) MSProductDownloadStatus downloadStatus;
 
 @property (nonatomic) NSInteger currentPage;
 

@@ -121,25 +121,32 @@
 #pragma mark In app purchase delegate methods
 
 - (void)inAppPurchase:(MSInAppPurchase *)purchase didFinishPurchase:(SKPayment *)payment {
-    NSLog(@"Finished purchase: %@", payment.productIdentifier);
-    //[MSDataHolder registerAvailability:MSProductAvailabilityNotPresent forProduct:[[MSDataHolder sharedObject] productForIdentifier:payment.productIdentifier]];
-    [_magazineView startDownloadingProductWithIdentifier:payment.productIdentifier];
+    MSProduct *product = [[MSDataHolder sharedObject] productForIdentifier:payment.productIdentifier];
+    [product setPurchaseStatus:MSProductPurchaseStatusPurchased];
+    [_magazineView startDownloadingProductWithIdentifier:product.identifier];
     [_magazineView reloadData];
 }
 
 - (void)inAppPurchase:(MSInAppPurchase *)purchase didRestorePurchases:(NSArray *)payments {
     for (SKPayment *p in payments) {
-        NSLog(@"Restored purchase: %@", p.productIdentifier);
-        [_magazineView reloadData];
+        MSProduct *product = [[MSDataHolder sharedObject] productForIdentifier:p.productIdentifier];
+        [product setPurchaseStatus:MSProductPurchaseStatusPurchased];
     }
-}
-
-- (void)inAppPurchase:(MSInAppPurchase *)purchase failedToPurchase:(SKPayment *)payment withError:(NSError *)error {
-    NSLog(@"Failed purchase: %@", payment.productIdentifier);
     [_magazineView reloadData];
 }
 
+- (void)inAppPurchase:(MSInAppPurchase *)purchase failedToPurchase:(SKPayment *)payment withError:(NSError *)error {
+    MSProduct *product = [[MSDataHolder sharedObject] productForIdentifier:payment.productIdentifier];
+    [product setPurchaseStatus:MSProductPurchaseStatusNotPurchased];
+    [_magazineView reloadData];
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:MSLangGet(@"AppStore error") message:[error localizedDescription] delegate:nil cancelButtonTitle:MSLangGet(@"Ok") otherButtonTitles:nil];
+    [alert show];
+}
+
 - (void)inAppPurchase:(MSInAppPurchase *)purchase userCanceledTransaction:(SKPayment *)payment {
+    MSProduct *product = [[MSDataHolder sharedObject] productForIdentifier:payment.productIdentifier];
+    [product setPurchaseStatus:MSProductPurchaseStatusNotPurchased];
     [_magazineView reloadData];
 }
 

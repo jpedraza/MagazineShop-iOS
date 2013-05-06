@@ -120,7 +120,7 @@
     _pagesProcessed = 0;
     _totalDownloads = 0;
     
-    _downloadStatus = MSProductDownloadStatusIsDownloading;
+    [self setDownloadStatus:MSProductDownloadStatusIsDownloading];
     
     for (int i = 0; i < _pages; i++) {
         [self downloadSize:MSProductPageSizeSmall withI:i];
@@ -161,6 +161,32 @@
 
 #pragma mark Core data shortcuts
 
+- (MSProductAvailability)availabilityStatus {
+    return [[_magazine availabilityStatus] intValue];
+}
+
+- (void)setAvailabilityStatus:(MSProductAvailability)availabilityStatus {
+    [_magazine setAvailabilityStatus:[NSNumber numberWithInt:availabilityStatus]];
+    kManagedObjectSave;
+}
+
+- (MSProductPurchaseStatus)purchaseStatus {
+    return [[_magazine purchaseSatus] intValue];
+}
+
+- (void)setPurchaseStatus:(MSProductPurchaseStatus)purchaseStatus {
+    [_magazine setPurchaseSatus:[NSNumber numberWithInt:purchaseStatus]];
+    kManagedObjectSave;
+}
+
+- (MSProductDownloadStatus)downloadStatus {
+    return [[_magazine downloadStatus] intValue];
+}
+
+- (void)setDownloadStatus:(MSProductDownloadStatus)downloadStatus {
+    [_magazine setDownloadStatus:[NSNumber numberWithInt:downloadStatus]];
+    kManagedObjectSave;
+}
 
 #pragma mark Download delegate methods
 
@@ -190,7 +216,7 @@
         if ([_delegate respondsToSelector:@selector(product:didDownloadItem:of:)]) {
             [_delegate product:self didDownloadItem:_pagesProcessed of:_totalDownloads];
         }
-        if (_downloadStatus == MSProductDownloadStatusIsDownloading) {
+        if (self.downloadStatus == MSProductDownloadStatusIsDownloading) {
             CGFloat progress = ((((float)_pagesProcessed * 100.0f) / (float)_totalDownloads) / 100.0f);
             if ([_assignedCell respondsToSelector:@selector(progressView)]) {
                 [_assignedCell.progressView setProgress:progress];
@@ -199,10 +225,14 @@
         }
         [_downloadObjectsArray removeObject:download];
         if (_pagesDownloaded == (kMSConfigMinPagesForRead * 2)) {
-            
+            [self setAvailabilityStatus:MSProductAvailabilityPartiallyDownloaded];
+            if ([_assignedCell.delegate respondsToSelector:@selector(reloadData)]) {
+                [_assignedCell.delegate performSelector:@selector(reloadData)];
+            }
         }
         if (_totalDownloads == _pagesDownloaded) {
-            _downloadStatus = MSProductDownloadStatusIdle;
+            [self setDownloadStatus:MSProductDownloadStatusIdle];
+            [self setAvailabilityStatus:MSProductAvailabilityDownloaded];
             if ([_assignedCell respondsToSelector:@selector(progressView)]) {
                 [_assignedCell showDownloadingIndicator:NO];
                 [[NSUserDefaults standardUserDefaults] setBool:YES forKey:[NSString stringWithFormat:@"full-%@", self.identifier]];

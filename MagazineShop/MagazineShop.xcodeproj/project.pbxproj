@@ -596,8 +596,7 @@
 		1507109E17208D55008A64F3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				156AABE81734123E00A7DB17 /* MSRatingView.h */,
-				156AABE91734123F00A7DB17 /* MSRatingView.m */,
+				15CBE80C17379F460057CFF0 /* Star Rating */,
 				15F02D3F17304BD1008204C5 /* Border overlay */,
 				15DED030172E66B8004CA548 /* Lazy scroll view */,
 				15DED02F172E66AB004CA548 /* Page control */,
@@ -1168,6 +1167,15 @@
 				1592D7C117370DC30075EF77 /* MSMagazinePages.m */,
 			);
 			name = "Core data";
+			sourceTree = "<group>";
+		};
+		15CBE80C17379F460057CFF0 /* Star Rating */ = {
+			isa = PBXGroup;
+			children = (
+				156AABE81734123E00A7DB17 /* MSRatingView.h */,
+				156AABE91734123F00A7DB17 /* MSRatingView.m */,
+			);
+			name = "Star Rating";
 			sourceTree = "<group>";
 		};
 		15DECFF8172D0FCE004CA548 /* Magazine reader */ = {

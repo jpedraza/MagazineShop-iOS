@@ -17,6 +17,8 @@
     #import "MSAppDelegate.h"
     #import "MSConfig.h"
     #import "MSStylesConfig.h"
+    #import "MSMagazines.h"
+    #import "MSMagazinePages.h"
     #import "MSProduct.h"
     #import "MSDataHolder.h"
     #import "MSLang.h"

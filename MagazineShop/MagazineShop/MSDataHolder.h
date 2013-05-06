@@ -20,6 +20,9 @@
 - (MSProduct *)productAtIndex:(NSInteger)index;
 - (MSProduct *)productForIdentifier:(NSString *)identifier;
 
++ (MSMagazines *)registerMagazineWithInfo:(NSDictionary *)info;
++ (MSMagazines *)magazineForIdentifier:(NSString *)identifier;
++ (NSArray *)pagesForMagazineWithIdentifier:(NSString *)identifier;
 
 
 @end

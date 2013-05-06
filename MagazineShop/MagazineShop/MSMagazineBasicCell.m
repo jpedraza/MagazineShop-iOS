@@ -219,7 +219,7 @@
     [_infoLabel setText:issueData.info withWidth:_infoLabel.width];
     CGFloat h = (self.height - _infoLabel.yOrigin - 24 - _actionButton.height);
     if (_infoLabel.height > h) _infoLabel.height = h;
-    
+        
     [self layoutElements];
 }
 

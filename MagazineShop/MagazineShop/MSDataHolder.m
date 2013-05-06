@@ -47,5 +47,57 @@
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
+#pragma mark Core data
+
++ (MSMagazines *)registerMagazineWithInfo:(NSDictionary *)info {
+    MSMagazines *m = [self magazineForIdentifier:[info objectForKey:@"identifier"]];
+    if (m) {
+        return m;
+    }
+    NSError *error;
+    MSMagazines *magazine = [NSEntityDescription insertNewObjectForEntityForName:@"MSMagazines" inManagedObjectContext:kManagedObject];
+    [magazine setName:[info objectForKey:@"name"]];
+    [magazine setIdentifier:[info objectForKey:@"identifier"]];
+    [kManagedObject save:&error];
+    if (error) {
+        // TODO: Tracking error
+        NSLog(@"Error saving: %@", [error localizedDescription]);
+    }
+    return magazine;
+}
+
++ (MSMagazines *)magazineForIdentifier:(NSString *)identifier {
+    NSError *error;
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setEntity:[NSEntityDescription entityForName:@"MSMagazines" inManagedObjectContext:kManagedObject]];
+    
+    NSString *complexPredicateFormat = [NSString stringWithFormat:@"identifier ==[c] '%@'", identifier];
+    NSPredicate *complexPredicate = [NSPredicate predicateWithFormat:complexPredicateFormat argumentArray:nil];
+    [request setPredicate:complexPredicate];
+    
+    NSArray *arr = [kManagedObject executeFetchRequest:request error:&error];
+    if (error || [arr count] == 0) {
+        return nil;
+    }
+    return (MSMagazines *)[arr objectAtIndex:0];
+}
+
++ (NSArray *)pagesForMagazineWithIdentifier:(NSString *)identifier {
+    NSError *error;
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setEntity:[NSEntityDescription entityForName:@"MSMagazinePages" inManagedObjectContext:kManagedObject]];
+    
+    NSString *complexPredicateFormat = [NSString stringWithFormat:@"identifier ==[c] '%@'", identifier];
+    NSPredicate *complexPredicate = [NSPredicate predicateWithFormat:complexPredicateFormat argumentArray:nil];
+    [request setPredicate:complexPredicate];
+    
+    NSArray *arr = [kManagedObject executeFetchRequest:request error:&error];
+    if (error) {
+        // TODO: Tracking error
+        return [NSArray array];
+    }
+    return arr;
+}
+
 
 @end

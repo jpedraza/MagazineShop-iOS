@@ -41,6 +41,7 @@ typedef enum {
 
 @property (nonatomic, strong) NSString *specialCacheFolder;
 @property (nonatomic, strong) NSString *specialCacheFile;
+@property (nonatomic, strong, readonly) NSString *cacheFilePath;
 
 @property (nonatomic, readonly) MSDownloadCacheLifetime cacheLifetime;
 @property (nonatomic, strong, readonly) NSURLConnection *connection;
@@ -62,6 +63,8 @@ typedef enum {
 + (NSString *)filePath:(MSDownloadCacheLifetime)cacheLifetime withSpecialCacheFolder:(NSString *)specialCacheFolder andFile:(NSString *)specialCacheFile;
 + (void)clearCache:(MSDownloadCacheLifetime)cacheLifetime;
 + (NSString *)safeText:(NSString *)text;
+
++ (BOOL)isFileForUrlString:(NSString *)urlPath andCacheLifetime:(MSDownloadCacheLifetime)cacheLifetime;
 
 
 @end

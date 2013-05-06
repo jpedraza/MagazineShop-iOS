@@ -70,6 +70,7 @@
     [cell setIssueData:issueData];
     [cell setDelegate:(MSMagazineView *)self.superview];
     [issueData setAssignedCell:cell];
+    [issueData downloadCoverImage];
     return cell;
 }
 

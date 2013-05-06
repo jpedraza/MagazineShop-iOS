@@ -21,8 +21,6 @@
 
 @property (nonatomic, strong) MSDownload *thumbnailDownload;
 @property (nonatomic, strong) MSDownload *coverDownload;
-@property (nonatomic, strong) UIImage *thumbnailImage;
-@property (nonatomic, strong) UIImage *coverImage;
 
 @end
 
@@ -146,23 +144,39 @@
 }
 
 - (void)downloadCoverImage {
-    _thumbnailDownload = [[MSDownload alloc] initWithURL:_cover withDelegate:self andCacheLifetime:MSDownloadCacheLifetimeForever];
-    [_thumbnailDownload setQueuePriority:NSOperationQueuePriorityVeryHigh];
-    [kDownloadOperation addOperation:_thumbnailDownload];
+    if (!_thumbnailDownload) {
+        _thumbnailDownload = [[MSDownload alloc] initWithURL:_thumbnail withDelegate:self andCacheLifetime:MSDownloadCacheLifetimeForever];
+        [_thumbnailDownload setQueuePriority:NSOperationQueuePriorityVeryHigh];
+        [kDownloadOperation addOperation:_thumbnailDownload];
+    }
     
-    _coverDownload = [[MSDownload alloc] initWithURL:_cover withDelegate:self andCacheLifetime:MSDownloadCacheLifetimeForever];
-    [_thumbnailDownload setQueuePriority:NSOperationQueuePriorityHigh];
-    [kDownloadOperation addOperation:_coverDownload];
+    if (!_coverDownload) {
+        _coverDownload = [[MSDownload alloc] initWithURL:_cover withDelegate:self andCacheLifetime:MSDownloadCacheLifetimeForever];
+        [_thumbnailDownload setQueuePriority:NSOperationQueuePriorityHigh];
+        [kDownloadOperation addOperation:_coverDownload];
+    }
 }
+
+#pragma mark Core data shortcuts
+
 
 #pragma mark Download delegate methods
 
 - (void)download:(MSDownload *)download didFinishLoadingWithData:(NSData *)data {
     if (download == _thumbnailDownload) {
-        
+        [_magazine setThumbnailImage:data];
+        kManagedObjectSave;
+        NSLog(@"Thumb url: %@", download.cacheFilePath);
+        if (_assignedCell) {
+            [_assignedCell.imageView setImage:[UIImage imageWithData:data]];
+        }
     }
     else if (download == _coverDownload) {
-        
+        [_magazine setCoverImage:data];
+        kManagedObjectSave;
+        if (_assignedCell) {
+            [_assignedCell.imageView setImage:[UIImage imageWithData:data]];
+        }
     }
     else {
         _pagesDownloaded++;
@@ -194,10 +208,10 @@
 
 - (void)download:(MSDownload *)download didFinishLoadingWithError:(NSError *)error {
     if (download == _thumbnailDownload) {
-        
+        _thumbnailDownload = nil;
     }
     else if (download == _coverDownload) {
-        
+        _coverDownload = nil;
     }
     else {
         NSLog(@"Failed loading: %@ with error: %@", download.connectionURL, [error localizedDescription]);

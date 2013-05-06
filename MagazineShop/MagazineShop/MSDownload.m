@@ -12,7 +12,6 @@
 @interface MSDownload ()
 
 @property (nonatomic, strong) NSString *safeUrlString;
-@property (nonatomic, strong) NSString *cacheFilePath;
 @property (nonatomic, strong) NSMutableData *receivedData;
 @property (nonatomic) NSInteger repeatedConnectionCounter;
 @property (nonatomic) long long totalDataSize;
@@ -42,7 +41,8 @@
     if (specialCacheFile) {
         return [path stringByAppendingPathComponent:specialCacheFile];
     }
-    else return [path stringByAppendingPathComponent:[NSString stringWithFormat:@"download-cache-%d", cacheLifetime]];
+    //else return [path stringByAppendingPathComponent:[NSString stringWithFormat:@"download-cache-%d", cacheLifetime]];
+    return path;
 }
 
 + (NSString *)folderPath:(MSDownloadCacheLifetime)cacheLifetime {
@@ -90,7 +90,17 @@
             return nil;
         }
     }
-    return [MSDownload filePath:_cacheLifetime withSpecialCacheFolder:_specialCacheFolder andFile:_specialCacheFile];
+    NSString *scf = _specialCacheFile;
+    if (!_specialCacheFile) {
+        scf = _safeUrlString;
+    }
+    return [MSDownload filePath:_cacheLifetime withSpecialCacheFolder:_specialCacheFolder andFile:scf];
+}
+
++ (BOOL)isFileForUrlString:(NSString *)urlPath andCacheLifetime:(MSDownloadCacheLifetime)cacheLifetime {
+    NSString *path = [self filePath:cacheLifetime withSpecialCacheFolder:nil andFile:nil];
+    BOOL isFile = [[NSFileManager defaultManager] fileExistsAtPath:path];
+    return isFile;
 }
 
 #pragma mark Initialization

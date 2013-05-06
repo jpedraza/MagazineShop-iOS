@@ -42,6 +42,8 @@ typedef enum {
 @interface MSProduct : NSObject <MSDownloadDelegate>
 
 @property (nonatomic, strong) SKProduct *product;
+@property (nonatomic, strong) MSMagazines *magazine;
+@property (nonatomic, strong) NSArray *magazinePages;
 @property (nonatomic, strong, readonly) NSDictionary *originalInfoDictionary;
 
 @property (nonatomic, strong, readonly) NSString *name;

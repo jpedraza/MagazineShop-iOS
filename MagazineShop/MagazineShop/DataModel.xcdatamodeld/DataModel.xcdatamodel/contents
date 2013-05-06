@@ -22,7 +22,7 @@
         <attribute name="thumbnailImage" optional="YES" attributeType="Binary" syncable="YES"/>
     </entity>
     <elements>
-        <element name="MSMagazines" positionX="160" positionY="192" width="128" height="165"/>
+        <element name="MSMagazines" positionX="160" positionY="192" width="128" height="135"/>
         <element name="MSMagazinePages" positionX="160" positionY="192" width="128" height="180"/>
     </elements>
 </model>

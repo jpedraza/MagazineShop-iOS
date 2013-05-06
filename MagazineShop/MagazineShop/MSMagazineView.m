@@ -277,6 +277,8 @@
             for (NSDictionary *s in _productsInfo) {
                 MSProduct *product = [[MSProduct alloc] init];
                 [product fillDataFromDictionary:s];
+                MSMagazines *magazine = [MSDataHolder registerMagazineWithInfo:s];
+                [product setMagazine:magazine];
                 [[MSDataHolder sharedObject].products addObject:product];
                 if ([[s objectForKey:@"price"] floatValue] > 0) {
                     _pricedProductCount++;

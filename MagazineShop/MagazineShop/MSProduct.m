@@ -143,13 +143,15 @@
     _assignedCell = assignedCell;
 }
 
-- (void)downloadCoverImage {
+- (void)downloadThumbnailImage {
     if (!_thumbnailDownload) {
         _thumbnailDownload = [[MSDownload alloc] initWithURL:_thumbnail withDelegate:self andCacheLifetime:MSDownloadCacheLifetimeForever];
         [_thumbnailDownload setQueuePriority:NSOperationQueuePriorityVeryHigh];
         [kDownloadOperation addOperation:_thumbnailDownload];
     }
-    
+}
+
+- (void)downloadCoverImage {
     if (!_coverDownload) {
         _coverDownload = [[MSDownload alloc] initWithURL:_cover withDelegate:self andCacheLifetime:MSDownloadCacheLifetimeForever];
         [_thumbnailDownload setQueuePriority:NSOperationQueuePriorityHigh];
@@ -168,14 +170,18 @@
         kManagedObjectSave;
         NSLog(@"Thumb url: %@", download.cacheFilePath);
         if (_assignedCell) {
-            [_assignedCell.imageView setImage:[UIImage imageWithData:data]];
+            if ([_assignedCell.delegate respondsToSelector:@selector(magazineBasicCell:didRequestReloadFor:)]) {
+                [_assignedCell.delegate magazineBasicCell:_assignedCell didRequestReloadFor:self];
+            }
         }
     }
     else if (download == _coverDownload) {
         [_magazine setCoverImage:data];
         kManagedObjectSave;
         if (_assignedCell) {
-            [_assignedCell.imageView setImage:[UIImage imageWithData:data]];
+            if ([_assignedCell.delegate respondsToSelector:@selector(magazineBasicCell:didRequestReloadFor:)]) {
+                [_assignedCell.delegate magazineBasicCell:_assignedCell didRequestReloadFor:self];
+            }
         }
     }
     else {

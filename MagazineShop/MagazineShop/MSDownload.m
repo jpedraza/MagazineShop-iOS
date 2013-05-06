@@ -98,9 +98,13 @@
 }
 
 + (BOOL)isFileForUrlString:(NSString *)urlPath andCacheLifetime:(MSDownloadCacheLifetime)cacheLifetime {
-    NSString *path = [self filePath:cacheLifetime withSpecialCacheFolder:nil andFile:nil];
+    NSString *path = [self filePath:cacheLifetime withSpecialCacheFolder:nil andFile:[self safeText:urlPath]];
     BOOL isFile = [[NSFileManager defaultManager] fileExistsAtPath:path];
     return isFile;
+}
+
++ (NSString *)fileForUrlString:(NSString *)urlPath andCacheLifetime:(MSDownloadCacheLifetime)cacheLifetime {
+    return [self filePath:cacheLifetime withSpecialCacheFolder:nil andFile:[self safeText:urlPath]];
 }
 
 #pragma mark Initialization

@@ -55,6 +55,16 @@
 
 - (void)setIssueData:(MSProduct *)issueData {
     [super setIssueData:issueData];
+    
+    if (![MSDownload isFileForUrlString:issueData.cover andCacheLifetime:MSDownloadCacheLifetimeForever]) {
+        [self.imageView setImage:[UIImage imageNamed:@"Default"]];
+        [issueData downloadCoverImage];
+    }
+    else {
+        NSString *path = [MSDownload fileForUrlString:issueData.cover andCacheLifetime:MSDownloadCacheLifetimeForever];
+        NSData *data = [NSData dataWithContentsOfFile:path];
+        [self.imageView setImage:[UIImage imageWithData:data]];
+    }
 }
 
 

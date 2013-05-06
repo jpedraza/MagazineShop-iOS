@@ -65,6 +65,7 @@ typedef enum {
 + (NSString *)safeText:(NSString *)text;
 
 + (BOOL)isFileForUrlString:(NSString *)urlPath andCacheLifetime:(MSDownloadCacheLifetime)cacheLifetime;
++ (NSString *)fileForUrlString:(NSString *)urlPath andCacheLifetime:(MSDownloadCacheLifetime)cacheLifetime;
 
 
 @end

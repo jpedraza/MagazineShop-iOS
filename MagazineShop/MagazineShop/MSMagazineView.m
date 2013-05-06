@@ -181,6 +181,10 @@
         _listViewType = listViewType;
         [_currentMagazineView hide];
     }
+    else {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:0];
+        [_currentMagazineView.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionLeft | UICollectionViewScrollPositionTop animated:YES];
+    }
 }
 
 #pragma mark Data
@@ -241,6 +245,10 @@
 
 - (void)magazineBasicCell:(MSMagazineBasicCell *)cell didRequestCoverFor:(MSProduct *)product {
     
+}
+
+- (void)magazineBasicCell:(MSMagazineBasicCell *)cell didRequestReloadFor:(MSProduct *)product {
+    [_currentMagazineView reloadData];
 }
 
 #pragma mark Issue download delegate methods

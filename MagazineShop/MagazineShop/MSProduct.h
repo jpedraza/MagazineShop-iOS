@@ -71,6 +71,7 @@ typedef enum {
 - (UIImage *)pageWithIndex:(NSInteger)index inSize:(MSProductPageSize)size;
 - (NSString *)textualRepresentationOfSize:(MSProductPageSize)size;
 
+- (void)downloadThumbnailImage;
 - (void)downloadCoverImage;
 
 

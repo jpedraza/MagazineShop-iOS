@@ -17,6 +17,7 @@
 - (void)magazineBasicCell:(MSMagazineBasicCell *)cell didRequestActionFor:(MSProduct *)product;
 - (void)magazineBasicCell:(MSMagazineBasicCell *)cell didRequestDetailFor:(MSProduct *)product;
 - (void)magazineBasicCell:(MSMagazineBasicCell *)cell didRequestCoverFor:(MSProduct *)product;
+- (void)magazineBasicCell:(MSMagazineBasicCell *)cell didRequestReloadFor:(MSProduct *)product;
 
 @end
 

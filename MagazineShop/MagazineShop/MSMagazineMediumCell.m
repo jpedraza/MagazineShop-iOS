@@ -45,6 +45,16 @@
 
 - (void)setIssueData:(MSProduct *)issueData {
     [super setIssueData:issueData];
+    
+    if (![MSDownload isFileForUrlString:issueData.thumbnail andCacheLifetime:MSDownloadCacheLifetimeForever]) {
+        [self.imageView setImage:[UIImage imageNamed:@"Default"]];
+        [issueData downloadThumbnailImage];
+    }
+    else {
+        NSString *path = [MSDownload fileForUrlString:issueData.thumbnail andCacheLifetime:MSDownloadCacheLifetimeForever];
+        NSData *data = [NSData dataWithContentsOfFile:path];
+        [self.imageView setImage:[UIImage imageWithData:data]];
+    }
 }
 
 

@@ -10,12 +10,14 @@
 #import "MSMagazineReaderViewControllerDataProtocol.h"
 
 
-@class MSMagazinePageViewController;
+@class MSMagazinePageViewController, MSMagazineReaderViewController;
 
 @interface MSMagazineReaderData : NSObject <UIPageViewControllerDataSource, UIPageViewControllerDelegate>
 
 @property (nonatomic, strong) MSProduct *product;
 @property (nonatomic, readonly) NSInteger currentPage;
+
+@property (nonatomic, weak) MSMagazineReaderViewController *viewController;
 
 - (MSMagazinePageViewController *)pageViewControllerWithIndex:(NSInteger)index;
 

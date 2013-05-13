@@ -174,15 +174,17 @@
     UIPageViewControllerTransitionStyle ts;
     NSDictionary *options = nil;
     if ([MSConfig magazineDisplayMode] == MSConfigMagazineDisplayModeFlat) {
-        options = [NSDictionary dictionaryWithObject:[NSNumber numberWithFloat:50.0f] forKey:UIPageViewControllerOptionInterPageSpacingKey];
+        options = @{[NSNumber numberWithFloat:50.0f]: UIPageViewControllerOptionInterPageSpacingKey, [NSNumber numberWithInt:UIPageViewControllerSpineLocationMid]: UIPageViewControllerOptionSpineLocationKey};
         ts = UIPageViewControllerTransitionStyleScroll;
     }
     else {
+        options = @{[NSNumber numberWithInt:UIPageViewControllerSpineLocationMid]: UIPageViewControllerOptionSpineLocationKey};
         ts = UIPageViewControllerTransitionStylePageCurl;
     }
     
-    MSMagazineReaderViewController *c = [[MSMagazineReaderViewController alloc] initWithTransitionStyle:ts navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:options];
+   MSMagazineReaderViewController *c = [[MSMagazineReaderViewController alloc] initWithTransitionStyle:ts navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:options];
     MSMagazineReaderData *data = [[MSMagazineReaderData alloc] init];
+    [data setViewController:c];
     [c setTitle:product.name];
     [data setProduct:product];
     [c setData:data];

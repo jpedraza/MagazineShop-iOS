@@ -8,6 +8,7 @@
 
 #import "MSMagazineReaderData.h"
 #import "MSMagazinePageViewController.h"
+#import "MSMagazineReaderViewController.h"
 
 
 @interface MSMagazineReaderData ()
@@ -69,6 +70,35 @@
 
 - (void)pageViewController:(UIPageViewController *)pageViewController willTransitionToViewControllers:(NSArray *)pendingViewControllers {
     
+}
+
+- (UIPageViewControllerSpineLocation)pageViewController:(UIPageViewController *)pageViewController spineLocationForInterfaceOrientation:(UIInterfaceOrientation)orientation {
+    if (UIInterfaceOrientationIsPortrait(orientation)) {
+        // In portrait orientation: Set the spine position to "min" and the page view controller's view controllers array to contain just one view controller. Setting the spine position to 'UIPageViewControllerSpineLocationMid' in landscape orientation sets the doubleSided property to YES, so set it to NO here.
+        UIViewController *currentViewController = _viewController.viewControllers[0];
+        NSArray *viewControllers = @[currentViewController];
+        [_viewController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:NULL];
+        
+        _viewController.doubleSided = NO;
+        return UIPageViewControllerSpineLocationMin;
+    }
+    
+    // In landscape orientation: Set set the spine location to "mid" and the page view controller's view controllers array to contain two view controllers. If the current page is even, set it to contain the current and next view controllers; if it is odd, set the array to contain the previous and current view controllers.
+    MSMagazinePageViewController *currentViewController = _viewController.viewControllers[0];
+    NSArray *viewControllers = nil;
+    
+    NSUInteger indexOfCurrentViewController = [self indexOfController:currentViewController];
+    if (indexOfCurrentViewController == 0 || indexOfCurrentViewController % 2 == 0) {
+        UIViewController *nextViewController = [self pageViewController:_viewController viewControllerAfterViewController:currentViewController];
+        viewControllers = @[currentViewController, nextViewController];
+    }
+    else {
+        UIViewController *previousViewController = [self pageViewController:_viewController viewControllerBeforeViewController:currentViewController];
+        viewControllers = @[previousViewController, currentViewController];
+    }
+    [_viewController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:NULL];
+    
+    return UIPageViewControllerSpineLocationMid;
 }
 
 
